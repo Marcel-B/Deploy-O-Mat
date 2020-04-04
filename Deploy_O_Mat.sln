@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPoint", "TestPoint/TestPoint.csproj", "{27EF9C8F-CA30-4652-B85C-E93DFA1A994F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Domain", "Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj", "{54C5A41D-A6CA-4940-A773-459C35F42F83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Application", "Deploy_O_Mat.Application\Deploy_O_Mat.Application.csproj", "{DED9DDF3-DDB6-4E80-B8C7-AD790305DE0D}"

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Menu, Input, Container, Icon } from 'semantic-ui-react';
+import BuildStatus from '../build-status/BuildStatus';
 
 const NavBar: React.FC = () => {
     return (
-        <Menu fixed='top' secondary style={{ background: 'white' }}>
-            <Container>
+        <Container fixed='top'>
+            <Menu secondary style={{ background: 'white' }}>
                 <Icon
                     name='docker'
                     size='big'
@@ -14,34 +15,34 @@ const NavBar: React.FC = () => {
                 <Menu.Item
                     header
                     name='Docker'
-                    // active={activeItem === 'home'}
-                    // onClick={this.handleItemClick}
+                // active={activeItem === 'home'}
+                // onClick={this.handleItemClick}
                 />
                 <Menu.Item
                     name='messages'
-                    // active={activeItem === 'messages'}
-                    // onClick={this.handleItemClick}
+                // active={activeItem === 'messages'}
+                // onClick={this.handleItemClick}
                 />
                 <Menu.Item
                     name='friends'
-                    // active={activeItem === 'friends'}
-                    // onClick={this.handleItemClick}
+                // active={activeItem === 'friends'}
+                // onClick={this.handleItemClick}
                 />
-                <Menu.Item>
-                    <img src={"https://github.com/Marcel-B/Deploy-O-Mat/workflows/Publish%20Docker/badge.svg"} width={200} />
-                </Menu.Item>
+
                 <Menu.Menu position='right'>
                     <Menu.Item>
                         <Input icon='search' placeholder='Search...' />
                     </Menu.Item>
                     <Menu.Item
                         name='logout'
-                        // active={activeItem === 'logout'}
-                        // onClick={this.handleItemClick}
+                    // active={activeItem === 'logout'}
+                    // onClick={this.handleItemClick}
                     />
                 </Menu.Menu>
-            </Container>
-        </Menu>
+            </Menu>
+            <BuildStatus />
+        </Container>
+
     );
 };
 

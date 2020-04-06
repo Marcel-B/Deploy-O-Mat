@@ -3,7 +3,7 @@ import { Table, Item, Label, Menu, Icon, Checkbox, Segment, Button } from 'seman
 import DockerImageStore from '../../app/stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
 import NavBar from '../nav/NavBar';
-import  TimeAgo  from 'react-timeago';
+import TimeAgo from 'react-timeago';
 import { IDockerImage } from '../../app/models/dockerImage';
 
 const TableView: React.FC = () => {
@@ -18,8 +18,8 @@ const TableView: React.FC = () => {
                             {dockerImage.isActive ? (
                                 <Icon name='play' size='huge' color='green' />
                             ) : (
-                                <Icon name='stop' size='huge' color='red' />
-                            )}
+                                    <Icon name='stop' size='huge' color='red' />
+                                )}
 
                             <Item.Content>
                                 <Item.Header>{dockerImage.name}</Item.Header>

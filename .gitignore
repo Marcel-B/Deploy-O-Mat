@@ -2,7 +2,6 @@ bin
 obj
 .DS_Store
 .vs
-appsettings.json
 TestPoint/
 .vscode
 dockerService.db

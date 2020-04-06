@@ -27,6 +27,9 @@ const NavBar: React.FC = () => {
                     // active={activeItem === 'friends'}
                     // onClick={this.handleItemClick}
                 />
+                <Menu.Item>
+                    <img src={"https://github.com/Marcel-B/Deploy-O-Mat/workflows/Publish%20Docker/badge.svg"} width={200} />
+                </Menu.Item>
                 <Menu.Menu position='right'>
                     <Menu.Item>
                         <Input icon='search' placeholder='Search...' />

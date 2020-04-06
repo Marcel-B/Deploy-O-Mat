@@ -1,0 +1,58 @@
+version: '3.7'
+services:
+    deploy-o-mat:
+        image: millegalb/deploy-o-mat:latest
+
+        environment:
+            - "username=admin"
+            - "host=postgres"
+        secrets:
+            - postgres_db_password
+        networks:
+            - galaxy
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+            labels:
+                - "traefik.enable=true"
+
+                - "traefik.http.middlewares.https-only.redirectscheme.scheme=https"
+                - "traefik.http.routers.deploy-o-mat-http.entrypoints=web"
+                - "traefik.http.routers.deploy-o-mat-http.rule=Host(`deploy.qaybe.de`)"
+                - "traefik.http.routers.deploy-o-mat-http.middlewares=https-only@docker"
+
+                - "traefik.http.routers.deploy-o-mat-https.entrypoints=websecure"
+                - "traefik.http.routers.deploy-o-mat-https.rule=Host(`deploy.qaybe.de`)"
+                - "traefik.http.routers.deploy-o-mat-https.tls=true"
+                - "traefik.http.routers.deploy-o-mat-https.tls.certresolver=sec"
+
+                - "traefik.http.services.deploy-o-mat-service.loadbalancer.server.port=5000"
+
+    postgres:
+        image: postgres:latest
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+            placement:
+                constraints: [node.hostname == titan.marcelbenders.de]
+        networks:
+            - galaxy
+        environment:
+            - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_db_password
+            - POSTGRES_USER=admin
+        volumes:
+            - postgresql:/var/lib/postgresql/data
+        ports:
+            - 5400:5432
+        secrets:
+            - postgres_db_password
+secrets:
+    postgres_db_password:
+        external: true
+volumes:
+    postgresql:
+networks:
+    galaxy:
+        external: true

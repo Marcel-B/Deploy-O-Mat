@@ -28,6 +28,15 @@ namespace Deploy_O_Mat.Service.Data
                     RepoName = "mbodenstein/feinstaubserver",
                     Tag = "latest"
                 },
+                new DockerService
+                {
+                    Name = "deploy-o-mat_deploy-o-mat",
+                    Id = Guid.Parse("A71BB297-ACEA-4CB9-A1F4-AF0C45D2B512"),
+                    Created = DateTime.Now,
+                    BuildId = Guid.Empty,
+                    RepoName = "millegalb/deploy-o-mat",
+                    Tag = "latest"
+                }
             };
             foreach (var dockerService in seedData)
             {

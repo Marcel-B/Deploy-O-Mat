@@ -5,3 +5,7 @@ obj
 appsettings.json
 TestPoint/
 .vscode
+dockerService.db
+dockerService.db-shm
+dockerService.db-wal
+

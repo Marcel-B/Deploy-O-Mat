@@ -36,7 +36,8 @@ namespace com.b_velop.Deploy_O_Mat.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    .UseUrls("http://*:5000");
                 });
     }
 }

@@ -6,6 +6,7 @@ using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Utilities.Docker;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,12 +22,16 @@ namespace com.b_velop.Deploy_O_Mat.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(
+            IWebHostEnvironment environment,
+            IConfiguration configuration)
         {
+            Env = environment;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -43,9 +48,18 @@ namespace com.b_velop.Deploy_O_Mat.API
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
+
+            var secretProvider = new SecretProvider();
+            var password = secretProvider.GetSecret("postgres_db_password") ?? "";
+            var username = secretProvider.GetSecret("username") ?? "";
+            var host = secretProvider.GetSecret("host") ?? "";
+
+            var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("postgres"));
+                if (Env.IsDevelopment())
+                    connection = Configuration.GetConnectionString("postgres");
+                options.UseNpgsql(connection);
             });
         }
 
@@ -57,7 +71,7 @@ namespace com.b_velop.Deploy_O_Mat.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

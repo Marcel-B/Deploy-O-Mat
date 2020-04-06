@@ -21,7 +21,7 @@ jobs:
       #env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
-      run: dotnet restore --configfile NuGet.config
+      run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test

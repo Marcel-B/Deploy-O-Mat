@@ -31,6 +31,12 @@ namespace Deploy_O_Mat.Service.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("RepoName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("TEXT");
 

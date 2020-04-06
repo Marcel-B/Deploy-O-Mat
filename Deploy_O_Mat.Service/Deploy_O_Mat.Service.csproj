@@ -17,9 +17,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="nlog.config" />
+    <None Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Update="nlog.config">
@@ -30,5 +32,11 @@
     <Content Include="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj" />
   </ItemGroup>
 </Project>

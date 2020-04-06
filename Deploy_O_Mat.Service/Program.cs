@@ -3,6 +3,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Deploy_O_Mat.Service.Data;
+using Deploy_O_Mat.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,7 @@ namespace Deploy_O_Mat.Service
                     //var userManager = services.GetRequiredService<UserManager<User>>();
                     //var roleManager = services.GetRequiredService<RoleManager<Role>>();
                     context.Database.Migrate();
+                    context.SeedData();
                     //Seed.SeedUsers(userManager, roleManager);
                 }
                 catch (Exception ex)
@@ -74,6 +76,8 @@ namespace Deploy_O_Mat.Service
             .ConfigureServices((hostContext, services) =>
             {
                 services.AddHostedService<UpdateService>();
+
+                services.AddHttpClient<IDockerImageService, DockerImageService>();
                 services.AddDbContext<DataContext>(options =>
                 {
                     options.UseSqlite("Data Source=dockerService.db");

@@ -24,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "mv build/ ../Deploy_O_Mat.API/wwwroot",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

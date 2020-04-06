@@ -6,19 +6,33 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
-COPY ["Deploy_O_Mat.API/Deploy_O_Mat.API.csproj", "Deploy_O_Mat.API/"]
+# install NodeJS 13.x
+# see https://github.com/nodesource/distributions/blob/master/README.md#deb
+RUN apt-get update -yq
+RUN apt-get install curl gnupg -yq
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN apt-get install -y nodejs
+
+#COPY ["Deploy_O_Mat.API/Deploy_O_Mat.API.csproj", "Deploy_O_Mat.API/"]
+COPY . .
 #COPY ["NuGet.config", "Deploy_O_Mat.API/"]
-
+RUN ls
 RUN dotnet restore "Deploy_O_Mat.API/Deploy_O_Mat.API.csproj"
 
-COPY . .
+#WORKDIR "/src/Deploy_O_Mat.API"
+WORKDIR "/src/deploy-o-mat"
+RUN npm install
+RUN npm run build
+RUN ls
 WORKDIR "/src/Deploy_O_Mat.API"
-
 RUN dotnet build "Deploy_O_Mat.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Deploy_O_Mat.API.csproj" -c Release -o /app/publish
+
+
 
 FROM base AS final
 WORKDIR /app

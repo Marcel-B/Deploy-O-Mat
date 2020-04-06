@@ -16,7 +16,7 @@ function App() {
     return (
         <Fragment>
             <NavBar />
-            <Container style={{ marginTop: '7em' }}>
+            <Container style={{ marginTop: '2em' }}>
                 <TableView />
             </Container>
         </Fragment>

@@ -72,7 +72,8 @@ namespace com.b_velop.Deploy_O_Mat.API
             }
 
             //app.UseHttpsRedirection();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -82,6 +83,7 @@ namespace com.b_velop.Deploy_O_Mat.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

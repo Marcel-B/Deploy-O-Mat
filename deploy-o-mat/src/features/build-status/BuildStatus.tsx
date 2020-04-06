@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react';
 
 const BuildStatus: React.FC = () => {
     return (
-        <Container style={{ marginTop: '4em' }}>
+        <Container style={{ marginTop: '6em' }}>
             <img
                 src={
                     'https://github.com/Marcel-B/Deploy-O-Mat/workflows/Publish%20Docker/badge.svg'

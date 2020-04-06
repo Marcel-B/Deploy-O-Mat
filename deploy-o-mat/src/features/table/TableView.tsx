@@ -12,40 +12,39 @@ const TableView: React.FC = () => {
     return (
         <Segment clearing>
             <Item.Group divided>
-                {dockerImagesByUpdated.map(
-                    (dockerImage: IDockerImage) => (
-                        <Item>
-                            {dockerImage.isActive ? (
-                                <Icon name='play' size='huge' color='green' />
-                            ) : (
-                                    <Icon name='stop' size='huge' color='red' />
-                                )}
+                {dockerImagesByUpdated.map((dockerImage: IDockerImage) => (
+                    <Item>
+                        {dockerImage.isActive ? (
+                            <Icon name='play' size='large' color='green' />
+                        ) : (
+                            <Icon name='stop' size='large' color='red' />
+                        )}
 
-                            <Item.Content>
-                                <Item.Header>{dockerImage.name}</Item.Header>
-                                <Item.Meta>
-                                    <span>
-                                        {dockerImage.repoName}:{dockerImage.tag}
-                                    </span>
-                                    <span>
-                                        (<TimeAgo date={dockerImage.updated} />)
-                                    </span>
-                                </Item.Meta>
-                                <Item.Description>
-                                    {dockerImage.owner}
-                                </Item.Description>
-                                <Item.Extra>
-                                    <Button
-                                        toggle
-                                        floated='right'
-                                        color='blue'
-                                        content='Toggle State'
-                                    />
-                                </Item.Extra>
-                            </Item.Content>
-                        </Item>
-                    )
-                )}
+                        <Item.Content>
+                            <Item.Header>{dockerImage.name}</Item.Header>
+                            <Item.Meta>
+                                <span>
+                                    {dockerImage.repoName}:{dockerImage.tag}
+                                </span>
+                                <span>
+                                    (<TimeAgo date={dockerImage.updated} />)
+                                </span>
+                            </Item.Meta>
+                            <Item.Description>
+                                {dockerImage.owner}
+                            </Item.Description>
+                            <Item.Extra>
+                                <Button
+                                    toggle
+                                    floated='right'
+                                    color='blue'
+                                    disabled
+                                    content='Toggle State'
+                                />
+                            </Item.Extra>
+                        </Item.Content>
+                    </Item>
+                ))}
             </Item.Group>
         </Segment>
         // <Table celled>

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { Table, Item, Label, Menu, Icon, Checkbox, Segment, Button } from 'semantic-ui-react';
+import { Item, Icon, Segment, Button } from 'semantic-ui-react';
 import DockerImageStore from '../../app/stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
-import NavBar from '../nav/NavBar';
 import TimeAgo from 'react-timeago';
 import { IDockerImage } from '../../app/models/dockerImage';
 

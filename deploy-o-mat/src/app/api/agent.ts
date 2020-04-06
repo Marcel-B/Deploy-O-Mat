@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { IDockerImage } from '../models/dockerImage';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL!;// 'http://localhost:5000/api';

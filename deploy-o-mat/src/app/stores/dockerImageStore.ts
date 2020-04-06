@@ -1,6 +1,5 @@
 import agent from '../api/agent';
 import { configure, observable, action, runInAction, computed } from 'mobx';
-import { IDockerImage } from '../models/dockerImage';
 import { createContext } from 'react';
 
 configure({ enforceActions: 'always' });

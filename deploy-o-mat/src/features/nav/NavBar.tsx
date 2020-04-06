@@ -1,20 +1,14 @@
 import React from 'react';
-import { Menu, Input, Container, Icon } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import BuildStatus from '../build-status/BuildStatus';
 
 const NavBar: React.FC = () => {
     return (
         <Container>
-            <Menu
-                fixed='top'
-                secondary
-                style={{ background: 'white' }}
-            >
+            <Menu fixed='top' secondary style={{ background: 'white' }}>
                 <Container>
                     <Menu.Item>
-                        <img
-                            src={'deploy.svg'}
-                        ></img>
+                        <img src={'deploy.svg'} alt={'logo'}></img>
                     </Menu.Item>
 
                     <Menu.Item
@@ -28,6 +22,8 @@ const NavBar: React.FC = () => {
                         // active={activeItem === 'messages'}
                         // onClick={this.handleItemClick}
                     />
+
+                    <Menu.Item name='Legal disclaimer'/>
 
                     <Menu.Menu position='right'>
                         {/* <Menu.Item>

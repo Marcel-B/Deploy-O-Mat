@@ -4,7 +4,7 @@ import TableView from '../../features/table/TableView'
 import { Container } from 'semantic-ui-react';
 import DockerImageStore from '../stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
-import BuildStatus from '../../features/build-status/BuildStatus';
+import Footer from '../../features/footer/Footer';
 
 function App() {
     const dockerImageStore = useContext(DockerImageStore);
@@ -19,6 +19,7 @@ function App() {
             <Container style={{ marginTop: '2em' }}>
                 <TableView />
             </Container>
+            <Footer/>
         </Fragment>
     );
 }

@@ -8,11 +8,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 
 COPY ["Deploy_O_Mat.API/Deploy_O_Mat.API.csproj", "Deploy_O_Mat.API/"]
-#COPY ["NuGet.config", "Deploy_O_Mat.API/"]
+COPY ["NuGet.config", "Deploy_O_Mat.API/"]
 
 RUN dotnet restore "Deploy_O_Mat.API/Deploy_O_Mat.API.csproj" --configfile "Deploy_O_Mat.API/NuGet.config"
---source "https://nuget.pkg.github.com/Marcel-B/index.json" -s "https://nuget.pkg.github.com/Marcel-B/index.json"
-#--configfile "Deploy_O_Mat.API/NuGet.config"
+#--source "https://nuget.pkg.github.com/Marcel-B/index.json" -s "https://nuget.pkg.github.com/Marcel-B/index.json"
+#
 COPY . .
 WORKDIR "/src/Deploy_O_Mat.API"
 

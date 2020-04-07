@@ -21,7 +21,7 @@ function App() {
         <Fragment>
             <NavBar />
             <Container style={{ marginTop: '2em' }}>
-                <Route path='/' component={HomePage} />
+                <Route exact path='/' component={HomePage} />
                 <Route path='/services' component={ListView} />
                 <Route
                     path='/buildStatusDashboard'

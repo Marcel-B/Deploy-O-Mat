@@ -9,11 +9,13 @@ const ListView: React.FC = () => {
     const dockerImageStore = useContext(DockerImageStore);
     const { dockerImagesByUpdated } = dockerImageStore;
     return (
-        <Segment clearing>
+        <Segment clearing style={{ marginTop: '5em', textAlign: 'center' }}>
             <Item.Group divided>
                 {dockerImagesByUpdated.map((dockerImage: IDockerImage) => (
                     <Item>
-                        <span style={{ marginBottom: '4px', marginRight:'4px' }}>
+                        <span
+                            style={{ marginBottom: '4px', marginRight: '4px' }}
+                        >
                             {dockerImage.isActive ? (
                                 <Icon name='play' size='large' color='green' />
                             ) : (

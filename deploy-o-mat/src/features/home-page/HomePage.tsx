@@ -2,8 +2,13 @@ import React from 'react'
 
 const HomePage: React.FC = () => {
     return (
-        <h1 style={{ marginTop: '2em', textAlign: 'center'}}>deploy-O-mat</h1>
-    )
+        <div style={{ marginTop: '5em', textAlign: 'center' }}>
+            <h1 >
+                ~ deploy-O-mat ~
+            </h1>
+            <p>Your friendly deploy automat</p>
+        </div>
+    );
 }
 
 export default HomePage

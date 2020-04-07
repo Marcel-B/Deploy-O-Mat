@@ -3,7 +3,7 @@ import BuildStatus from '../build-status/BuildStatus'
 
 const BuildStatusDashboard = () => {
     return (
-        <div style={{textAlign: 'center' }}>
+        <div style={{textAlign: 'center', marginTop: '5em' }}>
             <h2>
                 GitHub build Status
             </h2>

@@ -28,6 +28,8 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                 CancellationToken cancellationToken)
             {
                 var dockerImages = await _dataContext.DockerImages.ToListAsync();
+                foreach (var dockerImage in dockerImages)
+                    dockerImage.Updated = dockerImage.Updated?.ToLocalTime();
                 return dockerImages;
             }
         }

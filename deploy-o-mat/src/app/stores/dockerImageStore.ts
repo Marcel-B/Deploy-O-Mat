@@ -6,6 +6,7 @@ configure({ enforceActions: 'always' });
 
 class DockerImageStore {
     @observable dockerImageRegistry = new Map();
+    @observable loadingInitial = false;
     // @observable dockerImages: IDockerImage[] = [];
 
     @computed get dockerImagesByUpdated() {
@@ -14,17 +15,19 @@ class DockerImageStore {
 
     @action loadDockerImages = async () => {
         try {
-            console.log("Hello");
+            this.loadingInitial = true;
             const dockerImages = await agent.DockerImages.list();
             runInAction('loading dockerImages', () => {
                 dockerImages.forEach(dockerImage => {
                     console.log(dockerImage.name);
                     this.dockerImageRegistry.set(dockerImage.id, dockerImage);
+                    this.loadingInitial = false;
                 });
             });
         } catch (error) {
             runInAction('error loading dockerImages', () => {
                 console.log(error);
+                this.loadingInitial = false;
             });
         }
     }

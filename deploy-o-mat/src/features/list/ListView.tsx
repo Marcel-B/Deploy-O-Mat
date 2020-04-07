@@ -4,10 +4,15 @@ import DockerImageStore from '../../app/stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
 import TimeAgo from 'react-timeago';
 import { IDockerImage } from '../../app/models/dockerImage';
+import { LoadingComponent } from '../../app/layout/LoadingComponent';
 
 const ListView: React.FC = () => {
     const dockerImageStore = useContext(DockerImageStore);
     const { dockerImagesByUpdated } = dockerImageStore;
+
+        if (dockerImageStore.loadingInitial)
+            return <LoadingComponent content='Loading images...' />;
+
     return (
         <Segment clearing style={{ marginTop: '5em', textAlign: 'center' }}>
             <Item.Group divided>

@@ -4,10 +4,13 @@ import './index.css';
 import App from '../src/app/layout/App';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import ScrollToTop from './app/layout/ScrollToTop';
 
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <ScrollToTop>
+            <App />
+        </ScrollToTop>
     </BrowserRouter>,
     document.getElementById('root')
 );

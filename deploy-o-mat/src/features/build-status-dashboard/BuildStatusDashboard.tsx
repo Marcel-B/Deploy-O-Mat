@@ -1,11 +1,15 @@
 import React from 'react'
+import BuildStatus from '../build-status/BuildStatus'
 
 const BuildStatusDashboard = () => {
     return (
-        <div>
-            <h1>Build Status Dashboard here</h1>
+        <div style={{textAlign: 'center' }}>
+            <h2>
+                GitHub build Status
+            </h2>
+            <BuildStatus  />
         </div>
-    )
+    );
 }
 
 export default BuildStatusDashboard

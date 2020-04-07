@@ -19,7 +19,7 @@ class DockerImageStore {
             const dockerImages = await agent.DockerImages.list();
             runInAction('loading dockerImages', () => {
                 dockerImages.forEach(dockerImage => {
-                    console.log(dockerImage.name);
+                    // console.log(dockerImage.name);
                     this.dockerImageRegistry.set(dockerImage.id, dockerImage);
                     this.loadingInitial = false;
                 });

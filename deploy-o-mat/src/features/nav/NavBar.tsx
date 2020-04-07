@@ -1,8 +1,6 @@
 import React from 'react';
 import { Menu, Container } from 'semantic-ui-react';
-import BuildStatus from '../build-status/BuildStatus';
 import { NavLink } from 'react-router-dom';
-import Disclaimer from '../disclaimer/Disclaimer';
 
 const NavBar: React.FC = () => {
     return (

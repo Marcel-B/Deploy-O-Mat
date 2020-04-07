@@ -9,6 +9,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence
             DbContextOptions options) : base(options) { }
 
         public DbSet<DockerImage> DockerImages { get; set; }
+        public DbSet<RequestLog> RequestLogs { get; set; }
 
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)

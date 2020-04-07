@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using com.b_velop.Deploy_O_Mat.Persistence;
@@ -9,9 +10,10 @@ using com.b_velop.Deploy_O_Mat.Persistence;
 namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200407214052_AddRequestLog")]
+    partial class AddRequestLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,22 +80,13 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<long>("Duration")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Header")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsHttps")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Method")
                         .HasColumnType("text");
 
                     b.Property<string>("Path")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PathBase")
                         .HasColumnType("text");
 
                     b.Property<string>("Protocol")

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using com.b_velop.Deploy_O_Mat.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Persistence;
@@ -66,6 +67,7 @@ namespace com.b_velop.Deploy_O_Mat.API
         // This method gets called by the runtime. Use this method to con/Users/marcel/source/repos/Deploy_O_Mat/deploy-o-mat/src/App.cssfigure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseRequestLogger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -5,6 +5,8 @@ import { Container } from 'semantic-ui-react';
 import DockerImageStore from '../stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
 import Footer from '../../features/footer/Footer';
+import { Route } from 'react-router-dom';
+import BuildStatusDashboard from '../../features/build-status-dashboard/BuildStatusDashboard';
 
 function App() {
     const dockerImageStore = useContext(DockerImageStore);
@@ -17,9 +19,10 @@ function App() {
         <Fragment>
             <NavBar />
             <Container style={{ marginTop: '2em' }}>
-                <ListView  />
+                <Route path='/' component={ListView} />
+                <Route path='/buildStatusDashboard' component={BuildStatusDashboard} />
             </Container>
-            <Footer/>
+            <Footer />
         </Fragment>
     );
 }

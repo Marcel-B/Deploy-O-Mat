@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import NavBar from '../../features/nav/NavBar';
-import TableView from '../../features/table/TableView'
+import ListView from '../../features/list/ListView'
 import { Container } from 'semantic-ui-react';
 import DockerImageStore from '../stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
@@ -17,7 +17,7 @@ function App() {
         <Fragment>
             <NavBar />
             <Container style={{ marginTop: '2em' }}>
-                <TableView />
+                <ListView  />
             </Container>
             <Footer/>
         </Fragment>

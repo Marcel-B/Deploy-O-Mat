@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import TimeAgo from 'react-timeago';
 import { IDockerImage } from '../../app/models/dockerImage';
 
-const TableView: React.FC = () => {
+const ListView: React.FC = () => {
     const dockerImageStore = useContext(DockerImageStore);
     const { dockerImagesByUpdated } = dockerImageStore;
     return (
@@ -13,11 +13,13 @@ const TableView: React.FC = () => {
             <Item.Group divided>
                 {dockerImagesByUpdated.map((dockerImage: IDockerImage) => (
                     <Item>
-                        {dockerImage.isActive ? (
-                            <Icon name='play' size='large' color='green' />
-                        ) : (
-                            <Icon name='stop' size='large' color='red' />
-                        )}
+                        <span style={{ marginBottom: '4px', marginRight:'4px' }}>
+                            {dockerImage.isActive ? (
+                                <Icon name='play' size='large' color='green' />
+                            ) : (
+                                <Icon name='stop' size='large' color='red' />
+                            )}
+                        </span>
 
                         <Item.Content>
                             <Item.Header>{dockerImage.name}</Item.Header>
@@ -87,4 +89,4 @@ const TableView: React.FC = () => {
     );
 };
 
-export default observer(TableView);
+export default observer(ListView);

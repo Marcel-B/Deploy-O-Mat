@@ -1,12 +1,13 @@
 import React from 'react'
 import BuildStatus from '../build-status/BuildStatus'
+import { Icon, Header } from 'semantic-ui-react'
 
 const BuildStatusDashboard = () => {
     return (
         <div style={{textAlign: 'center', marginTop: '5em' }}>
-            <h2>
-                GitHub build Status
-            </h2>
+            <Header as='h1'>
+                <Icon name='github'/> build Status
+            </Header>
             <BuildStatus  />
         </div>
     );

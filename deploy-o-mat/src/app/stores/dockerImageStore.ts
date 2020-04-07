@@ -7,7 +7,6 @@ configure({ enforceActions: 'always' });
 class DockerImageStore {
     @observable dockerImageRegistry = new Map();
     @observable loadingInitial = false;
-    // @observable dockerImages: IDockerImage[] = [];
 
     @computed get dockerImagesByUpdated() {
         return Array.from(this.dockerImageRegistry.values()).sort((a, b) =>  Date.parse(a.updated) - Date.parse(b.updated)).reverse();

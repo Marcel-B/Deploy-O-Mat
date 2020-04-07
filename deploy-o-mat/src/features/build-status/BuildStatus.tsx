@@ -88,6 +88,34 @@ const BuildStatus: React.FC = () => {
                         <Table.Cell>.NET core build</Table.Cell>
                         <Table.Cell>Master</Table.Cell>
                     </Table.Row>
+                    <Table.Row key={5}>
+                        <Table.Cell>Stack.Air</Table.Cell>
+                        <Table.Cell>
+                            <img
+                                src={
+                                    'https://github.com/Marcel-B/Air/workflows/ASP.NET%20Core%20CI/badge.svg?branch=master'
+                                }
+                                alt={'build status'}
+                                style={{ height: '20px' }}
+                            />
+                        </Table.Cell>
+                        <Table.Cell>.NET core build</Table.Cell>
+                        <Table.Cell>Master</Table.Cell>
+                    </Table.Row>
+                    <Table.Row key={6}>
+                        <Table.Cell>Stack.Air</Table.Cell>
+                        <Table.Cell>
+                            <img
+                                src={
+                                    'https://github.com/Marcel-B/Air/workflows/Node.js%20CI/badge.svg?branch=master'
+                                }
+                                alt={'build status'}
+                                style={{ height: '20px' }}
+                            />
+                        </Table.Cell>
+                        <Table.Cell>Node.js Angular build</Table.Cell>
+                        <Table.Cell>Master</Table.Cell>
+                    </Table.Row>
                 </Table.Body>
 
                 {/* <Table.Footer>

@@ -1,16 +1,15 @@
-import React from 'react'
-import { Menu, Container } from 'semantic-ui-react'
+import React from 'react';
+import { Menu, Container, Icon, Header, Label } from 'semantic-ui-react';
 
 const Footer: React.FC = () => {
     return (
-        <Menu secondary>
-            <Container>
-                <Menu.Item
-                    name={`(C) ${new Date().getFullYear()}  Marcel Benders`}
-                />
-            </Container>
-        </Menu>
+        <Container>
+            <Menu secondary style={{marginTop: '18px'}}>
+                <Icon name='copyright outline' />
+                {`${new Date().getFullYear()}  Marcel Benders`}
+            </Menu>
+        </Container>
     );
-}
+};
 
-export default Footer
+export default Footer;

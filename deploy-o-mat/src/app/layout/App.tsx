@@ -8,8 +8,8 @@ import { Route } from 'react-router-dom';
 import BuildStatusDashboard from '../../features/build-status-dashboard/BuildStatusDashboard';
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
-import DockerImageList from '../../features/dashboard/DockerImageList';
 import DockerImageDetails from '../../features/details/DockerImageDetails';
+import DockerImage from '../../features/dashboard/DockerImage';
 
 function App() {
     const dockerImageStore = useContext(DockerImageStore);
@@ -23,7 +23,7 @@ function App() {
             <NavBar />
             <Container style={{ marginTop: '5em' }}>
                 <Route exact path='/' component={HomePage} />
-                <Route path='/services' component={DockerImageList} />
+                <Route path='/services' component={DockerImage} />
                 <Route
                     path='/buildStatusDashboard'
                     component={BuildStatusDashboard}

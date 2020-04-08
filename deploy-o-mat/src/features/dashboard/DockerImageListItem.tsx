@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { IDockerImage } from '../../app/models/dockerImage';
 import { Item, Icon, Button, Segment } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
+import { Link } from 'react-router-dom';
 
 const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
     dockerImage,
@@ -46,10 +47,11 @@ const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
                 </Segment>
                 <Segment clearing>
                     <Button
+                        as={Link}
+                        to={`/dockerImageDetails/${dockerImage.id}`}
                         toggle
                         floated='right'
                         color='blue'
-                        disabled
                         content='Details'
                     />
                 </Segment>

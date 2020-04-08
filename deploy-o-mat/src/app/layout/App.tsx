@@ -9,6 +9,7 @@ import BuildStatusDashboard from '../../features/build-status-dashboard/BuildSta
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
 import DockerImageList from '../../features/dashboard/DockerImageList';
+import DockerImageDetails from '../../features/details/DockerImageDetails';
 
 function App() {
     const dockerImageStore = useContext(DockerImageStore);
@@ -27,6 +28,7 @@ function App() {
                     path='/buildStatusDashboard'
                     component={BuildStatusDashboard}
                 />
+                <Route path={'/dockerImageDetails/:id'} component={DockerImageDetails}/>
                 <Route path={'/disclaimer'} component={Disclaimer}/>
             </Container>
             <Footer />

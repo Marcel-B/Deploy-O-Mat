@@ -16,6 +16,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<RequestLog>().HasIndex("Created");
         }
     }
 }

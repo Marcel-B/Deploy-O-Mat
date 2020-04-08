@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Icon, Header } from 'semantic-ui-react';
 
 const HomePage: React.FC = () => {

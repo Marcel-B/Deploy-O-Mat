@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace com.b_velop.Deploy_O_Mat.API.Controllers
@@ -30,7 +27,7 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> CreateOrUpdate(
+        public async Task<ActionResult<DockerHubWebhookCallbackDto>> CreateOrUpdate(
             Guid id,
             CreateOrUpdate.Command command)
         {

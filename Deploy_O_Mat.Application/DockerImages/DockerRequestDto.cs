@@ -62,5 +62,8 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
 
         [JsonPropertyName("repo_name")]
         public string RepoName { get; set; }
+
+        [JsonPropertyName("dockerfile")]
+        public string Dockerfile { get; set; }
     }
 }

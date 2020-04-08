@@ -49,7 +49,6 @@ namespace com.b_velop.Deploy_O_Mat.API.Middlewares
                 PathBase = httpContext.Request.PathBase,
                 IsHttps = httpContext.Request.IsHttps
             };
-
             var header = httpContext.Request.Headers.Select(x => $"{x.Key}: { x.Value}");
             requestLog.Header = string.Join(',', header);
             using var sr = new StreamReader(httpContext.Request.Body, encoding: Encoding.UTF8, leaveOpen: true);

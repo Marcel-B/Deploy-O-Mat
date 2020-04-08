@@ -9,9 +9,10 @@ using MediatR;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
+
     public class CreateOrUpdate
     {
-        public class Command : IRequest
+        public class Command : IRequest<DockerHubWebhookCallbackDto>
         {
             public Guid Id { get; set; }
 
@@ -25,10 +26,10 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
             public Repository Repository { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, DockerHubWebhookCallbackDto>
         {
             private DataContext _dataContext;
-            private IMapper _mapper;
+            private readonly IMapper _mapper;
 
             public Handler(
                 DataContext dataContext,
@@ -38,25 +39,41 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                 _mapper = mapper;
             }
 
-            public async Task<Unit> Handle(
+
+            public async Task<DockerHubWebhookCallbackDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
                 var dockerImage = _mapper.Map<DockerImage>(request);
-                var dImage = await _dataContext.DockerImages.FindAsync(dockerImage.Id);
-                if (dImage == null)
-                    _dataContext.DockerImages.Add(dockerImage);
+                var tmpDockerImage = await _dataContext.DockerImages.FindAsync(dockerImage.Id);
+                if (tmpDockerImage == null)
+                    tmpDockerImage = _dataContext.DockerImages.Add(dockerImage).Entity;
                 else
                 {
-                    dImage.BuildId = Guid.NewGuid();
-                    dImage.Pusher = dockerImage.Pusher;
-                    dImage.Tag = dockerImage.Tag;
-                    dImage.Updated = dockerImage.Updated;
+                    tmpDockerImage.BuildId = Guid.NewGuid();
+                    tmpDockerImage.Pusher = dockerImage.Pusher;
+                    tmpDockerImage.Tag = dockerImage.Tag;
+                    tmpDockerImage.Updated = dockerImage.Updated;
                 }
                 var success = await _dataContext.SaveChangesAsync();
+                var response = new DockerHubWebhookCallbackDto
+                {
+                    Context = "Image received",
+                    State = "success",
+                    TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{tmpDockerImage.Id}",
+                    
+                };
                 if (success > 0)
-                    return Unit.Value;
-                return default;
+                {
+                    response.State = "success";
+                    response.Description = "Image successfully added to deploy-O-mat service";
+                }
+                else
+                {
+                    response.State = "failure";
+                    response.Description = "Image successfully added to deploy-O-mat service";
+                }
+                return response;
             }
         }
     }

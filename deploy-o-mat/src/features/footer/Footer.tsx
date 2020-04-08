@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Container, Icon, Header, Label } from 'semantic-ui-react';
+import { Menu, Container, Icon } from 'semantic-ui-react';
 
 const Footer: React.FC = () => {
     return (

@@ -9,3 +9,4 @@ dockerService.db-shm
 dockerService.db-wal
 wwwroot
 dockerImageSample.json
+rabbit.yml

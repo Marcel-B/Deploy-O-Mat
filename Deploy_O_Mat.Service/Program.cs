@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Deploy_O_Mat.Service.Data;
 using Deploy_O_Mat.Service.Services;
 using Microsoft.EntityFrameworkCore;

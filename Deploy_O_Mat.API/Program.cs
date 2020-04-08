@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace com.b_velop.Deploy_O_Mat.API
 {
@@ -12,6 +13,7 @@ namespace com.b_velop.Deploy_O_Mat.API
     {
         public static void Main(string[] args)
         {
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
@@ -25,8 +27,7 @@ namespace com.b_velop.Deploy_O_Mat.API
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred during migration");
+                    logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
                 }
             }
             host.Run();
@@ -38,6 +39,13 @@ namespace com.b_velop.Deploy_O_Mat.API
                 {
                     webBuilder.UseStartup<Startup>()
                     .UseUrls("http://*:5000");
-                });
+                })
+              .ConfigureLogging(logging =>
+              {
+                  logging.ClearProviders();
+                  logging.AddConsole();
+                  logging.SetMinimumLevel(LogLevel.Trace);
+              })
+            .UseNLog();
     }
 }

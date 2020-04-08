@@ -41,7 +41,8 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbit-mq",
+                Port = 5672,
                 UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
                 Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
             };
@@ -82,8 +83,9 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbit-mq",
                 DispatchConsumersAsync = true,
+                Port = 5672,
                 UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
                 Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
             };

@@ -37,7 +37,7 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",
+                HostName = "rabbit-mq",
             };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -76,7 +76,7 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",
+                HostName = "rabbit-mq",
                 DispatchConsumersAsync = true
             };
 

@@ -54,6 +54,7 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                     tmpDockerImage.Pusher = dockerImage.Pusher;
                     tmpDockerImage.Tag = dockerImage.Tag;
                     tmpDockerImage.Updated = dockerImage.Updated;
+                    tmpDockerImage.Dockerfile = dockerImage.Dockerfile;
                 }
                 var success = await _dataContext.SaveChangesAsync();
                 var response = new DockerHubWebhookCallbackDto

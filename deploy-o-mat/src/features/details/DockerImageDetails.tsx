@@ -24,6 +24,7 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
         <div>
             <h1>Docker Image Details</h1>
             <p>{dockerImage.name}</p>
+            <p>{dockerImage.dockerfile}</p>
         </div>
     );
 };

@@ -6,4 +6,5 @@ export interface IDockerImage {
     repoName: string;
     updated: string;
     isActive: boolean;
+    dockerfile: string;
 }

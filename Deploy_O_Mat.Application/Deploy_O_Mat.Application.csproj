@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="DockerImages\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Errors\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj" />

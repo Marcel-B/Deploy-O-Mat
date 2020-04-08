@@ -12,9 +12,11 @@ const DockerImage = () => {
             </Header>
             <Grid>
                 <Grid.Column width={10}>
+                    <Header as='h2'>Services</Header>
                     <DockerImageList />
                 </Grid.Column>
                 <Grid.Column width={6}>
+                    <Header as='h2'>Filters</Header>
                     <DockerImageSidebar />
                 </Grid.Column>
             </Grid>

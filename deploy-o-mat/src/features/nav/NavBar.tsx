@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const NavBar: React.FC = () => {
     return (
         <Container>
-            <Menu fixed='top' secondary style={{ background: 'white' }}>
+            <Menu fixed='top' inverted secondary  >
                 <Container>
                     <Menu.Item
                         as={NavLink}

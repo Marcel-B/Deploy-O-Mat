@@ -1,9 +1,12 @@
 import React from 'react'
+import { Segment } from 'semantic-ui-react'
 
 const DockerImageSidebar = () => {
     return (
-       <h1>Additional Informations</h1>
-    )
+        <Segment>
+            <h1>TODO</h1>
+        </Segment>
+    );
 }
 
 export default DockerImageSidebar

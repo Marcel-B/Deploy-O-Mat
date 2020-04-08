@@ -11,8 +11,5 @@ namespace MicroRabbit.Infra.IoC
             // Domain Bus
             services.AddTransient<IEventBus, RabbitMQBus>();
         }
-        public DependencyContainer()
-        {
-        }
     }
 }

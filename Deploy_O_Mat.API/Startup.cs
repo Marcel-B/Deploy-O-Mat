@@ -5,6 +5,7 @@ using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Persistence;
 using com.b_velop.Utilities.Docker;
 using MediatR;
+using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,7 @@ namespace com.b_velop.Deploy_O_Mat.API
                     connection = Configuration.GetConnectionString("postgres");
                 options.UseNpgsql(connection);
             });
+            DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to con/Users/marcel/source/repos/Deploy_O_Mat/deploy-o-mat/src/App.cssfigure the HTTP request pipeline.

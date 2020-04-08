@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>com.b_velop.Deploy_O_Mat.Application</RootNamespace>
   </PropertyGroup>
 
@@ -20,9 +20,13 @@
     <Folder Include="DockerImages\" />
     <Folder Include="Helpers\" />
     <Folder Include="Errors\" />
+    <Folder Include="Commands\" />
+    <Folder Include="CommandHandler\" />
+    <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Persistence\Deploy_O_Mat.Persistence.csproj" />
+    <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />
   </ItemGroup>
 </Project>

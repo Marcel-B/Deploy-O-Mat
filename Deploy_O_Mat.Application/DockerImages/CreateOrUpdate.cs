@@ -3,9 +3,12 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using com.b_velop.Deploy_O_Mat.Application.Commands;
 using com.b_velop.Deploy_O_Mat.Domain;
 using com.b_velop.Deploy_O_Mat.Persistence;
 using MediatR;
+using MicroRabbit.Domain.Core.Bus;
+using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
@@ -28,13 +31,19 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
 
         public class Handler : IRequestHandler<Command, DockerHubWebhookCallbackDto>
         {
+            private readonly IEventBus _bus;
+            private readonly ILogger<Handler> _logger;
             private DataContext _dataContext;
             private readonly IMapper _mapper;
 
             public Handler(
+                IEventBus bus,
+                ILogger<Handler> logger,
                 DataContext dataContext,
                 IMapper mapper)
             {
+                _bus = bus;
+                _logger = logger;
                 _dataContext = dataContext;
                 _mapper = mapper;
             }
@@ -68,6 +77,21 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                 {
                     response.State = "success";
                     response.Description = "Image successfully added to deploy-O-mat service";
+                    try
+                    {
+                        await _bus.SendCommand(new ServiceUpdateCommand
+                        {
+                            BuildId = tmpDockerImage.BuildId,
+                            RepoName = tmpDockerImage.RepoName,
+                            Tag = tmpDockerImage.Tag,
+                            ServiceName = "test_test"
+                        });
+                    }catch(Exception ex)
+                    {
+                        _logger.LogError(ex, "Error while calling rabbit");
+                        response.Description = "Problems with Message Queue";
+                    }
+                    
                 }
                 else
                 {

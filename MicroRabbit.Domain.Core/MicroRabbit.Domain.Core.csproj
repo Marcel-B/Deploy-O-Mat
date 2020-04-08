@@ -9,7 +9,8 @@
     <Folder Include="Commands\" />
     <Folder Include="Events\" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="8.0.1" />
+<ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
+
 </Project>

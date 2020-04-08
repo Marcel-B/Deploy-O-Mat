@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using com.b_velop.Utilities.Docker;
 using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Domain.Core.Commands;
@@ -16,13 +17,16 @@ namespace MicroRabbit.Infra.Bus
 {
     public sealed class RabbitMQBus : IEventBus
     {
+        private readonly SecretProvider _secretProvider;
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
         private readonly List<Type> _eventTypes;
 
         public RabbitMQBus(
+            SecretProvider secretProvider,
             IMediator mediator)
         {
+            _secretProvider = secretProvider;
             _mediator = mediator;
             _handlers = new Dictionary<string, List<Type>>();
             _eventTypes = new List<Type>();
@@ -38,6 +42,8 @@ namespace MicroRabbit.Infra.Bus
             var factory = new ConnectionFactory
             {
                 HostName = "rabbit-mq",
+                UserName = _secretProvider.GetSecret("rabbit_user"),
+                Password = _secretProvider.GetSecret("rabbit_pass")
             };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -77,7 +83,9 @@ namespace MicroRabbit.Infra.Bus
             var factory = new ConnectionFactory
             {
                 HostName = "rabbit-mq",
-                DispatchConsumersAsync = true
+                DispatchConsumersAsync = true,
+                UserName = _secretProvider.GetSecret("rabbit_user"),
+                Password = _secretProvider.GetSecret("rabbit_pass")
             };
 
             var connection = factory.CreateConnection();

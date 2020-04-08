@@ -43,8 +43,8 @@ namespace com.b_velop.Deploy_O_Mat.API
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
-
             var secretProvider = new SecretProvider();
+            services.AddScoped<SecretProvider>();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";

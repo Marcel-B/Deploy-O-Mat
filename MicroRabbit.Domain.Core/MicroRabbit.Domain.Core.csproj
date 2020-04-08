@@ -11,6 +11,7 @@
   </ItemGroup>
 <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="b-velop.Utilities" Version="2.1.2" />
   </ItemGroup>
 
 </Project>

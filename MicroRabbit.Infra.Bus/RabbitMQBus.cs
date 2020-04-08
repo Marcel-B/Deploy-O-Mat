@@ -41,9 +41,9 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbit-mq",
-                UserName = _secretProvider.GetSecret("rabbit_user"),
-                Password = _secretProvider.GetSecret("rabbit_pass")
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
+                UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
+                Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
             };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -82,10 +82,10 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = "rabbit-mq",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
                 DispatchConsumersAsync = true,
-                UserName = _secretProvider.GetSecret("rabbit_user"),
-                Password = _secretProvider.GetSecret("rabbit_pass")
+                UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
+                Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
             };
 
             var connection = factory.CreateConnection();

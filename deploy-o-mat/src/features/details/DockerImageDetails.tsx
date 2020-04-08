@@ -3,6 +3,12 @@ import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import DockerImageStore from '../../app/stores/dockerImageStore';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
+import { Segment, Header, Grid, Item } from 'semantic-ui-react';
+import ReactTimeago from 'react-timeago';
+
+const dockerfileDisplay = {
+    display: 'block',
+};
 
 interface IDetailParams {
     id: string;
@@ -22,9 +28,33 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
 
     return (
         <div>
-            <h1>Docker Image Details</h1>
-            <p>{dockerImage.name}</p>
-            <p>{dockerImage.dockerfile}</p>
+            <Header as='h1' textAlign='center'>
+                {dockerImage.name}
+            </Header>
+            <Grid>
+                <Grid.Column width={7}>
+                    <Header as='h2'>Details</Header>
+                    <Item.Group>
+                        <Item.Header>{dockerImage.name}</Item.Header>
+                        <Item.Content>
+                            {dockerImage.repoName}:{dockerImage.tag}
+                        </Item.Content>
+                        <Item.Content>{dockerImage.owner}</Item.Content>
+                        <Item.Content>{dockerImage.created.split('T')[0]}</Item.Content>
+                        <Item.Content>
+                            <ReactTimeago date={dockerImage.updated} />
+                        </Item.Content>
+                    </Item.Group>
+                </Grid.Column>
+                <Grid.Column width={9}>
+                    <Header as='h2'>Dockerfile</Header>
+                    <Segment>
+                        {dockerImage.dockerfile?.split('\n').map((i) => {
+                            return <p>{i}</p>;
+                        })}
+                    </Segment>
+                </Grid.Column>
+            </Grid>
         </div>
     );
 };

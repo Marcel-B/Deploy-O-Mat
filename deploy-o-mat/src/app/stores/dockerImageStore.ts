@@ -20,7 +20,6 @@ class DockerImageStore {
             const dockerImages = await agent.DockerImages.list();
             runInAction('loading dockerImages', () => {
                 dockerImages.forEach(dockerImage => {
-                    // console.log(dockerImage.name);
                     this.dockerImageRegistry.set(dockerImage.id, dockerImage);
                     this.loadingInitial = false;
                 });
@@ -35,9 +34,22 @@ class DockerImageStore {
 
     @action loadDockerImage = async (id: string) => {
         let dockerImage = this.getDockerImage(id);
-        console.log(dockerImage);
         if (dockerImage) {
             this.dockerImage = dockerImage;
+        } else {
+            this.loadingInitial = true;
+            try {
+                dockerImage = await agent.DockerImages.details(id);
+                runInAction('getting dockerImage', () => {
+                    this.dockerImage = dockerImage;
+                    this.loadingInitial = false;
+                })
+            } catch (error) {
+                runInAction('get dockerimage error', () => {
+                    this.loadingInitial = false;
+                });
+                console.log(error);
+            }
         }
     }
 

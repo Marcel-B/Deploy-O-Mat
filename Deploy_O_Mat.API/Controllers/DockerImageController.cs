@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Domain;
 using MediatR;
@@ -25,6 +26,10 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
         {
             return await _mediator.Send(new List.Query());
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DockerImage>> Details(Guid id)
+            => await _mediator.Send(new Details.Query { Id = id });
 
         [HttpPost]
         public async Task<ActionResult<DockerHubWebhookCallbackDto>> CreateOrUpdate(

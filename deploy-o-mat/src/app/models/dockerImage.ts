@@ -7,4 +7,5 @@ export interface IDockerImage {
     updated: string;
     isActive: boolean;
     dockerfile: string;
+    created: string;
 }

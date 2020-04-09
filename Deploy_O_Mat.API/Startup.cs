@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.API
 {
@@ -48,6 +49,9 @@ namespace com.b_velop.Deploy_O_Mat.API
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";
+
+          
+
 
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
             services.AddDbContext<DataContext>(options =>

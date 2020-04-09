@@ -1,5 +1,6 @@
 using System;
 using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Utilities.Docker;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,12 +16,22 @@ namespace com.b_velop.Deploy_O_Mat.API
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();
+            var secretProvider = new SecretProvider();
+
+            var userName = secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest";
+            var passWord = secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest";
+            var ho = secretProvider.GetSecret("HOSTNAME") ?? "rabbitmq";
+
+            logger.Log(NLog.LogLevel.Fatal, userName);
+            logger.Log(NLog.LogLevel.Fatal, passWord);
+            logger.Log(NLog.LogLevel.Fatal, ho);
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
+
                     var context = services.GetRequiredService<DataContext>();
                     context.Database.Migrate();
                     Seed.SeedData(context);

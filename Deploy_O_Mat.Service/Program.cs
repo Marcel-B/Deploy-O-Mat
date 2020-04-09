@@ -49,6 +49,7 @@ namespace Deploy_O_Mat.Service.Api
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
                 }
             }

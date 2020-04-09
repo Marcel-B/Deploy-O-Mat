@@ -18,8 +18,8 @@ namespace com.b_velop.Deploy_O_Mat.API
             var host = CreateHostBuilder(args).Build();
             var secretProvider = new SecretProvider();
 
-            var userName = secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest";
-            var passWord = secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest";
+            var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
+            var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
             var ho = secretProvider.GetSecret("HOSTNAME") ?? "rabbitmq";
 
             logger.Log(NLog.LogLevel.Fatal, userName);

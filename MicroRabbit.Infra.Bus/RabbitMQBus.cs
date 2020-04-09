@@ -21,6 +21,8 @@ namespace MicroRabbit.Infra.Bus
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
         private readonly List<Type> _eventTypes;
+        private readonly string userName;
+        private string passWord;
 
         public RabbitMQBus(
             SecretProvider secretProvider,
@@ -30,6 +32,8 @@ namespace MicroRabbit.Infra.Bus
             _mediator = mediator;
             _handlers = new Dictionary<string, List<Type>>();
             _eventTypes = new List<Type>();
+            userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
+            passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
         }
 
         public Task SendCommand<T>(T command) where T : Command
@@ -43,8 +47,8 @@ namespace MicroRabbit.Infra.Bus
             {
                 HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbitmq",
                 Port = 5672,
-                UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
-                Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
+                UserName = userName ?? "guest",
+                Password = passWord ?? "guest"
             };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -87,8 +91,8 @@ namespace MicroRabbit.Infra.Bus
                 HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbit-mq",
                 DispatchConsumersAsync = true,
                 Port = 5672,
-                UserName = _secretProvider.GetSecret("RABBITMQ_DEFAULT_USER_FILE") ?? "guest",
-                Password = _secretProvider.GetSecret("RABBITMQ_DEFAULT_PASS_FILE") ?? "guest"
+                UserName = userName ?? "guest",
+                Password = passWord ?? "guest"
             };
 
             var connection = factory.CreateConnection();

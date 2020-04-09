@@ -16,30 +16,18 @@ namespace com.b_velop.Deploy_O_Mat.API
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();
-            var secretProvider = new SecretProvider();
 
-            var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
-            var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-            var ho = secretProvider.GetSecret("HOSTNAME") ?? "rabbitmq";
-
-            logger.Log(NLog.LogLevel.Fatal, userName);
-            logger.Log(NLog.LogLevel.Fatal, passWord);
-            logger.Log(NLog.LogLevel.Fatal, ho);
-
-            using (var scope = host.Services.CreateScope())
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
             {
-                var services = scope.ServiceProvider;
-                try
-                {
-
-                    var context = services.GetRequiredService<DataContext>();
-                    context.Database.Migrate();
-                    Seed.SeedData(context);
-                }
-                catch (Exception ex)
-                {
-                    logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
-                }
+                var context = services.GetRequiredService<DataContext>();
+                context.Database.Migrate();
+                Seed.SeedData(context);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
             }
             host.Run();
         }

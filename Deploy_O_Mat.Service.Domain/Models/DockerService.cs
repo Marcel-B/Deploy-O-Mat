@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Deploy_O_Mat.Service.Data
+
+namespace Deploy_O_Mat.Service.Domain.Models
 {
     public class DockerService
     {

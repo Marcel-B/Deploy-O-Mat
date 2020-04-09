@@ -34,6 +34,10 @@ namespace MicroRabbit.Infra.Bus
             _eventTypes = new List<Type>();
             userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
             passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
+            var HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost";
+            Console.WriteLine(userName);
+            Console.WriteLine(passWord);
+            Console.WriteLine(HostName);
         }
 
         public Task SendCommand<T>(T command) where T : Command
@@ -45,7 +49,7 @@ namespace MicroRabbit.Infra.Bus
         {
             var factory = new ConnectionFactory
             {
-                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbitmq",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
                 Port = 5672,
                 UserName = userName ?? "guest",
                 Password = passWord ?? "guest"
@@ -88,7 +92,7 @@ namespace MicroRabbit.Infra.Bus
         
             var factory = new ConnectionFactory
             {
-                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "rabbit-mq",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
                 DispatchConsumersAsync = true,
                 Port = 5672,
                 UserName = userName ?? "guest",

@@ -50,9 +50,6 @@ namespace com.b_velop.Deploy_O_Mat.API
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";
 
-          
-
-
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
             services.AddDbContext<DataContext>(options =>
             {

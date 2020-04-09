@@ -10,5 +10,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />
     <ProjectReference Include="..\MicroRabbit.Infra.Bus\MicroRabbit.Infra.Bus.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Service.Application\Deploy_O_Mat.Service.Application.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Service.Domain\Deploy_O_Mat.Service.Domain.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Service.Data\Deploy_O_Mat.Service.Data.csproj" />
   </ItemGroup>
 </Project>

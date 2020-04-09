@@ -1,0 +1,17 @@
+[Unit]
+Description=Deploy-O-Mat
+
+[Service]
+Type=simple
+WorkingDirectory=/home/marcel/deploy-o-mat/publish
+ExecStart=/usr/bin/dotnet /home/marcel/deploy-o-mat/publish/Deploy_O_Mat.Service.Api.dll
+Restart=always
+RestartSec=30
+SyslogIdentifier=Deploy_O_Mat
+Environment='ASPNETCORE_ENVIRONMENT=Production'
+Environment='rabbit_pass=089jkhnasfki-sa11'
+Environment='rabbit_user=asdf-lj2345uiiha'
+Environment='HOSTNAME=localhost'
+
+[Install]
+WantedBy=multi-user.target

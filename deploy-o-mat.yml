@@ -6,8 +6,12 @@ services:
         environment:
             - "username=admin"
             - "host=postgres"
+            - HOSTNAME=rabbitmq
         secrets:
             - postgres_db_password
+            - rabbit_user
+            - rabbit_pass
+            - rabbit_cookie
         networks:
             - galaxy
         deploy:
@@ -50,6 +54,12 @@ services:
             - postgres_db_password
 secrets:
     postgres_db_password:
+        external: true
+    rabbit_pass:
+        external: true
+    rabbit_user:
+        external: true
+    rabbit_cookie:
         external: true
 volumes:
     postgresql:

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Deploy_O_Mat.Service.Data.Context;
+using Deploy_O_Mat.Service.Domain.Models;
 
-namespace Deploy_O_Mat.Service.Data
+namespace Deploy_O_Mat.Service.Api.Data
 {
     public static class Seed
     {
         public static void SeedData(
-            this DataContext dataContext)
+            this DockerServiceDbContext dataContext)
         {
             var seedData = new List<DockerService>
             {

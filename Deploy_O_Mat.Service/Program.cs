@@ -27,31 +27,28 @@ namespace Deploy_O_Mat.Service.Api
 
             var host = CreateHostBuilder(args).Build();
             IEventBus eventBus = null;
-            using (var scope = host.Services.CreateScope())
+            var services = host.Services;
+            try
             {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    //var context = services.GetRequiredService<DockerServiceDbContext>();
-                    //context.Database.Migrate();
-                    //context.SeedData();
+                //var context = services.GetRequiredService<DockerServiceDbContext>();
+                //context.Database.Migrate();
+                //context.SeedData();
 
-                    eventBus = services.GetRequiredService<IEventBus>();
-                    var secretProvider = services.GetRequiredService<SecretProvider>();
-                    var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
-                    var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-                    var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
-                    Console.WriteLine(userName);
-                    Console.WriteLine(passWord);
-                    Console.WriteLine(HostName);
-                    eventBus.Subscribe<ServiceUpdateEvent, ServiceUpdateEventHandler>();
-                    host.Run();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                    logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
-                }
+                eventBus = services.GetRequiredService<IEventBus>();
+                var secretProvider = services.GetRequiredService<SecretProvider>();
+                var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
+                var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
+                var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
+                Console.WriteLine(userName);
+                Console.WriteLine(passWord);
+                Console.WriteLine(HostName);
+                eventBus.Subscribe<ServiceUpdateEvent, ServiceUpdateEventHandler>();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
             }
         }
 

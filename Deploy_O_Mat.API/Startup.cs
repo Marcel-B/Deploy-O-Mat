@@ -2,6 +2,7 @@ using AutoMapper;
 using com.b_velop.Deploy_O_Mat.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Application.Images;
+using com.b_velop.Deploy_O_Mat.Data.Context;
 using com.b_velop.Deploy_O_Mat.Persistence;
 using com.b_velop.Utilities.Docker;
 using MediatR;
@@ -44,8 +45,8 @@ namespace com.b_velop.Deploy_O_Mat.API
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
+
             var secretProvider = new SecretProvider();
-            services.AddScoped<SecretProvider>();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";

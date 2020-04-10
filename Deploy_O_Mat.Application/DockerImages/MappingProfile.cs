@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using com.b_velop.Deploy_O_Mat.Domain;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using com.b_velop.Utilities.Extensions;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images

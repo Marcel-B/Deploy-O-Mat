@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>com.b_velop.Deploy_O_Mat.Persistence</RootNamespace>
+    <RootNamespace>com.b_velop.Deploy_O_Mat.Data</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -17,5 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Context\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Application.Images;
-using com.b_velop.Deploy_O_Mat.Domain;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +13,7 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
     [ApiController]
     public class DockerImageController : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public DockerImageController(
             IMediator mediator)
@@ -23,9 +23,7 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DockerImage>>> List()
-        {
-            return await _mediator.Send(new List.Query());
-        }
+            => await _mediator.Send(new List.Query());
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DockerImage>> Details(Guid id)

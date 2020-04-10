@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Unicode;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Domain;
-using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Deploy_O_Mat.Data.Context;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

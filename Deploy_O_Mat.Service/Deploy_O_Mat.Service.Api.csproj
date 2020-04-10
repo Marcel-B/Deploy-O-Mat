@@ -48,8 +48,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Service.Data\Deploy_O_Mat.Service.Data.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Service.Domain\Deploy_O_Mat.Service.Domain.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Service.Application\Deploy_O_Mat.Service.Application.csproj" />
   </ItemGroup>
 </Project>

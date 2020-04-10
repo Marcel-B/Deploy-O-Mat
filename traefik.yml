@@ -24,7 +24,7 @@ services:
 
             - "--entrypoints.web.address=:80"
             - "--entrypoints.websecure.address=:443"
-            - "--entrypoints.rabbitmq.address=:5672"
+            #- "--entrypoints.rabbitmq.address=:5672"
             - "--entryPoints.metrics.address=:8082"
 
             - "--certificatesResolvers.sec.acme.email=marcel.benders@icloud.com"

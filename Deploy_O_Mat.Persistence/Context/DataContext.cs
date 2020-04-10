@@ -1,7 +1,7 @@
-﻿using com.b_velop.Deploy_O_Mat.Domain;
+﻿using com.b_velop.Deploy_O_Mat.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace com.b_velop.Deploy_O_Mat.Persistence
+namespace com.b_velop.Deploy_O_Mat.Data.Context
 {
     public class DataContext : DbContext
     {
@@ -15,7 +15,6 @@ namespace com.b_velop.Deploy_O_Mat.Persistence
             ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<RequestLog>().HasIndex("Created");
         }
     }

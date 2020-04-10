@@ -23,9 +23,6 @@
     <Folder Include="Middlewares\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deploy_O_Mat.Application\Deploy_O_Mat.Application.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
     <ProjectReference Include="..\MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

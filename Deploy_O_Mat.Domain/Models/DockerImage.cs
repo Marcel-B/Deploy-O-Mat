@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace com.b_velop.Deploy_O_Mat.Domain
+namespace com.b_velop.Deploy_O_Mat.Domain.Models
 {
     public class DockerImage
     {

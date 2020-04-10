@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Deploy_O_Mat.Data.Context;
 
-namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
+namespace com.b_velop.Deploy_O_Mat.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.DockerImage", b =>
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.Models.DockerImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                     b.ToTable("DockerImages");
                 });
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.RequestLog", b =>
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.Models.RequestLog", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

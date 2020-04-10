@@ -57,12 +57,6 @@ namespace Deploy_O_Mat.Service.Api
             .ConfigureServices((hostContext, services) =>
             {
                 DependencyContainer.RegisterServices(services);
-                services.AddTransient<IDockerServiceService, DockerServiceService>();
-                services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();
-                services.AddTransient<IEventHandler<ServiceUpdateEvent>, ServiceUpdateEventHandler>();
-                services.AddHostedService<UpdateService>();
-                services.AddTransient<SecretProvider>();
-                services.AddHttpClient<IDockerImageService, DockerImageService>();
                 services.AddMediatR(typeof(Program));
                 //services.AddDbContext<DockerServiceDbContext>(options =>
                 //{

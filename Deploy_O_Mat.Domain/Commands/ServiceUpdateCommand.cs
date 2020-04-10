@@ -1,9 +1,9 @@
 ﻿using System;
 using MicroRabbit.Domain.Core.Commands;
 
-namespace com.b_velop.Deploy_O_Mat.Application.Commands
+namespace com.b_velop.Deploy_O_Mat.Domain.Commands
 {
-    public class ServiceUpdateCommand : Command
+    public abstract class ServiceUpdateCommand : Command
     {
         public string ServiceName { get; set; }
         public string RepoName { get; set; }

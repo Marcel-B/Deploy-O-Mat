@@ -3,9 +3,11 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using com.b_velop.Deploy_O_Mat.Application.Commands;
-using com.b_velop.Deploy_O_Mat.Domain;
-using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Deploy_O_Mat.Application.Interfaces;
+using com.b_velop.Deploy_O_Mat.Data.Context;
+using com.b_velop.Deploy_O_Mat.Domain.Commands;
+using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
@@ -31,67 +33,63 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
 
         public class Handler : IRequestHandler<Command, DockerHubWebhookCallbackDto>
         {
-            private readonly IEventBus _bus;
+            private readonly IDockerImageService _dockerImageService;
             private readonly ILogger<Handler> _logger;
-            private DataContext _dataContext;
+            private readonly IDockerImageRepository _repository;
             private readonly IMapper _mapper;
 
             public Handler(
-                IEventBus bus,
+                IDockerImageService dockerImageService,
                 ILogger<Handler> logger,
-                DataContext dataContext,
+                IDockerImageRepository repository,
                 IMapper mapper)
             {
-                _bus = bus;
+                _dockerImageService = dockerImageService;
                 _logger = logger;
-                _dataContext = dataContext;
+                _repository = repository;
                 _mapper = mapper;
             }
-
 
             public async Task<DockerHubWebhookCallbackDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
                 var dockerImage = _mapper.Map<DockerImage>(request);
-                var tmpDockerImage = await _dataContext.DockerImages.FindAsync(dockerImage.Id);
-                if (tmpDockerImage == null)
-                    tmpDockerImage = _dataContext.DockerImages.Add(dockerImage).Entity;
+                var tmpDockerImage = await _repository.GetDockerImage(request.Id);
+
+                if (tmpDockerImage != null)
+                    tmpDockerImage = await _repository.UpdateDockerImage(request.Id, dockerImage);
                 else
-                {
-                    tmpDockerImage.BuildId = Guid.NewGuid();
-                    tmpDockerImage.Pusher = dockerImage.Pusher;
-                    tmpDockerImage.Tag = dockerImage.Tag;
-                    tmpDockerImage.Updated = dockerImage.Updated;
-                    tmpDockerImage.Dockerfile = dockerImage.Dockerfile;
-                }
-                var success = await _dataContext.SaveChangesAsync();
+                    tmpDockerImage = _repository.CreateDockerImage(dockerImage);
+
+                var success = await _repository.SaveChanges();
+
                 var response = new DockerHubWebhookCallbackDto
                 {
                     Context = "Image received",
                     State = "success",
                     TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{tmpDockerImage.Id}",
-                    
                 };
-                if (success > 0)
+                if (success)
                 {
                     response.State = "success";
                     response.Description = "Image successfully added to deploy-O-mat service";
                     try
                     {
-                        await _bus.SendCommand(new ServiceUpdateCommand
+                        _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
                         {
                             BuildId = tmpDockerImage.BuildId,
                             RepoName = tmpDockerImage.RepoName,
                             Tag = tmpDockerImage.Tag,
                             ServiceName = "test_test"
                         });
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error while calling rabbit");
                         response.Description = "Problems with Message Queue";
                     }
-                    
+
                 }
                 else
                 {

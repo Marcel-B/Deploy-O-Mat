@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.API", "Deploy_O_Mat.API\Deploy_O_Mat.API.csproj", "{FF76A3C9-AFD1-4282-9EB2-0A1C341A69B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Persistence", "Deploy_O_Mat.Persistence\Deploy_O_Mat.Persistence.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Data", "Deploy_O_Mat.Persistence\Deploy_O_Mat.Data.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Api", "Deploy_O_Mat.Service\Deploy_O_Mat.Service.Api.csproj", "{E99D834F-0159-471A-9841-34AB1F4B9931}"
 EndProject

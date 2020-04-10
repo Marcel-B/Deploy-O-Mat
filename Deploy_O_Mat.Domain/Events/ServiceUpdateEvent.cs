@@ -1,16 +1,16 @@
 ﻿using System;
 using MicroRabbit.Domain.Core.Events;
 
-namespace com.b_velop.Deploy_O_Mat.Application.Events
+namespace com.b_velop.Deploy_O_Mat.Domain.Events
 {
-    public class ServiceUpdateEvent : Event
+    public class ServiceUpdatedEvent : Event
     {
         public string ServiceName { get; set; }
         public string RepoName { get; set; }
         public string Tag { get; set; }
         public Guid BuildId { get; set; }
 
-        public ServiceUpdateEvent(
+        public ServiceUpdatedEvent(
             string serviceName,
             string repoName,
             string tag,
@@ -23,4 +23,3 @@ namespace com.b_velop.Deploy_O_Mat.Application.Events
         }
     }
 }
-

@@ -1,5 +1,6 @@
 ﻿using System;
-using com.b_velop.Deploy_O_Mat.Domain;
+using com.b_velop.Deploy_O_Mat.Data.Context;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace com.b_velop.Deploy_O_Mat.Persistence
@@ -42,7 +43,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence
                         RepoUrl = "https://hub.docker.com/r/millegalb/slipways.graphql",
                         BuildId = Guid.Parse("b37e3ea3-0134-4c51-a03d-35c9ad1f78c9")
                 },
-                                new DockerImage
+                new DockerImage
                 {
                         Id = Guid.Parse("8778DB42-363C-4088-B00E-129E5DB2C443"),
                         Created = DateTime.Parse("2019-11-28T21:50:43Z"),

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Domain;
-using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
@@ -15,23 +14,18 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
 
         public class Handler : IRequestHandler<Query, List<DockerImage>>
         {
-            private DataContext _dataContext;
+            private readonly IDockerImageRepository _repository;
 
             public Handler(
-                DataContext dataContext)
+                IDockerImageRepository repository)
             {
-                _dataContext = dataContext;
+                _repository = repository;
             }
 
             public async Task<List<DockerImage>> Handle(
                 Query request,
                 CancellationToken cancellationToken)
-            {
-                var dockerImages = await _dataContext.DockerImages.ToListAsync();
-                foreach (var dockerImage in dockerImages)
-                    dockerImage.Updated = dockerImage.Updated?.ToLocalTime();
-                return dockerImages;
-            }
+                => (await _repository.GetDockerImages()).ToList();
         }
     }
 }

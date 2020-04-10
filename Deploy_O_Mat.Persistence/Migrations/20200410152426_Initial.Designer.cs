@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using com.b_velop.Deploy_O_Mat.Persistence;
+using com.b_velop.Deploy_O_Mat.Data.Context;
 
-namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
+namespace com.b_velop.Deploy_O_Mat.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200407215032_ExtendRequestLog")]
-    partial class ExtendRequestLog
+    [Migration("20200410152426_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.DockerImage", b =>
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.Models.DockerImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,7 +33,22 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Dockerfile")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullDescription")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsOfficial")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPrivate")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -54,6 +69,12 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                     b.Property<string>("RepoUrl")
                         .HasColumnType("text");
 
+                    b.Property<int>("Stars")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("text");
+
                     b.Property<string>("Tag")
                         .HasColumnType("text");
 
@@ -65,7 +86,7 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                     b.ToTable("DockerImages");
                 });
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.RequestLog", b =>
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Domain.Models.RequestLog", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,6 +135,8 @@ namespace com.b_velop.Deploy_O_Mat.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Created");
 
                     b.ToTable("RequestLogs");
                 });

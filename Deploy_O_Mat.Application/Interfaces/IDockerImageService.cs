@@ -7,7 +7,8 @@ namespace com.b_velop.Deploy_O_Mat.Application.Interfaces
 {
     public interface IDockerImageService
     {
-        Task<IEnumerable<DockerImage>> GetDockerImages();
+        IAsyncEnumerable<DockerImage> GetDockerImages();
+        Task<DockerImage> CreateOrUpdateDockerImage(DockerImage dockerImage);
         void UpdateDockerService(DockerServiceUpdate dockerServiceUpdate);
     }
 }

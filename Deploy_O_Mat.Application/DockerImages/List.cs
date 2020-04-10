@@ -10,9 +10,9 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
     public class List
     {
-        public class Query : IRequest<List<DockerImage>> { }
+        public class Query : IRequest<IAsyncEnumerable<DockerImage>> { }
 
-        public class Handler : IRequestHandler<Query, List<DockerImage>>
+        public class Handler : IRequestHandler<Query, IAsyncEnumerable<DockerImage>>
         {
             private readonly IDockerImageRepository _repository;
 
@@ -22,10 +22,10 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                 _repository = repository;
             }
 
-            public async Task<List<DockerImage>> Handle(
+            public Task<IAsyncEnumerable<DockerImage>> Handle(
                 Query request,
                 CancellationToken cancellationToken)
-                => (await _repository.GetDockerImages()).ToList();
+                => Task.FromResult(_repository.GetDockerImages());
         }
     }
 }

@@ -35,18 +35,15 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
         {
             private readonly IDockerImageService _dockerImageService;
             private readonly ILogger<Handler> _logger;
-            private readonly IDockerImageRepository _repository;
             private readonly IMapper _mapper;
 
             public Handler(
                 IDockerImageService dockerImageService,
                 ILogger<Handler> logger,
-                IDockerImageRepository repository,
                 IMapper mapper)
             {
                 _dockerImageService = dockerImageService;
                 _logger = logger;
-                _repository = repository;
                 _mapper = mapper;
             }
 
@@ -55,14 +52,8 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                 CancellationToken cancellationToken)
             {
                 var dockerImage = _mapper.Map<DockerImage>(request);
-                var tmpDockerImage = await _repository.GetDockerImage(request.Id);
-
-                if (tmpDockerImage != null)
-                    tmpDockerImage = await _repository.UpdateDockerImage(request.Id, dockerImage);
-                else
-                    tmpDockerImage = _repository.CreateDockerImage(dockerImage);
-
-                var success = await _repository.SaveChanges();
+                var tmpDockerImage = await _dockerImageService.CreateOrUpdateDockerImage(dockerImage);
+        
 
                 var response = new DockerHubWebhookCallbackDto
                 {
@@ -70,7 +61,7 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                     State = "success",
                     TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{tmpDockerImage.Id}",
                 };
-                if (success)
+                if (tmpDockerImage != null)
                 {
                     response.State = "success";
                     response.Description = "Image successfully added to deploy-O-mat service";

@@ -31,8 +31,8 @@ namespace com.b_velop.Deploy_O_Mat.Data.Repository
             Guid id)
          => await _dataContext.DockerImages.FindAsync(id);
 
-        public async Task<List<DockerImage>> GetDockerImages()
-         => await _dataContext.DockerImages.ToListAsync();
+        public IAsyncEnumerable<DockerImage> GetDockerImages()
+         => _dataContext.DockerImages;
 
         public async Task<bool> SaveChanges()
             => await _dataContext.SaveChangesAsync() > 0;

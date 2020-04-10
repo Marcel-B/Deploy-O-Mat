@@ -38,7 +38,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IEventHandler<ServiceUpdateEvent>, ServiceUpdateEventHandler>();
 
             //Domain Commands
-            services.AddTransient<IRequestHandler<ServiceUpdateCommand, bool>, ServiceUpdateCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateServiceUpdateCommand, bool>, ServiceUpdateCommandHandler>();
 
             //Application Services
             services.AddTransient<IDockerServiceService, DockerServiceService>();

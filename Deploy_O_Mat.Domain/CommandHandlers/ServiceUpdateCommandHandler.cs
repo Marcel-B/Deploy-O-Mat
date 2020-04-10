@@ -8,7 +8,7 @@ using MicroRabbit.Domain.Core.Bus;
 
 namespace com.b_velop.Deploy_O_Mat.Domain.CommandHandlers
 {
-    public class ServiceUpdateCommandHandler : IRequestHandler<ServiceUpdateCommand, bool>
+    public class ServiceUpdateCommandHandler : IRequestHandler<CreateServiceUpdateCommand, bool>
     {
         private IEventBus _eventBus;
 
@@ -19,7 +19,7 @@ namespace com.b_velop.Deploy_O_Mat.Domain.CommandHandlers
         }
 
         public Task<bool> Handle(
-            ServiceUpdateCommand request,
+            CreateServiceUpdateCommand request,
             CancellationToken cancellationToken)
         {
             // Publish event to RabbitMQ

@@ -50,7 +50,8 @@ namespace com.b_velop.Deploy_O_Mat.Application.Services
             }
         }
 
-        public void UpdateDockerService(DockerServiceUpdate dockerServiceUpdate)
+        public void UpdateDockerService(
+            DockerServiceUpdate dockerServiceUpdate)
         {
             var createUpdateDockerServiceCommand = new CreateServiceUpdateCommand(
                 "service_name",

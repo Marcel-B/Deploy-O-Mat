@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
 
@@ -14,18 +13,18 @@ namespace com.b_velop.Deploy_O_Mat.Application.DockerImages
 
         public class Handler : IRequestHandler<Query, IEnumerable<DockerImage>>
         {
-            private readonly IRepositoryWrapper _repository;
+            private readonly IDockerImageService _dockerImageService;
 
             public Handler(
-                IRepositoryWrapper repository)
+                IDockerImageService dockerImageService)
             {
-                _repository = repository;
+                _dockerImageService = dockerImageService;
             }
 
             public async Task<IEnumerable<DockerImage>> Handle(
                 Query request,
                 CancellationToken cancellationToken)
-                => await _repository.DockerImages.SelectAllAsync(cancellationToken);
+                => await _dockerImageService.GetDockerImages();
         }
     }
 }

@@ -2,18 +2,43 @@ import agent from '../api/agent';
 import { configure, observable, action, runInAction, computed } from 'mobx';
 import { createContext } from 'react';
 import { IDockerImage } from '../models/dockerImage';
+import { IDockerService } from '../models/dockerService';
 
 configure({ enforceActions: 'always' });
 
 class DockerImageStore {
     @observable dockerImageRegistry = new Map();
+    @observable dockerServiceRegistry = new Map();
     @observable loadingInitial = false;
     @observable dockerImage: IDockerImage | null = null;
+    @observable dockerService: IDockerService | null = null;
 
     @computed get dockerImagesByUpdated() {
         return Array.from(this.dockerImageRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
+
+    @computed get dockerServicesByUpdated() {
+        return Array.from(this.dockerServiceRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
+    }
+
+    @action loadDockerServices = async () => {
+        try {
+            this.loadingInitial = true;
+            const dockerServices = await agent.DockerServices.list();
+            runInAction('loading dockerServices', () => {
+                dockerServices.forEach(dockerService => {
+                    this.dockerImageRegistry.set(dockerService.id, dockerService);
+                    this.loadingInitial = false;
+                });
+            });
+        } catch (error) {
+            runInAction('error loading dockerServices', () => {
+                console.log(error);
+                this.loadingInitial = false;
+            });
+        }
+    }
     @action loadDockerImages = async () => {
         try {
             this.loadingInitial = true;

@@ -3,7 +3,7 @@ import DockerImageList from './DockerImageList';
 import { Grid, Header, Icon } from 'semantic-ui-react';
 import DockerImageSidebar from './DockerImageSidebar';
 
-const DockerImage = () => {
+const DockerImageDashboard = () => {
     return (
         <Fragment>
             <Header as='h1' textAlign='center'>
@@ -12,7 +12,7 @@ const DockerImage = () => {
             </Header>
             <Grid>
                 <Grid.Column width={10}>
-                    <Header as='h2'>Services</Header>
+                    <Header as='h2'>Images</Header>
                     <DockerImageList />
                 </Grid.Column>
                 <Grid.Column width={6}>
@@ -24,4 +24,4 @@ const DockerImage = () => {
     );
 };
 
-export default DockerImage;
+export default DockerImageDashboard;

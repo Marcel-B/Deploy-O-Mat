@@ -5,15 +5,21 @@ import { NavLink } from 'react-router-dom';
 const NavBar: React.FC = () => {
     return (
         <Container>
-            <Menu fixed='top' inverted secondary  >
+            <Menu fixed='top' inverted secondary>
                 <Container>
-                    <Menu.Item
-                        as={NavLink}
-                        exact
-                    to={'/'}>
+                    <Menu.Item as={NavLink} exact to={'/'}>
                         <img src={'deploy.svg'} alt={'logo'}></img>
                     </Menu.Item>
 
+                    <Menu.Item
+                        header
+                        name='Images'
+                        exact
+                        as={NavLink}
+                        to={'/images'}
+                        // active={activeItem === 'home'}
+                        // onClick={this.handleItemClick}
+                    />
                     <Menu.Item
                         header
                         name='Services'

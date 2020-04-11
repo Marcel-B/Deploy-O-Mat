@@ -9,7 +9,8 @@ import BuildStatusDashboard from '../../features/build-status-dashboard/BuildSta
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
 import DockerImageDetails from '../../features/details/DockerImageDetails';
-import DockerImage from '../../features/dashboard/DockerImage';
+import DockerServiceDashboard from '../../features/dashboard/DockerServiceDashboard';
+import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
 
 function App() {
     const dockerImageStore = useContext(DockerImageStore);
@@ -23,13 +24,17 @@ function App() {
             <NavBar />
             <Container style={{ marginTop: '5em' }}>
                 <Route exact path='/' component={HomePage} />
-                <Route path='/services' component={DockerImage} />
+                <Route path='/images' component={DockerImageDashboard} />
+                <Route path='/services' component={DockerServiceDashboard} />
                 <Route
                     path='/buildStatusDashboard'
                     component={BuildStatusDashboard}
                 />
-                <Route path={'/dockerImageDetails/:id'} component={DockerImageDetails}/>
-                <Route path={'/disclaimer'} component={Disclaimer}/>
+                <Route
+                    path={'/dockerImageDetails/:id'}
+                    component={DockerImageDetails}
+                />
+                <Route path={'/disclaimer'} component={Disclaimer} />
             </Container>
             <Footer />
         </Fragment>

@@ -37,5 +37,12 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
             command.Id = id;
             return await _mediator.Send(command);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<bool>> ChangeState(
+            bool state)
+        {
+            return await Task.FromResult(true);
+        }
     }
 }

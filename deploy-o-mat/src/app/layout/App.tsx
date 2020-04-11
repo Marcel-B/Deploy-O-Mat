@@ -17,6 +17,7 @@ function App() {
 
     useEffect(() => {
         dockerImageStore.loadDockerImages();
+        dockerImageStore.loadDockerServices();
     }, [dockerImageStore]);
 
     return (

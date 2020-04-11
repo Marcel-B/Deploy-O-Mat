@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { Header, Icon, Grid } from 'semantic-ui-react';
-import DockerImageList from './DockerImageList';
 import DockerImageSidebar from './DockerImageSidebar';
 import DockerServiceList from './DockerServiceList';
 
@@ -25,4 +24,4 @@ const DockerServiceDashboard: React.FC = () => {
     );
 }
 
-export default DockerServiceDashboard
+export default DockerServiceDashboard;

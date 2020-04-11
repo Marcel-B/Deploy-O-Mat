@@ -15,7 +15,7 @@ const DockerImages = {
 }
 
 const DockerServices = {
-    list: (): Promise<IDockerService[]> => requests.get("dockerservice"),
+    list: (): Promise<IDockerService[]> => requests.get("/dockerservice"),
 }
 
 export default { DockerImages, DockerServices }

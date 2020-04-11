@@ -3,7 +3,7 @@ import DockerImageList from './DockerImageList';
 import { Grid, Header, Icon } from 'semantic-ui-react';
 import DockerImageSidebar from './DockerImageSidebar';
 
-const DockerImageDashboard = () => {
+const DockerImageDashboard: React.FC = () => {
     return (
         <Fragment>
             <Header as='h1' textAlign='center'>

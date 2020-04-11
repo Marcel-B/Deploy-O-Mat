@@ -17,7 +17,6 @@ class DockerImageStore {
         return Array.from(this.dockerImageRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
-
     @computed get dockerServicesByUpdated() {
         return Array.from(this.dockerServiceRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
@@ -28,7 +27,7 @@ class DockerImageStore {
             const dockerServices = await agent.DockerServices.list();
             runInAction('loading dockerServices', () => {
                 dockerServices.forEach(dockerService => {
-                    this.dockerImageRegistry.set(dockerService.id, dockerService);
+                    this.dockerServiceRegistry.set(dockerService.id, dockerService);
                     this.loadingInitial = false;
                 });
             });

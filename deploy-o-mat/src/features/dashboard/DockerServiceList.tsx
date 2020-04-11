@@ -11,7 +11,7 @@ const DockerServiceList: React.FC = () => {
     const { dockerServicesByUpdated } = dockerImageStore;
 
     if (dockerImageStore.loadingInitial)
-        return <LoadingComponent content='Loading images...' />;
+        return <LoadingComponent content='Loading services...' />;
 
     return (
         <Item.Group divided>

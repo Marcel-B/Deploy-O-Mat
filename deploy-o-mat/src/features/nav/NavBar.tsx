@@ -12,7 +12,6 @@ const NavBar: React.FC = () => {
                     </Menu.Item>
 
                     <Menu.Item
-                        header
                         name='Images'
                         exact
                         as={NavLink}
@@ -21,7 +20,6 @@ const NavBar: React.FC = () => {
                         // onClick={this.handleItemClick}
                     />
                     <Menu.Item
-                        header
                         name='Services'
                         exact
                         as={NavLink}

@@ -1,10 +1,9 @@
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.API.Middlewares;
+using com.b_velop.Deploy_O_Mat.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Application.Helpers;
-using com.b_velop.Deploy_O_Mat.Application.Images;
 using com.b_velop.Deploy_O_Mat.Data.Context;
 using com.b_velop.Deploy_O_Mat.Domain.CommandHandlers;
-using com.b_velop.Deploy_O_Mat.Persistence;
 using com.b_velop.Utilities.Docker;
 using MediatR;
 using MicroRabbit.Infra.IoC;

@@ -22,8 +22,8 @@ namespace com.b_velop.Deploy_O_Mat.API.Controllers
         }
 
         [HttpGet]
-        public Task<IAsyncEnumerable<DockerImage>> List()
-            => _mediator.Send(new List.Query());
+        public async Task<IEnumerable<DockerImage>> List()
+            => await _mediator.Send(new List.Query());
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DockerImage>> Details(Guid id)

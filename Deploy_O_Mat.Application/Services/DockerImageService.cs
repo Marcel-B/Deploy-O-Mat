@@ -12,49 +12,47 @@ namespace com.b_velop.Deploy_O_Mat.Application.Services
 {
     public class DockerImageService : IDockerImageService
     {
-        private readonly IDockerImageRepository _dockerImageRepository;
+        private readonly IRepositoryWrapper _repository;
         private readonly IEventBus _bus;
 
         public DockerImageService(
-            IDockerImageRepository dockerImageRepository,
-                IEventBus bus)
+            IRepositoryWrapper repository,
+            IEventBus bus)
         {
-            _dockerImageRepository = dockerImageRepository;
+            _repository = repository;
             _bus = bus;
         }
 
         public async Task<DockerImage> CreateOrUpdateDockerImage(
             DockerImage dockerImage)
         {
-            var tmpDockerImage = await _dockerImageRepository.GetDockerImage(dockerImage.Id);
+            var tmpDockerImage = _repository.DockerImages.SelectById(dockerImage.Id);
 
-            if (tmpDockerImage != null)
-                tmpDockerImage = await _dockerImageRepository.UpdateDockerImage(dockerImage.Id, dockerImage);
-            else
-                tmpDockerImage = _dockerImageRepository.CreateDockerImage(dockerImage);
-
-            var success = await _dockerImageRepository.SaveChanges();
+            if (tmpDockerImage != null && await _repository.DockerImages.UpdateAsync(dockerImage, tmpDockerImage))
+            {
+                return tmpDockerImage;
+            }
+            tmpDockerImage = _repository.DockerImages.Insert(dockerImage);
+            var success = tmpDockerImage != null;// await _repository.SaveChangesAsync();
             if (success)
                 return tmpDockerImage;
 
             return null;
         }
 
-        public async IAsyncEnumerable<DockerImage> GetDockerImages()
+        public async Task<IEnumerable<DockerImage>> GetDockerImages()
         {
-            var dockerImages = _dockerImageRepository.GetDockerImages();
-            await foreach (var dockerImage in dockerImages)
-            {
+            var dockerImages = await _repository.DockerImages.SelectAllAsync();
+            foreach (var dockerImage in dockerImages)
                 dockerImage.Updated = dockerImage.Updated?.ToLocalTime();
-                yield return dockerImage;
-            }
+            return dockerImages;
         }
 
         public void UpdateDockerService(
             DockerServiceUpdate dockerServiceUpdate)
         {
             var createUpdateDockerServiceCommand = new CreateServiceUpdateCommand(
-                "service_name",
+                dockerServiceUpdate.ServiceName,
                 dockerServiceUpdate.RepoName,
                 dockerServiceUpdate.Tag,
                 dockerServiceUpdate.BuildId);

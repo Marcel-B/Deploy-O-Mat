@@ -10,6 +10,7 @@ namespace com.b_velop.Deploy_O_Mat.Data.Context
 
         public DbSet<DockerImage> DockerImages { get; set; }
         public DbSet<RequestLog> RequestLogs { get; set; }
+        public DbSet<DockerStackService> DockerStackServices { get; set; }
 
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)

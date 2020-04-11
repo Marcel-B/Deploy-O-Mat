@@ -1,59 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Data.Context;
 using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Data.Repository
 {
-    public class DockerImageRepository : IDockerImageRepository
+    public class DockerImageRepository : RepositoryBase<DockerImage>, IDockerImageRepository
     {
-        private readonly DataContext _dataContext;
-
         public DockerImageRepository(
-            DataContext dataContext)
+            DataContext dataContext,
+            ILogger<RepositoryBase<DockerImage>> logger) : base(dataContext, logger)
         {
-            _dataContext = dataContext;
         }
 
-        public DockerImage CreateDockerImage(
-            DockerImage dockerImage)
-            => _dataContext.DockerImages.Add(dockerImage).Entity;
-
-        public async Task<DockerImage> DeleteDockerImage(
-            Guid id)
-            => _dataContext.Remove(await _dataContext.DockerImages.FindAsync(id)).Entity;
-
-        public async Task<DockerImage> GetDockerImage(
-            Guid id)
-         => await _dataContext.DockerImages.FindAsync(id);
-
-        public IAsyncEnumerable<DockerImage> GetDockerImages()
-         => _dataContext.DockerImages;
-
-        public async Task<bool> SaveChanges()
-            => await _dataContext.SaveChangesAsync() > 0;
-
-        public async Task<DockerImage> UpdateDockerImage(
-            Guid id,
-            DockerImage dockerImage)
+        public override async Task<bool> UpdateAsync(DockerImage entity, DockerImage old, CancellationToken cancellationToken = default)
         {
-            var tmpDockerImage = await _dataContext.DockerImages.FindAsync(dockerImage.Id);
+            if (old == null)
+                throw new ArgumentException($"Entity with key '{entity.Id}' not found", nameof(old));
 
-            if (tmpDockerImage == null)
-                throw new KeyNotFoundException($"Entity with key '{id}' not found");
             else
             {
-                tmpDockerImage.BuildId = Guid.NewGuid();
-                tmpDockerImage.Pusher = dockerImage.Pusher;
-                tmpDockerImage.Tag = dockerImage.Tag;
-                tmpDockerImage.Updated = dockerImage.Updated;
-                tmpDockerImage.Dockerfile = dockerImage.Dockerfile;
+                old.BuildId = Guid.NewGuid();
+                old.Pusher = entity.Pusher;
+                old.Tag = entity.Tag;
+                old.Updated = entity.Updated;
+                old.Dockerfile = entity.Dockerfile;
             }
-            return tmpDockerImage;
+            var o = await Context.SaveChangesAsync();
+            return o > 0;
         }
     }
 }

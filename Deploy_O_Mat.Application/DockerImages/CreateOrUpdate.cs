@@ -4,12 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Data.Context;
-using com.b_velop.Deploy_O_Mat.Domain.Commands;
-using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
-using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
@@ -53,7 +49,6 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
             {
                 var dockerImage = _mapper.Map<DockerImage>(request);
                 var tmpDockerImage = await _dockerImageService.CreateOrUpdateDockerImage(dockerImage);
-        
 
                 var response = new DockerHubWebhookCallbackDto
                 {
@@ -67,20 +62,23 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                     response.Description = "Image successfully added to deploy-O-mat service";
                     try
                     {
-                        _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
-                        {
-                            BuildId = tmpDockerImage.BuildId,
-                            RepoName = tmpDockerImage.RepoName,
-                            Tag = tmpDockerImage.Tag,
-                            ServiceName = "test_test"
-                        });
+                        if (tmpDockerImage.DockerStackServices != null)
+                            foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
+                            {
+                                _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
+                                {
+                                    BuildId = tmpDockerImage.BuildId,
+                                    RepoName = tmpDockerImage.RepoName,
+                                    Tag = tmpDockerImage.Tag,
+                                    ServiceName = dockerStackService.Name
+                                });
+                            }
                     }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error while calling rabbit");
                         response.Description = "Problems with Message Queue";
                     }
-
                 }
                 else
                 {

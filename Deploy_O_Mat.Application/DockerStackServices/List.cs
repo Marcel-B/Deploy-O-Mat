@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
 
-namespace com.b_velop.Deploy_O_Mat.Application.DockerImages
+namespace com.b_velop.Deploy_O_Mat.Application.DockerStackServices
 {
     public class List
     {
-        public class Query : IRequest<IEnumerable<DockerImage>> { }
+        public class Query : IRequest<IEnumerable<DockerStackService>> { }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<DockerImage>>
+        public class Handler : IRequestHandler<Query, IEnumerable<DockerStackService>>
         {
             private readonly IRepositoryWrapper _repository;
 
@@ -22,10 +21,10 @@ namespace com.b_velop.Deploy_O_Mat.Application.DockerImages
                 _repository = repository;
             }
 
-            public async Task<IEnumerable<DockerImage>> Handle(
+            public async Task<IEnumerable<DockerStackService>> Handle(
                 Query request,
                 CancellationToken cancellationToken)
-                => await _repository.DockerImages.SelectAllAsync(cancellationToken);
+                => await _repository.DockerStackServices.SelectAllAsync(cancellationToken);
         }
     }
 }

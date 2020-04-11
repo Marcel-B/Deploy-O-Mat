@@ -57,6 +57,7 @@ namespace com.b_velop.Deploy_O_Mat.API
                 if (Env.IsDevelopment())
                     connection = Configuration.GetConnectionString("postgres");
                 options.UseNpgsql(connection);
+                options.UseLazyLoadingProxies();
             });
             DependencyContainer.RegisterServices(services);
         }

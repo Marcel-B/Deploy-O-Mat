@@ -23,6 +23,7 @@ namespace com.b_velop.Deploy_O_Mat.Domain.CommandHandlers
             CancellationToken cancellationToken)
         {
             // Publish event to RabbitMQ
+            Console.WriteLine("Now publish");
             _eventBus.Publish(new ServiceUpdatedEvent(request.ServiceName, request.RepoName, request.Tag, request.BuildId));
             return Task.FromResult(true);
         }

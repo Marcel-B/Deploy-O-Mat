@@ -3,14 +3,14 @@ using MicroRabbit.Domain.Core.Events;
 
 namespace Deploy_O_Mat.Service.Domain.Events
 {
-    public class ServiceUpdateEvent : Event
+    public class ServiceUpdatedEvent : Event
     {
         public string ServiceName { get; set; }
         public string RepoName { get; set; }
         public string Tag { get; set; }
         public Guid BuildId { get; set; }
 
-        public ServiceUpdateEvent(
+        public ServiceUpdatedEvent(
             string serviceName,
             string repoName,
             string tag,
@@ -23,4 +23,3 @@ namespace Deploy_O_Mat.Service.Domain.Events
         }
     }
 }
-

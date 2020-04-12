@@ -9,10 +9,10 @@ namespace Deploy_O_Mat.Service.Data.Repository
     {
         private readonly DockerServiceDbContext _ctx;
 
-        public DockerServiceRepository(
-            DockerServiceDbContext ctx)
+        public DockerServiceRepository()
+            //DockerServiceDbContext ctx)
         {
-            _ctx = ctx;
+            //_ctx = ctx;
         }
 
         public IEnumerable<DockerService> GetDockerServices()

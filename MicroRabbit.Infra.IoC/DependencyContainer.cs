@@ -3,10 +3,7 @@ using com.b_velop.Deploy_O_Mat.Application.Services;
 using com.b_velop.Deploy_O_Mat.Domain.CommandHandlers;
 using com.b_velop.Deploy_O_Mat.Domain.Commands;
 using com.b_velop.Deploy_O_Mat.Data.Context;
-
-using Deploy_O_Mat.Service.Application.Interfaces;
 using Deploy_O_Mat.Service.Application.Services;
-using Deploy_O_Mat.Service.Data.Context;
 using Deploy_O_Mat.Service.Data.Repository;
 using Deploy_O_Mat.Service.Domain.EventHandlers;
 using Deploy_O_Mat.Service.Domain.Events;
@@ -26,16 +23,21 @@ namespace MicroRabbit.Infra.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<SecretProvider>();
+            services.AddTransient<SecretProvider>();
 
-            // Domain Bus
-            services.AddTransient<IEventBus, RabbitMQBus>();
+            //Domain Bus
+            services.AddSingleton<IEventBus, RabbitMQBus>(sp =>
+            {
+                var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
+                return new RabbitMQBus(sp.GetService<IMediator>(), scopeFactory, sp.GetService<SecretProvider>());
+            });
+
 
             //Subscriptions
             services.AddTransient<ServiceUpdateEventHandler>();
 
             //Domain Events
-            services.AddTransient<IEventHandler<ServiceUpdateEvent>, ServiceUpdateEventHandler>();
+            services.AddTransient<IEventHandler<ServiceUpdatedEvent>, ServiceUpdateEventHandler>();
 
             //Domain Commands
             services.AddTransient<IRequestHandler<CreateServiceUpdateCommand, bool>, ServiceUpdateCommandHandler>();
@@ -49,7 +51,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IDockerImageRepository, DockerImageRepository>();
             services.AddTransient<IDockerStackServiceRepository, DockerStackServiceRespository>();
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddTransient<DockerServiceDbContext>();
+            //services.AddTransient<DockerServiceDbContext>();
             services.AddTransient<DataContext>();
         }
     }

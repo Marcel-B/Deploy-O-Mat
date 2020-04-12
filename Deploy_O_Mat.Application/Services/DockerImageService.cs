@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Application.Models;
@@ -33,7 +32,7 @@ namespace com.b_velop.Deploy_O_Mat.Application.Services
                 return tmpDockerImage;
             }
             tmpDockerImage = _repository.DockerImages.Insert(dockerImage);
-            var success = tmpDockerImage != null;// await _repository.SaveChangesAsync();
+            var success = tmpDockerImage != null;
             if (success)
                 return tmpDockerImage;
 

@@ -56,23 +56,25 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
                     State = "success",
                     TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{tmpDockerImage.Id}",
                 };
+
                 if (tmpDockerImage != null)
                 {
                     response.State = "success";
                     response.Description = "Image successfully added to deploy-O-mat service";
                     try
                     {
-                        if (tmpDockerImage.DockerStackServices != null)
-                            foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
-                            {
-                                _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
+                        if (tmpDockerImage.IsActive)
+                            if (tmpDockerImage.DockerStackServices != null)
+                                foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
                                 {
-                                    BuildId = tmpDockerImage.BuildId,
-                                    RepoName = tmpDockerImage.RepoName,
-                                    Tag = tmpDockerImage.Tag,
-                                    ServiceName = dockerStackService.Name
-                                });
-                            }
+                                    _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
+                                    {
+                                        BuildId = tmpDockerImage.BuildId,
+                                        RepoName = tmpDockerImage.RepoName,
+                                        Tag = tmpDockerImage.Tag,
+                                        ServiceName = dockerStackService.Name
+                                    });
+                                }
                     }
                     catch (Exception ex)
                     {

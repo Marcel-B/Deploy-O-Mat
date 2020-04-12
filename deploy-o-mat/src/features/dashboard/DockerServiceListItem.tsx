@@ -35,7 +35,9 @@ const DockerServiceListItem: React.FC<{ dockerService: IDockerService }> = ({
                 </Segment>
                 <Segment>
                     <Item.Group>
-                        <Button content='Update' color='green' />
+                        <Button content='Start' color='green' />
+                        <Button content='Update' color='blue' />
+                        <Button content='Stop' color='red'/>
                     </Item.Group>
                 </Segment>
             </Segment.Group>

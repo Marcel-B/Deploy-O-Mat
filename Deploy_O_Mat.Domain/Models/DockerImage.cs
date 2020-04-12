@@ -28,5 +28,6 @@ namespace com.b_velop.Deploy_O_Mat.Domain.Models
         public bool IsActive { get; set; } = false;
 
         public virtual ICollection<DockerStackService> DockerStackServices { get; set; }
+        public virtual ICollection<Badge> Badges { get; set; }
     }
 }

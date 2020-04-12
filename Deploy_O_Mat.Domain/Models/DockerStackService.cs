@@ -13,6 +13,7 @@ namespace com.b_velop.Deploy_O_Mat.Domain.Models
         public DateTime? Updated { get; set; }
         public string Name { get; set; }
         public string MachineName { get; set; }
+        public bool IsActive { get; set; }
 
         public Guid DockerImageId { get; set; }
         public virtual DockerImage DockerImage { get; set; }

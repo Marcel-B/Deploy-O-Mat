@@ -1,14 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import DockerImageStore from '../../app/stores/dockerImageStore';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
 import { Segment, Header, Grid, Item } from 'semantic-ui-react';
 import ReactTimeago from 'react-timeago';
-
-const dockerfileDisplay = {
-    display: 'block',
-};
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 interface IDetailParams {
     id: string;
@@ -16,8 +12,8 @@ interface IDetailParams {
 const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
     match,
 }) => {
-    const dockerImageStore = useContext(DockerImageStore);
-    const { dockerImage, loadDockerImage, loadingInitial } = dockerImageStore;
+    const rootStore = useContext(RootStoreContext);
+    const { dockerImage, loadDockerImage, loadingInitial } = rootStore.dockerImageStore;
 
     useEffect(() => {
         loadDockerImage(match.params.id);

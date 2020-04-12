@@ -8,9 +8,9 @@ const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
     dockerImage,
 }) => {
     return (
-        <Fragment >
-            <Segment.Group >
-                <Segment >
+        <Fragment>
+            <Segment.Group>
+                <Segment>
                     <Item.Group>
                         <Item>
                             <span style={{ marginBottom: '4px' }}>
@@ -46,6 +46,14 @@ const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
                     </Item.Group>
                 </Segment>
                 <Segment clearing>
+                    <Button
+                        as={Link}
+                        to={`/dockerImageDetails/${dockerImage.id}`}
+                        toggle
+                        floated='right'
+                        color='green'
+                        content='Pull'
+                    />
                     <Button
                         as={Link}
                         to={`/dockerImageDetails/${dockerImage.id}`}

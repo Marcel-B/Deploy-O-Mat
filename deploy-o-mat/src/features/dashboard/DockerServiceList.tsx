@@ -1,22 +1,23 @@
 import React, { useContext } from 'react';
 import { Item } from 'semantic-ui-react';
-import DockerImageStore from '../../app/stores/dockerImageStore';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
 import { IDockerService } from '../../app/models/dockerService';
 import { observer } from 'mobx-react-lite';
+import DockerServiceListItem from './DockerServiceListItem';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 
 const DockerServiceList: React.FC = () => {
-    const dockerImageStore = useContext(DockerImageStore);
-    const { dockerServicesByUpdated } = dockerImageStore;
+    const rootStore = useContext(RootStoreContext);
+    const { dockerServicesByUpdated } = rootStore.dockerServiceStore;
 
-    if (dockerImageStore.loadingInitial)
+    if (rootStore.dockerImageStore.loadingInitial)
         return <LoadingComponent content='Loading services...' />;
 
     return (
         <Item.Group divided>
             {dockerServicesByUpdated.map((dockerService: IDockerService) => (
-                <p>{dockerService.name}</p>
+                <DockerServiceListItem key={dockerService.id} dockerService={dockerService}/>
             ))}
         </Item.Group>
     );

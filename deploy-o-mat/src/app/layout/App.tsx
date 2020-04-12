@@ -1,7 +1,6 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import NavBar from '../../features/nav/NavBar';
 import { Container } from 'semantic-ui-react';
-import DockerImageStore from '../stores/dockerImageStore';
 import { observer } from 'mobx-react-lite';
 import Footer from '../../features/footer/Footer';
 import { Route } from 'react-router-dom';
@@ -13,12 +12,6 @@ import DockerServiceDashboard from '../../features/dashboard/DockerServiceDashbo
 import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
 
 function App() {
-    const dockerImageStore = useContext(DockerImageStore);
-
-    useEffect(() => {
-        dockerImageStore.loadDockerImages();
-        dockerImageStore.loadDockerServices();
-    }, [dockerImageStore]);
 
     return (
         <Fragment>

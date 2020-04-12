@@ -1,69 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
     public class PushData
     {
-        [JsonPropertyName("pushed_at")]
+        [JsonProperty("pushed_at")]
         public double PushedAt { get; set; }
 
-        [JsonPropertyName("images")]
+        [JsonProperty("images")]
         public List<string> Images { get; set; }
 
-        [JsonPropertyName("tag")]
+        [JsonProperty("tag")]
         public string Tag { get; set; }
 
-        [JsonPropertyName("pusher")]
+        [JsonProperty("pusher")]
         public string Pusher { get; set; }
     }
 
     public class Repository
     {
-        [JsonPropertyName("status")]
+        [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonPropertyName("description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonPropertyName("is_trusted")]
+        [JsonProperty("is_trusted")]
         public bool IsTrusted { get; set; }
 
-        [JsonPropertyName("full_description")]
+        [JsonProperty("full_description")]
         public string FullDescription { get; set; }
 
-        [JsonPropertyName("repo_url")]
+        [JsonProperty("repo_url")]
         public string RepoUrl { get; set; }
 
-        [JsonPropertyName("owner")]
+        [JsonProperty("owner")]
         public string Owner { get; set; }
 
-        [JsonPropertyName("is_official")]
+        [JsonProperty("is_official")]
         public bool IsOfficial { get; set; }
 
-        [JsonPropertyName("is_private")]
+        [JsonProperty("is_private")]
         public bool IsPrivate { get; set; }
 
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("namespace")]
+        [JsonProperty("namespace")]
         public string Namespace { get; set; }
 
-        [JsonPropertyName("star_count")]
+        [JsonProperty("star_count")]
         public int StarsCount { get; set; }
 
-        [JsonPropertyName("comment_count")]
+        [JsonProperty("comment_count")]
         public int CommentCount { get; set; }
 
-        [JsonPropertyName("date_created")]
+        [JsonProperty("date_created")]
         public double DateCreated { get; set; }
 
-        [JsonPropertyName("repo_name")]
+        [JsonProperty("repo_name")]
         public string RepoName { get; set; }
 
-        [JsonPropertyName("dockerfile")]
+        [JsonProperty("dockerfile")]
         public string Dockerfile { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +6,7 @@ using com.b_velop.Deploy_O_Mat.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Domain.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace com.b_velop.Deploy_O_Mat.Application.Images
 {
@@ -17,13 +17,13 @@ namespace com.b_velop.Deploy_O_Mat.Application.Images
         {
             public Guid Id { get; set; }
 
-            [JsonPropertyName("push_data")]
+            [JsonProperty("push_data")]
             public PushData PushData { get; set; }
 
-            [JsonPropertyName("callback_url")]
+            [JsonProperty("callback_url")]
             public string CallbackUrl { get; set; }
 
-            [JsonPropertyName("repository")]
+            [JsonProperty("repository")]
             public Repository Repository { get; set; }
         }
 

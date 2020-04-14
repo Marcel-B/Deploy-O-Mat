@@ -24,8 +24,8 @@ RUN dotnet restore "Deploy_O_Mat.API/Deploy_O_Mat.API.csproj"
 COPY . .
 
 # Build API
-WORKDIR "/src/Deploy_O_Mat.API"
-RUN dotnet build "Deploy_O_Mat.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Deploy_O_Mat.Web.API"
+RUN dotnet build "Deploy_O_Mat.Web.API.csproj" -c Release -o /app/build
 
 # Restore and Build SPA
 WORKDIR "/src/deploy-o-mat"
@@ -34,11 +34,11 @@ RUN npm install
 RUN npm run build
 
 # Publish
-WORKDIR "/src/Deploy_O_Mat.API"
+WORKDIR "/src/Deploy_O_Mat.Web.API"
 FROM build AS publish
-RUN dotnet publish "Deploy_O_Mat.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Deploy_O_Mat.Web.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Deploy_O_Mat.API.dll"]
+ENTRYPOINT ["dotnet", "Deploy_O_Mat.Web.API.dll"]

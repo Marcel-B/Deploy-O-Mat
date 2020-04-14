@@ -32,7 +32,6 @@ namespace MicroRabbit.Infra.IoC
                 return new RabbitMQBus(sp.GetService<IMediator>(), scopeFactory, sp.GetService<SecretProvider>());
             });
 
-
             //Subscriptions
             services.AddTransient<ServiceUpdateEventHandler>();
 
@@ -51,7 +50,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IDockerImageRepository, DockerImageRepository>();
             services.AddTransient<IDockerStackServiceRepository, DockerStackServiceRespository>();
             //services.AddTransient<DockerServiceDbContext>();
-            services.AddTransient<WebContext>();
+            //services.AddTransient<WebContext>();
         }
     }
 }

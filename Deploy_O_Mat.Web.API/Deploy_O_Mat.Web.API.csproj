@@ -27,10 +27,10 @@
     <ProjectReference Include="..\MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\Deploy_O_Mat.Service.Application\Deploy_O_Mat.Service.Application.csproj">
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj">
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

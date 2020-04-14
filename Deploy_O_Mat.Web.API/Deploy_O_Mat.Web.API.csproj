@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>com.b_velop.Deploy_O_Mat.Web.API</RootNamespace>
-    <AssemblyName>Deploy_O_Mat.API</AssemblyName>
+    <AssemblyName>Deploy_O_Mat.Web.API</AssemblyName>
   </PropertyGroup>
 
 

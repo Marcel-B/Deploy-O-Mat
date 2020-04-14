@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Domain", "Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj", "{54C5A41D-A6CA-4940-A773-459C35F42F83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Domain", "Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj", "{54C5A41D-A6CA-4940-A773-459C35F42F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Application", "Deploy_O_Mat.Application\Deploy_O_Mat.Application.csproj", "{DED9DDF3-DDB6-4E80-B8C7-AD790305DE0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Application", "Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj", "{DED9DDF3-DDB6-4E80-B8C7-AD790305DE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.API", "Deploy_O_Mat.API\Deploy_O_Mat.API.csproj", "{FF76A3C9-AFD1-4282-9EB2-0A1C341A69B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.API", "Deploy_O_Mat.Web.API\Deploy_O_Mat.Web.API.csproj", "{FF76A3C9-AFD1-4282-9EB2-0A1C341A69B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Data", "Deploy_O_Mat.Persistence\Deploy_O_Mat.Data.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Data", "Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Api", "Deploy_O_Mat.Service\Deploy_O_Mat.Service.Api.csproj", "{E99D834F-0159-471A-9841-34AB1F4B9931}"
 EndProject

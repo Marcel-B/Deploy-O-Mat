@@ -46,6 +46,7 @@ export default class DockerImageStore {
                 runInAction('getting dockerImage', () => {
                     this.dockerImage = dockerImage;
                     this.loadingInitial = false;
+                    this.dockerImageRegistry.set(dockerImage.id, dockerImage);
                 })
             } catch (error) {
                 runInAction('get dockerimage error', () => {

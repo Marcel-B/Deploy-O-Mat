@@ -13,8 +13,9 @@
     <ProjectReference Include="..\Deploy_O_Mat.Service.Application\Deploy_O_Mat.Service.Application.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Service.Domain\Deploy_O_Mat.Service.Domain.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Service.Data\Deploy_O_Mat.Service.Data.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Application\Deploy_O_Mat.Application.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Persistence\Deploy_O_Mat.Data.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj" />
   </ItemGroup>
 </Project>

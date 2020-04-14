@@ -1,9 +1,4 @@
-﻿using com.b_velop.Deploy_O_Mat.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Application.Services;
-using com.b_velop.Deploy_O_Mat.Domain.CommandHandlers;
-using com.b_velop.Deploy_O_Mat.Domain.Commands;
-using com.b_velop.Deploy_O_Mat.Data.Context;
-using Deploy_O_Mat.Service.Application.Services;
+﻿using Deploy_O_Mat.Service.Application.Services;
 using Deploy_O_Mat.Service.Data.Repository;
 using Deploy_O_Mat.Service.Domain.EventHandlers;
 using Deploy_O_Mat.Service.Domain.Events;
@@ -14,8 +9,13 @@ using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.Bus;
 using Microsoft.Extensions.DependencyInjection;
 using com.b_velop.Utilities.Docker;
-using com.b_velop.Deploy_O_Mat.Domain.Interfaces;
-using com.b_velop.Deploy_O_Mat.Data.Repository;
+using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
+using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Services;
+using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Data.Repository;
+using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 
 namespace MicroRabbit.Infra.IoC
 {
@@ -31,7 +31,6 @@ namespace MicroRabbit.Infra.IoC
                 var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
                 return new RabbitMQBus(sp.GetService<IMediator>(), scopeFactory, sp.GetService<SecretProvider>());
             });
-
 
             //Subscriptions
             services.AddTransient<ServiceUpdateEventHandler>();
@@ -50,9 +49,8 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();
             services.AddTransient<IDockerImageRepository, DockerImageRepository>();
             services.AddTransient<IDockerStackServiceRepository, DockerStackServiceRespository>();
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             //services.AddTransient<DockerServiceDbContext>();
-            services.AddTransient<DataContext>();
+            //services.AddTransient<WebContext>();
         }
     }
 }

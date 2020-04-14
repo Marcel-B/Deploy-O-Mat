@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Domain", "Deploy_O_Mat.Domain\Deploy_O_Mat.Domain.csproj", "{54C5A41D-A6CA-4940-A773-459C35F42F83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Domain", "Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj", "{54C5A41D-A6CA-4940-A773-459C35F42F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Application", "Deploy_O_Mat.Application\Deploy_O_Mat.Application.csproj", "{DED9DDF3-DDB6-4E80-B8C7-AD790305DE0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Application", "Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj", "{DED9DDF3-DDB6-4E80-B8C7-AD790305DE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.API", "Deploy_O_Mat.API\Deploy_O_Mat.API.csproj", "{FF76A3C9-AFD1-4282-9EB2-0A1C341A69B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.API", "Deploy_O_Mat.Web.API\Deploy_O_Mat.Web.API.csproj", "{FF76A3C9-AFD1-4282-9EB2-0A1C341A69B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Data", "Deploy_O_Mat.Persistence\Deploy_O_Mat.Data.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Data", "Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj", "{6D906209-6B3F-4980-8E42-5CA6391A6625}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Api", "Deploy_O_Mat.Service\Deploy_O_Mat.Service.Api.csproj", "{E99D834F-0159-471A-9841-34AB1F4B9931}"
 EndProject
@@ -52,6 +52,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E3B1E4A0-AE26-40A5-B4D0-1BC8CC0AB445}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{C5CBEF16-83E1-425E-ADC7-B61D4FCEEBED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{1A8A3AC1-62BF-47E9-B6C0-15CA7F7B3D73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Identity", "Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj", "{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +111,10 @@ Global
 		{1F8A71E7-0C98-4834-9B17-440AA78E19EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F8A71E7-0C98-4834-9B17-440AA78E19EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F8A71E7-0C98-4834-9B17-440AA78E19EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +145,7 @@ Global
 		{03FC0FC4-6DBF-4AD4-B82E-650160E46DCE} = {4C77F209-A1B6-47E8-92AA-957E1C265347}
 		{E3B1E4A0-AE26-40A5-B4D0-1BC8CC0AB445} = {4C77F209-A1B6-47E8-92AA-957E1C265347}
 		{C5CBEF16-83E1-425E-ADC7-B61D4FCEEBED} = {4C77F209-A1B6-47E8-92AA-957E1C265347}
+		{1A8A3AC1-62BF-47E9-B6C0-15CA7F7B3D73} = {4C77F209-A1B6-47E8-92AA-957E1C265347}
+		{BE955FD6-C670-4E8F-B59C-D9CF8BB69E9B} = {1A8A3AC1-62BF-47E9-B6C0-15CA7F7B3D73}
 	EndGlobalSection
 EndGlobal

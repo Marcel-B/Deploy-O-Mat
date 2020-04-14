@@ -1,9 +1,11 @@
 ﻿using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Context
 {
-    public class WebContext : DbContext
+    public class WebContext : IdentityDbContext<AppUser>
     {
         public WebContext(
             DbContextOptions options) : base(options) { }

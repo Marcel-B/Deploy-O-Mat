@@ -22,5 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj" />
   </ItemGroup>
 </Project>

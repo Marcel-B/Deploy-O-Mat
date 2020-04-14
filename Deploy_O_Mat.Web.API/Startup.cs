@@ -4,11 +4,13 @@ using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
 using com.b_velop.Utilities.Docker;
 using MediatR;
 using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +64,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 options.UseNpgsql(connection);
                 options.UseLazyLoadingProxies();
             });
+
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<WebContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
             DependencyContainer.RegisterServices(services);
         }
 

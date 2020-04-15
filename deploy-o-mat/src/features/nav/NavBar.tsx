@@ -1,14 +1,18 @@
-import React from 'react';
-import { Menu, Container } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Menu, Container, Dropdown, Image } from 'semantic-ui-react';
+import { NavLink, Link } from 'react-router-dom';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBar: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
+    const { user, isLoggedIn } = rootStore.userStore;
+
     return (
         <Container>
             <Menu fixed='top' inverted secondary>
                 <Container>
                     <Menu.Item as={NavLink} exact to={'/'}>
-                        <img src={'deploy.svg'} alt={'logo'}></img>
+                        <Image src={'/assets/deploy.svg'} alt={'logo'} size='mini'/>
                     </Menu.Item>
 
                     <Menu.Item
@@ -40,19 +44,34 @@ const NavBar: React.FC = () => {
                         as={NavLink}
                         to={'/disclaimer'}
                     />
-
-                    <Menu.Menu position='right'>
-                        {/* <Menu.Item>
-                            <Input icon='search' placeholder='Search...' />
-                        </Menu.Item> */}
-                        <Menu.Item
-                            name='login'
-                            as={NavLink}
-                            to={'/login'}
-                            // active={activeItem === 'logout'}
-                            // onClick={this.handleItemClick}
-                        />
-                    </Menu.Menu>
+                    {user && isLoggedIn ? (
+                        <Menu.Item position='right'>
+                            <Image
+                                avatar
+                                spaced='right'
+                                src={'/assets/user.png'}
+                            />
+                            <Dropdown pointing='top left' text='user'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item
+                                        as={Link}
+                                        to={`/profile/username`}
+                                        text='My profile'
+                                        icon='user'
+                                    />
+                                    <Dropdown.Item text='Logout' icon='power' />
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Menu.Item>
+                    ) : (
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                name='login'
+                                as={NavLink}
+                                to={'/login'}
+                            />
+                        </Menu.Menu>
+                    )}
                 </Container>
             </Menu>
         </Container>

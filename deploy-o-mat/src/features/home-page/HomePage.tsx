@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Header } from 'semantic-ui-react';
+import { Icon, Header, Image } from 'semantic-ui-react';
 
 const HomePage: React.FC = () => {
     return (
@@ -15,25 +15,10 @@ const HomePage: React.FC = () => {
             </h1>
 
             <Header>
-                <Icon.Group>
-                    <Icon
-                        name='computer'
-                        size='small'
-                        style={{
-                            marginRight: '8px',
-                        }}
-                    />
-                </Icon.Group>
                 Your friendly deploy automat
-                <Icon.Group>
-                    <Icon
-                        name='computer'
-                        size='small'
-                        style={{
-                            marginLeft: '8px',
-                        }}
-                    />
-                </Icon.Group>
+                <br />
+                <br />
+                <Image src={'/assets/robot_100.png'} />
             </Header>
         </div>
     );

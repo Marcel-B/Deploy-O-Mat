@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace com.b_velop.Deploy_O_Mat.Web.Application.Errors
+namespace com.b_velop.Deploy_O_Mat.Web.Common.Exceptions
 {
     public class RestException : Exception
     {

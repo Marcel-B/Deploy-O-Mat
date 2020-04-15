@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Application.Errors;
+using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -33,7 +33,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Middlewares
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ErrorHandlingMiddleware> logger)
+        private async Task HandleExceptionAsync(
+            HttpContext context,
+            Exception ex,
+            ILogger<ErrorHandlingMiddleware> logger)
         {
             object errors = null;
 

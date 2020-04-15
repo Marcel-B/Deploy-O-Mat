@@ -3,12 +3,8 @@ import { IDockerService } from '../../app/models/dockerService';
 import { Segment, Item, Button, Icon } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 
-interface IProps {
-    dockerService: IDockerService;
-}
-
-const DockerServiceListItem: React.FC<{ dockerService: IDockerService }> = ({
-    dockerService,
+const DockerServiceListItem: React.FC<{ dockerService: IDockerService, loggedIn: boolean }> = ({
+    dockerService, loggedIn
 }) => {
     return (
         <Fragment>
@@ -35,9 +31,21 @@ const DockerServiceListItem: React.FC<{ dockerService: IDockerService }> = ({
                 </Segment>
                 <Segment>
                     <Item.Group>
-                        <Button content='Start' color='green' />
-                        <Button content='Update' color='blue' />
-                        <Button content='Stop' color='red'/>
+                        <Button
+                            content='Start'
+                            color='green'
+                            disabled={!loggedIn}
+                        />
+                        <Button
+                            content='Update'
+                            color='blue'
+                            disabled={!loggedIn}
+                        />
+                        <Button
+                            content='Stop'
+                            color='red'
+                            disabled={!loggedIn}
+                        />
                     </Item.Group>
                 </Segment>
             </Segment.Group>

@@ -12,6 +12,7 @@ using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
 using com.b_velop.Utilities.Docker;
 using FluentValidation.AspNetCore;
 using MediatR;
+using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +76,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";
+
+
+            //eventBus = services.GetRequiredService<IEventBus>();
+            //var secretProvider = services.GetRequiredService<SecretProvider>();
+            //var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
+            //var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
+            //var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
+            //Console.WriteLine(userName);
+            //Console.WriteLine(passWord);
+            //Console.WriteLine(HostName);
+            //eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
+
 
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
 

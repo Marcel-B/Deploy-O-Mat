@@ -23,7 +23,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.User
         {
             public QueryValidator()
             {
-                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).NotEmpty();
             }
         }

@@ -19,5 +19,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
         {
             return await Mediator.Send(command);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<User>> CurrentUser()
+        {
+            return await Mediator.Send(new CurrentUser.Query());
+        }
     }
 }

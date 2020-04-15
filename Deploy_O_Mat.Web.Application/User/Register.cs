@@ -30,7 +30,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.User
             {
                 RuleFor(x => x.DisplayName).NotEmpty();
                 RuleFor(x => x.Username).NotEmpty();
-                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).NotEmpty();
             }
         }

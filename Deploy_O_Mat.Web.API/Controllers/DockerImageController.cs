@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Images;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
@@ -19,6 +20,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
             => await Mediator.Send(new Details.Query { Id = id });
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<DockerHubWebhookCallbackDto>> CreateOrUpdate(
             Guid id,
             CreateOrUpdate.Command command)

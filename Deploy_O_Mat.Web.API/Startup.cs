@@ -1,20 +1,27 @@
+using System.Text;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
+using com.b_velop.Deploy_O_Mat.Web.Application.User;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
 using com.b_velop.Utilities.Docker;
+using FluentValidation.AspNetCore;
 using MediatR;
 using MicroRabbit.Infra.IoC;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -34,7 +41,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services
+                .AddControllers(opt =>
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    opt.Filters.Add(new AuthorizeFilter(policy));
+                })
+                .AddFluentValidation(cfg =>
+                {
+                    cfg.RegisterValidatorsFromAssemblyContaining<Login>();
+                })
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -70,7 +88,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<WebContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
-            services.AddAuthentication();
+
+            var secret = secretProvider.GetSecret("identity_signing_key");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateAudience = false, // Url is comming from
+                    ValidateIssuer = false
+                };
+            });
 
             DependencyContainer.RegisterServices(services);
         }
@@ -88,11 +120,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseCors(Strings.CorsPolicy);
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

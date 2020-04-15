@@ -47,6 +47,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IDockerServiceService, DockerServiceService>();
             services.AddTransient<IDockerImageService, DockerImageService>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             //Data
             services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();

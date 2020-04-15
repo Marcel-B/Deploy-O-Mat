@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
                                 spaced='right'
                                 src={'/assets/user.png'}
                             />
-                            <Dropdown pointing='top left' text='user'>
+                            <Dropdown pointing='top left' text={user.displayName}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item
                                         as={Link}

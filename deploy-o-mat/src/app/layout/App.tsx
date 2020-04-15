@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import NavBar from '../../features/nav/NavBar';
 import { Container } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
@@ -11,8 +11,23 @@ import DockerImageDetails from '../../features/details/DockerImageDetails';
 import DockerServiceDashboard from '../../features/dashboard/DockerServiceDashboard';
 import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
 import LoginForm from '../../features/user/LoginForm';
+import { RootStoreContext } from '../stores/rootStore';
+import { LoadingComponent } from './LoadingComponent';
 
 function App() {
+    const rootStore = useContext(RootStoreContext);
+    const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
+    const { getUser } = rootStore.userStore;
+
+      useEffect(() => {
+          if (token) {
+              getUser().finally(() => setAppLoaded());
+          } else {
+              setAppLoaded();
+          }
+      }, [setAppLoaded, token, getUser]);
+
+      if (!appLoaded) return <LoadingComponent content='... loading app' />;
 
     return (
         <Fragment>

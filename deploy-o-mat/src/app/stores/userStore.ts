@@ -15,7 +15,7 @@ export default class UserStore {
         return !!this.user;
     }
 
-    @action login = async (values: IUserFormValues ) => {
+    @action login = async (values: IUserFormValues) => {
         try {
             const user = await agent.User.login(values);
             runInAction('login user', () => {
@@ -27,6 +27,17 @@ export default class UserStore {
             throw error;
         }
     };
+
+    @action getUser = async () => {
+        try {
+            const user = await agent.User.current();
+            runInAction('get user', () => {
+                this.user = user;
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     @action logout = () => {
         this.rootStore.commonStore.setToken(null);

@@ -17,5 +17,7 @@
     <ProjectReference Include="..\Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Web.Identity\Deploy_O_Mat.Web.Identity.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Common\Deploy_O_Mat.Web.Common.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Infrastructure\Deploy_O_Mat.Web.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,8 @@ using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Data.Repository;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using Deploy_O_Mat.Web.Application.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Infrastructure.Security;
 
 namespace MicroRabbit.Infra.IoC
 {
@@ -44,6 +46,7 @@ namespace MicroRabbit.Infra.IoC
             //Application Services
             services.AddTransient<IDockerServiceService, DockerServiceService>();
             services.AddTransient<IDockerImageService, DockerImageService>();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
 
             //Data
             services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();

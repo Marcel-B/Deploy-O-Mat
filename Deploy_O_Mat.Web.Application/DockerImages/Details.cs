@@ -2,8 +2,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Application.Errors;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;

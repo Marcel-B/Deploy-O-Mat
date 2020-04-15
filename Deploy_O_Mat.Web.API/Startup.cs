@@ -57,6 +57,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var host = secretProvider.GetSecret("host") ?? "";
 
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
+
             services.AddDbContext<WebContext>(options =>
             {
                 if (Env.IsDevelopment())
@@ -69,6 +70,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<WebContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            services.AddAuthentication();
 
             DependencyContainer.RegisterServices(services);
         }
@@ -80,7 +82,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseRequestLogger();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
 
             //app.UseHttpsRedirection();

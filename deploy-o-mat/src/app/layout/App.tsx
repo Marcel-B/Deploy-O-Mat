@@ -10,6 +10,7 @@ import Disclaimer from '../../features/disclaimer/Disclaimer';
 import DockerImageDetails from '../../features/details/DockerImageDetails';
 import DockerServiceDashboard from '../../features/dashboard/DockerServiceDashboard';
 import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
+import LoginForm from '../../features/user/LoginForm';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                     component={DockerImageDetails}
                 />
                 <Route path={'/disclaimer'} component={Disclaimer} />
+                <Route path={'/login'} component={LoginForm} />
             </Container>
             <Footer />
         </Fragment>

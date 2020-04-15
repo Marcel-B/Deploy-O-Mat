@@ -8,8 +8,8 @@ import { FORM_ERROR } from 'final-form';
 import { combineValidators, isRequired } from 'revalidate';
 
 const validate = combineValidators({
-    email: isRequired('email'),
-    password: isRequired('password'),
+    email: isRequired('Email'),
+    password: isRequired('Password'),
 });
 
 const LoginForm = () => {

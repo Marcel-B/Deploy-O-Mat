@@ -5,7 +5,7 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const NavBar: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { user, isLoggedIn } = rootStore.userStore;
+    const { user, isLoggedIn , logout} = rootStore.userStore;
 
     return (
         <Container>
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
                                         text='My profile'
                                         icon='user'
                                     />
-                                    <Dropdown.Item text='Logout' icon='power' />
+                                    <Dropdown.Item onClick={logout} text='Logout' icon='power' />
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Menu.Item>

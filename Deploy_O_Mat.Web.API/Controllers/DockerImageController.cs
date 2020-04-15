@@ -12,10 +12,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
     public class DockerImageController : BaseController
     {
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IEnumerable<DockerImage>> List()
             => await Mediator.Send(new List.Query());
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<DockerImage>> Details(Guid id)
             => await Mediator.Send(new Details.Query { Id = id });
 

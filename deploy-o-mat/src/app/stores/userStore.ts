@@ -15,15 +15,22 @@ export default class UserStore {
         return !!this.user;
     }
 
-    @action login = async (values: IUserFormValues) => {
+    @action login = async (values: IUserFormValues ) => {
         try {
             const user = await agent.User.login(values);
             runInAction('login user', () => {
                 this.user = user;
             })
+            this.rootStore.commonStore.setToken(user.token);
             history.push('/images');
         } catch (error) {
             throw error;
         }
     };
+
+    @action logout = () => {
+        this.rootStore.commonStore.setToken(null);
+        this.user = null;
+        history.push('/');
+    }
 }

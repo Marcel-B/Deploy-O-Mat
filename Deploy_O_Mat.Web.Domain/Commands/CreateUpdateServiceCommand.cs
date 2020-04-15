@@ -1,9 +1,9 @@
 ﻿using System;
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.Commands
 {
-    public class CreateServiceUpdateCommand : ServiceUpdateCommand
+    public class CreateUpdateServiceCommand : UpdateServiceCommand
     {
-        public CreateServiceUpdateCommand(
+        public CreateUpdateServiceCommand(
             string serviceName,
             string repoName,
             string tag,

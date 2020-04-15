@@ -10,6 +10,10 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Deploy_O_Mat.API' ">
     <StartAction>Project</StartAction>
     <ExternalConsole>true</ExternalConsole>
+    <EnvironmentVariables>
+      <Variable name="identity_signing_key" value="hello_this_is_very_cool" />
+      <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+    </EnvironmentVariables>
     <LaunchUrl>weatherforecast</LaunchUrl>
     <ApplicationURL>https://localhost:5003;http://localhost:5002</ApplicationURL>
   </PropertyGroup>

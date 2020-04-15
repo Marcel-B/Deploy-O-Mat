@@ -40,12 +40,10 @@ namespace Deploy_O_Mat.Service.Application.Services
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
-
             var process = new Process
             {
                 StartInfo = psi
             };
-
             process.Start();
             var error = string.Empty;
             while (!process.StandardOutput.EndOfStream)

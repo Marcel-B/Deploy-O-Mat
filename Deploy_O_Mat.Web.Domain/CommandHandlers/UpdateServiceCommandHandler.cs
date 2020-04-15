@@ -8,22 +8,21 @@ using MicroRabbit.Domain.Core.Bus;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers
 {
-    public class ServiceUpdateCommandHandler : IRequestHandler<CreateServiceUpdateCommand, bool>
+    public class UpdateServiceCommandHandler : IRequestHandler<CreateUpdateServiceCommand, bool>
     {
         private IEventBus _eventBus;
 
-        public ServiceUpdateCommandHandler(
+        public UpdateServiceCommandHandler(
             IEventBus eventBus)
         {
             _eventBus = eventBus;
         }
 
         public Task<bool> Handle(
-            CreateServiceUpdateCommand request,
+            CreateUpdateServiceCommand request,
             CancellationToken cancellationToken)
         {
             // Publish event to RabbitMQ
-            Console.WriteLine("Now publish");
             _eventBus.Publish(new ServiceUpdatedEvent(request.ServiceName, request.RepoName, request.Tag, request.BuildId));
             return Task.FromResult(true);
         }

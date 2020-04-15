@@ -26,6 +26,7 @@
     <Folder Include="Services\" />
     <Folder Include="DockerStackServices\" />
     <Folder Include="User\" />
+    <Folder Include="DockerStack\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />

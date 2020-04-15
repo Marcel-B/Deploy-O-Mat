@@ -8,9 +8,9 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const DockerImageList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { dockerImagesByUpdated } = rootStore.dockerImageStore;
+    const { dockerImagesByUpdated, loadingInitial } = rootStore.dockerImageStore;
 
-    if (rootStore.dockerImageStore.loadingInitial)
+    if (loadingInitial)
         return <LoadingComponent content='Loading images...' />;
 
     return (

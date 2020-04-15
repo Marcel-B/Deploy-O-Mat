@@ -47,6 +47,8 @@ const NavBar: React.FC = () => {
                         </Menu.Item> */}
                         <Menu.Item
                             name='login'
+                            as={NavLink}
+                            to={'/login'}
                             // active={activeItem === 'logout'}
                             // onClick={this.handleItemClick}
                         />

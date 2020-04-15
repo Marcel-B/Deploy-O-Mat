@@ -6,10 +6,11 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const DockerImageDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
+    const { loadDockerImages } = rootStore.dockerImageStore;
 
     useEffect(() => {
-        rootStore.dockerImageStore.loadDockerImages();
-    }, [rootStore.dockerImageStore]);
+        loadDockerImages();
+    }, [loadDockerImages]);
 
     return (
         <Fragment>

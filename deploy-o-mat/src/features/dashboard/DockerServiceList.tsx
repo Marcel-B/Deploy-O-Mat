@@ -6,12 +6,11 @@ import { observer } from 'mobx-react-lite';
 import DockerServiceListItem from './DockerServiceListItem';
 import { RootStoreContext } from '../../app/stores/rootStore';
 
-
 const DockerServiceList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { dockerServicesByUpdated } = rootStore.dockerServiceStore;
+    const { dockerServicesByUpdated, loadingInitial } = rootStore.dockerServiceStore;
 
-    if (rootStore.dockerImageStore.loadingInitial)
+    if (loadingInitial)
         return <LoadingComponent content='Loading services...' />;
 
     return (

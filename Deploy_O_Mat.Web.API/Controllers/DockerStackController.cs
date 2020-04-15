@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerStack;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
@@ -13,6 +14,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
         }
 
         [HttpPost]
+#if DEBUG
+        [AllowAnonymous]
+#endif
         public async Task<ActionResult<Unit>> Create(
             Create.Command command)
         {

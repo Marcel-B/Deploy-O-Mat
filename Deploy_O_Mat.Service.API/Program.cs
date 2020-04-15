@@ -38,6 +38,7 @@ namespace Deploy_O_Mat.Service.Api
                 Console.WriteLine(passWord);
                 Console.WriteLine(HostName);
                 eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
+                eventBus.Subscribe<StackCreatedEvent, CreateStackEventHandler>();
                 host.Run();
             }
             catch (Exception ex)

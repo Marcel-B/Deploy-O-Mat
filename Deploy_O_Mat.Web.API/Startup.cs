@@ -3,6 +3,8 @@ using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Application.Services;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
@@ -66,7 +68,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 });
             });
 
-            services.AddMediatR(typeof(List.Handler).Assembly, typeof(ServiceUpdateCommandHandler).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly, typeof(UpdateServiceCommandHandler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
 
             var secretProvider = new SecretProvider();

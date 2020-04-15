@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Deploy_O_Mat.Service.Domain.EventHandlers
 {
-    public class ServiceUpdateEventHandler : IEventHandler<ServiceUpdatedEvent>
+    public class UpdateServiceEventHandler : IEventHandler<ServiceUpdatedEvent>
     {
-        private ILogger<ServiceUpdateEventHandler> _logger;
+        private ILogger<UpdateServiceEventHandler> _logger;
         private IDockerServiceService _dockerService;
         private IDockerServiceRepository _dockerServiceRepository;
 
-        public ServiceUpdateEventHandler(
+        public UpdateServiceEventHandler(
             IDockerServiceService dockerService,
             IDockerServiceRepository dockerServiceRepository,
-            ILogger<ServiceUpdateEventHandler> logger)
+            ILogger<UpdateServiceEventHandler> logger)
         {
             _dockerService = dockerService;
             _dockerServiceRepository = dockerServiceRepository;

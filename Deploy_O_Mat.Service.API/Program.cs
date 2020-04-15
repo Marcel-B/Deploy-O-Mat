@@ -1,7 +1,9 @@
 ﻿using System;
 using com.b_velop.Utilities.Docker;
+using Deploy_O_Mat.Service.Application.Services;
 using Deploy_O_Mat.Service.Domain.EventHandlers;
 using Deploy_O_Mat.Service.Domain.Events;
+using Deploy_O_Mat.Service.Domain.Interfaces;
 using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.IoC;
@@ -35,7 +37,7 @@ namespace Deploy_O_Mat.Service.Api
                 Console.WriteLine(userName);
                 Console.WriteLine(passWord);
                 Console.WriteLine(HostName);
-                eventBus.Subscribe<ServiceUpdatedEvent, ServiceUpdateEventHandler>();
+                eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
                 host.Run();
             }
             catch (Exception ex)

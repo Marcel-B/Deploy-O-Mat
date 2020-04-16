@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Header, Segment, Icon, Grid } from 'semantic-ui-react';
+import { Header, Segment, Icon, Grid, Divider } from 'semantic-ui-react';
 
 const Disclaimer: React.FC = () => {
     return (
@@ -7,6 +7,8 @@ const Disclaimer: React.FC = () => {
             <Header as='h1' textAlign='center'>
                 <Icon name='legal' /> Legal Disclaimer
             </Header>
+            <Divider />
+            <br />
             <Grid>
                 <Grid.Column width={12}>
                     <Segment textAlign='center'>

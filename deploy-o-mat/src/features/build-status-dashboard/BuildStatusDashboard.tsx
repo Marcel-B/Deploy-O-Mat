@@ -1,6 +1,6 @@
 import React from 'react'
 import BuildStatus from '../build-status/BuildStatus'
-import { Icon, Header } from 'semantic-ui-react'
+import { Icon, Header, Divider } from 'semantic-ui-react'
 
 const BuildStatusDashboard = () => {
     return (
@@ -8,6 +8,8 @@ const BuildStatusDashboard = () => {
             <Header as='h1'>
                 <Icon name='github'/> build Status
             </Header>
+            <Divider />
+            <br/>
             <BuildStatus  />
         </div>
     );

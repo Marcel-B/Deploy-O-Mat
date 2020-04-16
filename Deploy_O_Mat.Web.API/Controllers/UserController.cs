@@ -15,7 +15,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
         }
 
         [HttpPost("register")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<ActionResult<User>> Register(Register.Command command)
         {
             return await Mediator.Send(command);

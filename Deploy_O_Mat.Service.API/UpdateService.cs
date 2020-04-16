@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Deploy_O_Mat.Service.Domain.Commands;
+using Deploy_O_Mat.Service.Domain.Events;
+using Deploy_O_Mat.Service.Domain.Interfaces;
+using MicroRabbit.Domain.Core.Bus;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -23,19 +28,22 @@ namespace Deploy_O_Mat.Service.Api
             _appLifetime = appLifetime;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(
+            CancellationToken cancellationToken)
         {
             _appLifetime.ApplicationStarted.Register(OnStarted);
             _appLifetime.ApplicationStopping.Register(OnStopping);
             _appLifetime.ApplicationStopped.Register(OnStopped);
 
             _timer = new Timer(RunJob, null, TimeSpan.Zero,
-           TimeSpan.FromSeconds(40));
+           //TimeSpan.FromMinutes(5));
+           TimeSpan.FromSeconds(10));
 
             return Task.CompletedTask;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public Task StopAsync(
+            CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
@@ -61,73 +69,14 @@ namespace Deploy_O_Mat.Service.Api
             // Perform post-stopped activities here
         }
 
-        private void RunJob(
+        private async void RunJob(
             object state)
         {
-            Console.WriteLine("Hello");
-            //var services = new List<DockerService>();
-            //using var scope = _serviceProvider.CreateScope();
-            //var httpClient = scope.ServiceProvider.GetRequiredService<IDockerImageService>();
-
-            //var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-            //var dockerImages = await httpClient.GetDockerImages();
-
-            //foreach (var dockerImage in dockerImages)
-            //{
-            //    var dockerService = await dataContext.DockerServices.FindAsync(dockerImage.Id);
-            //    if(dockerService == null || !dockerImage.IsActive)
-            //        _logger.LogInformation($"Service '{dockerImage.RepoName}:{dockerImage.Tag}' not active");
-            //    else
-            //    if(dockerService.BuildId != dockerImage.BuildId)
-            //    {
-            //        dockerService.BuildId = dockerImage.BuildId;
-            //        _logger.LogInformation($"Try to update Docker Service '{dockerService.Name}' to BuildId '{dockerService.BuildId}'");
-            //        services.Add(dockerService);
-            //    }
-            //}
-
-            //foreach (var dockerService in services)
-            //{
-            //    var psi = new ProcessStartInfo
-            //    {
-            //        FileName = "docker",
-            //        //Arguments = "-c 3 8.8.8.8",
-            //        Arguments = $"service update --image {dockerService.RepoName}:{dockerService.Tag} {dockerService.Name}",
-            //        UseShellExecute = false,
-            //        RedirectStandardOutput = true,
-            //        RedirectStandardError = true
-            //    };
-
-            //    var process = new Process
-            //    {
-            //        StartInfo = psi
-            //    };
-
-            //    process.Start();
-            //    var error = string.Empty;
-            //    while (!process.StandardOutput.EndOfStream)
-            //    {
-            //        var line = await process.StandardOutput.ReadLineAsync();
-            //        _logger.LogInformation(line);
-            //    }
-            //    while (!process.StandardError.EndOfStream)
-            //    {
-            //        error= await process.StandardError.ReadLineAsync();
-            //    }
-
-            //    process.WaitForExit();
-            //    if(process.ExitCode == 0)
-            //    {
-            //        dockerService.BuildId = dockerImages.First(_ => _.Id == dockerService.Id).BuildId;
-            //        dataContext.SaveChanges();
-            //        _logger.LogInformation($"Update Docker Service '{dockerService.Name}' to BuildId '{dockerService.BuildId}' completed");
-            //    }
-            //    else
-            //    {
-            //        _logger.LogWarning($"Error while updating '{dockerService.Name}' to BuildId '{dockerService.BuildId}': ({process.ExitCode}) - {error}");
-            //    }
-            //    Console.WriteLine(process.ExitCode);
-            //}
+            using var scope = _serviceProvider.CreateScope();
+            var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerInfoService>();
+            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+            var services = await dockerInfoService.GetServices();
+            await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
         }
     }
 }

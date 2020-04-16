@@ -28,7 +28,6 @@ namespace Deploy_O_Mat.Service.Api
                 //var context = services.GetRequiredService<DockerServiceDbContext>();
                 //context.Database.Migrate();
                 //context.SeedData();
-
                 eventBus = services.GetRequiredService<IEventBus>();
                 var secretProvider = services.GetRequiredService<SecretProvider>();
                 var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
@@ -39,6 +38,7 @@ namespace Deploy_O_Mat.Service.Api
                 Console.WriteLine(HostName);
                 eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
                 eventBus.Subscribe<StackCreatedEvent, CreateStackEventHandler>();
+                eventBus.Subscribe<DockerInfoEvent, DockerInfoEventHandler>();
                 host.Run();
             }
             catch (Exception ex)
@@ -54,6 +54,7 @@ namespace Deploy_O_Mat.Service.Api
             {
                 DependencyContainer.RegisterServices(services);
                 services.AddMediatR(typeof(Program));
+                services.AddHostedService<UpdateService>();
                 //services.AddDbContext<DockerServiceDbContext>(options =>
                 //{
                 //    options.UseSqlite("Data Source=dockerService.db");

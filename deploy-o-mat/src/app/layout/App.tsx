@@ -14,6 +14,7 @@ import LoginForm from '../../features/user/LoginForm';
 import { RootStoreContext } from '../stores/rootStore';
 import { LoadingComponent } from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
+import DockerStackDashboard from '../../features/dashboard/DockerStackDashboard';
 
 function App() {
     const rootStore = useContext(RootStoreContext);
@@ -32,12 +33,13 @@ function App() {
 
     return (
         <Fragment>
-            <ModalContainer/>
+            <ModalContainer />
             <NavBar />
             <Container style={{ marginTop: '6em' }}>
                 <Route exact path='/' component={HomePage} />
                 <Route path='/images' component={DockerImageDashboard} />
                 <Route path='/services' component={DockerServiceDashboard} />
+                <Route path='/stacks' component={DockerStackDashboard} />
                 <Route
                     path='/buildStatusDashboard'
                     component={BuildStatusDashboard}

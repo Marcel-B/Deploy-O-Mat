@@ -1,6 +1,9 @@
 using System;
 using com.b_velop.Deploy_O_Mat.Web.Data;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Domain.Events;
+using MicroRabbit.Domain.Core.Bus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +25,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             try
             {
                 var context = services.GetRequiredService<WebContext>();
+                var eventBus = services.GetRequiredService<IEventBus>();
+                eventBus.Subscribe<SendDockerInfoEvent, SendDockerInfoEventHandler>();
                 context.Database.Migrate();
                 Seed.SeedData(context);
             }

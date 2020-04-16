@@ -52,6 +52,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IRequestHandler<CreateUpdateServiceCommand, bool>, UpdateServiceCommandHandler>();
             services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
             services.AddTransient<IRequestHandler<CreateSendDockerInfoCommand, bool>, SendDockerInfoCommandHandler>();
+            services.AddTransient<IRequestHandler<DockerInfoCommand, bool>, DockerInfoCommandHandler>();
 
 
 

@@ -14,6 +14,7 @@ using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -39,7 +40,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
         public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(
+            IServiceCollection services)
         {
             services
                 .AddControllers(opt =>
@@ -62,13 +64,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             {
                 options.AddPolicy(Strings.CorsPolicy, policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "http://localhost:3001");
                 });
             });
 
             services.AddMediatR(typeof(List.Handler).Assembly, typeof(UpdateServiceCommandHandler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
-
+            
             var secretProvider = new SecretProvider();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
@@ -106,16 +108,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(opt =>
-            {
-                opt.TokenValidationParameters = new TokenValidationParameters
+                .AddJwtBearer(opt =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateAudience = false, // Url is comming from
-                    ValidateIssuer = false
-                };
-            });
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = false, // Url is comming from
+                        ValidateIssuer = false
+                    };
+                });
             DependencyContainer.RegisterServices(services);
         }
 

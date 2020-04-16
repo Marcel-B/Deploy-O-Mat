@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
+using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,14 +18,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
 
         public class Handler : IRequestHandler<Command, Unit>
         {
+            private readonly IDockerImageRepository _dockerImageRepository;
             private readonly IDockerImageService _dockerImageService;
             private readonly ILogger<Handler> _logger;
 
             public Handler(
+                IDockerImageRepository dockerImageRepository,
                 IDockerImageService dockerImageService,
                 ILogger<Handler> logger)
             {
                 _dockerImageService = dockerImageService;
+                _dockerImageRepository = dockerImageRepository;
                 _logger = logger;
             }
 
@@ -32,7 +36,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var tmpDockerImage = await _dockerImageService.GetDockerImage(request.Id);
+                var tmpDockerImage = await _dockerImageRepository.Get(request.Id);
 
                 if (tmpDockerImage == null)
                     throw new RestException(System.Net.HttpStatusCode.NotFound, $"No Entity with Id '{request.Id}'");
@@ -42,9 +46,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 try
                 {
                     if (tmpDockerImage.IsActive)
+                    {
                         if (tmpDockerImage.DockerStackServices != null)
+                        {
                             foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
                             {
+                                tmpDockerImage.StartTime = DateTime.UtcNow;
                                 _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
                                 {
                                     BuildId = tmpDockerImage.BuildId,
@@ -53,6 +60,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                                     ServiceName = dockerStackService.Name
                                 });
                             }
+                        }
+                    }
+                    await _dockerImageRepository.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {

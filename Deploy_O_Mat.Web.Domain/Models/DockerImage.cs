@@ -9,6 +9,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
 
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
+        public DateTime? StartTime { get; set; }
         public string Name { get; set; }
         public string Tag { get; set; }
         public string Pusher { get; set; }

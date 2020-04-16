@@ -43,6 +43,7 @@ const requests = {
 const DockerImages = {
     list: (): Promise<IDockerImage[]> => requests.get("/dockerimage"),
     details: (id: string) => requests.get(`/dockerimage/${id}`),
+    restart: (id: string) => requests.post(`/dockerimage/restart`, { id })
 }
 
 const DockerServices = {

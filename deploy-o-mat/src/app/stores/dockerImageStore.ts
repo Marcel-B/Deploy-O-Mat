@@ -35,6 +35,18 @@ export default class DockerImageStore {
         }
     }
 
+    @action restartDockerImage = async (id: string) => {
+        try {
+            this.loadingInitial = true;
+            await agent.DockerImages.restart(id);
+            runInAction('restart dockerImage', () => {
+                this.loadingInitial = false;
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
+
     @action loadDockerImage = async (id: string) => {
         let dockerImage = this.getDockerImage(id);
         if (dockerImage) {

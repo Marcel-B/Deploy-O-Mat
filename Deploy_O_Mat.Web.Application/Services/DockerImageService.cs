@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Castle.Core.Logging;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
@@ -43,6 +44,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             _logger.LogError($"Error while persisting DockerImage '{dockerImage.Id} {dockerImage.RepoName}:{dockerImage.Tag}'");
             return null;
         }
+
+        public async Task<DockerImage> GetDockerImage(Guid id)
+            => await _repository.Get(id);
 
         public async Task<IEnumerable<DockerImage>> GetDockerImages()
         {

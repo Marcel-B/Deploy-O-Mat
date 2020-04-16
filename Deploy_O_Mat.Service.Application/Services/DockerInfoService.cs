@@ -26,8 +26,8 @@ namespace Deploy_O_Mat.Service.Application.Services
             var psi = new ProcessStartInfo
             {
                 FileName = "docker",
-                Arguments = $"ps -a --no-trunc",
-                //Arguments = $"service ls",
+                //Arguments = $"ps -a --no-trunc",
+                Arguments = $"service ls",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true

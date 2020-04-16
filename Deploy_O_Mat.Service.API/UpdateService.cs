@@ -36,8 +36,8 @@ namespace Deploy_O_Mat.Service.Api
             _appLifetime.ApplicationStopped.Register(OnStopped);
 
             _timer = new Timer(RunJob, null, TimeSpan.Zero,
-           //TimeSpan.FromMinutes(5));
-           TimeSpan.FromSeconds(10));
+           TimeSpan.FromMinutes(5));
+            //TimeSpan.FromSeconds(10));
 
             return Task.CompletedTask;
         }

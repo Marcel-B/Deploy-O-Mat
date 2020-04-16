@@ -25,10 +25,11 @@ const DockerImageListItem: React.FC<{
                             <Item.Content>
                                 <Item.Header>{dockerImage.name}</Item.Header>
                                 <Item.Description>
-                                    {dockerImage.owner}
+                                    <Icon name='user' /> {dockerImage.owner}
                                 </Item.Description>
                                 <Item.Meta>
-                                    {dockerImage.repoName}:{dockerImage.tag}
+                                    <Icon name='docker' /> {dockerImage.repoName}:
+                                    {dockerImage.tag}
                                 </Item.Meta>
                                 <Item.Meta>
                                     <Icon name='sync alternate' />{' '}

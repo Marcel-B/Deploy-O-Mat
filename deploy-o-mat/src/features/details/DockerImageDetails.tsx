@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
@@ -36,14 +36,14 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
         return <LoadingComponent content='Loading service...' />;
 
     return (
-        <div>
+        <Fragment>
             <Header as='h1' textAlign='center'>
                 {dockerImage.name}
             </Header>
 
             <Divider />
 
-            <Grid>
+            <Grid divided>
                 <Grid.Column width={7}>
                     <Header as='h2'>Details</Header>
 
@@ -58,7 +58,9 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
 
                         <Table.Body>
                             <Table.Row>
-                                <Table.Cell collapsing>Repo</Table.Cell>
+                                <Table.Cell collapsing>
+                                    <Icon name='docker' /> Repo
+                                </Table.Cell>
 
                                 <Table.Cell>
                                     {dockerImage.repoName}:{dockerImage.tag}
@@ -66,13 +68,18 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                             </Table.Row>
 
                             <Table.Row>
-                                <Table.Cell collapsing>Owner</Table.Cell>
+                                <Table.Cell collapsing>
+                                    <Icon name='user' /> Owner
+                                </Table.Cell>
 
                                 <Table.Cell>{dockerImage.owner}</Table.Cell>
                             </Table.Row>
 
                             <Table.Row>
-                                <Table.Cell collapsing>Created</Table.Cell>
+                                <Table.Cell collapsing>
+                                    <Icon name='calendar plus outline' />{' '}
+                                    Created
+                                </Table.Cell>
 
                                 <Table.Cell>
                                     {' '}
@@ -91,6 +98,17 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                                     <ReactTimeago date={dockerImage.updated} />
                                 </Table.Cell>
                             </Table.Row>
+
+                            <Table.Row>
+                                <Table.Cell collapsing>
+                                    <Icon name='sync alternate' /> Last Start
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <ReactTimeago
+                                        date={dockerImage.startTime}
+                                    />
+                                </Table.Cell>
+                            </Table.Row>
                         </Table.Body>
                     </Table>
                 </Grid.Column>
@@ -104,7 +122,7 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                     </Segment>
                 </Grid.Column>
             </Grid>
-        </div>
+        </Fragment>
     );
 };
 

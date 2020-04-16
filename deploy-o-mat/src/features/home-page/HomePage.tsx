@@ -1,9 +1,9 @@
 import React from 'react';
-import { Icon, Header, Image } from 'semantic-ui-react';
+import { Icon, Header, Image, Divider } from 'semantic-ui-react';
 
 const HomePage: React.FC = () => {
     return (
-        <div style={{ marginTop: '5em', textAlign: 'center' }}>
+        <div style={{ marginTop: '6em', textAlign: 'center' }}>
             <h1>
                 <Icon
                     flipped='horizontally'
@@ -13,6 +13,8 @@ const HomePage: React.FC = () => {
                 deploy-O-mat
                 <Icon name='space shuttle' style={{ marginLeft: '14px' }} />
             </h1>
+
+            <Divider/>
 
             <Header>
                 Your friendly deploy automat

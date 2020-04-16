@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import DockerImageList from './DockerImageList';
-import { Grid, Header, Icon } from 'semantic-ui-react';
+import { Grid, Header, Icon, Divider } from 'semantic-ui-react';
 import DockerImageSidebar from './DockerImageSidebar';
 import { RootStoreContext } from '../../app/stores/rootStore';
 
@@ -18,6 +18,8 @@ const DockerImageDashboard: React.FC = () => {
                 <Icon name='docker' color='blue' />
                 Images
             </Header>
+            <Divider />
+            <br/>
             <Grid>
                 <Grid.Column width={10}>
                     <Header as='h2'>Images</Header>

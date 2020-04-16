@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useContext } from 'react';
-import { Header, Icon, Grid } from 'semantic-ui-react';
+import { Header, Icon, Grid, Divider } from 'semantic-ui-react';
 import DockerImageSidebar from './DockerImageSidebar';
 import DockerServiceList from './DockerServiceList';
 import { RootStoreContext } from '../../app/stores/rootStore';
@@ -7,6 +7,7 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 const DockerServiceDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const { loadDockerServices } = rootStore.dockerServiceStore;
+
     useEffect(() => {
         loadDockerServices();
     }, [loadDockerServices]);
@@ -17,6 +18,8 @@ const DockerServiceDashboard: React.FC = () => {
                 <Icon name='docker' color='blue' />
                 Services
             </Header>
+            <Divider />
+            <br/>
             <Grid>
                 <Grid.Column width={10}>
                     <Header as='h2'>Services</Header>

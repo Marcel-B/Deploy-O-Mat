@@ -34,7 +34,7 @@ function App() {
         <Fragment>
             <ModalContainer/>
             <NavBar />
-            <Container style={{ marginTop: '5em' }}>
+            <Container style={{ marginTop: '6em' }}>
                 <Route exact path='/' component={HomePage} />
                 <Route path='/images' component={DockerImageDashboard} />
                 <Route path='/services' component={DockerServiceDashboard} />

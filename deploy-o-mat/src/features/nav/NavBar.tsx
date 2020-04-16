@@ -38,6 +38,12 @@ const NavBar: React.FC = () => {
                         // onClick={this.handleItemClick}
                     />
                     <Menu.Item
+                        name='Stacks'
+                        exact
+                        as={NavLink}
+                        to={'/stacks'}
+                    />
+                    <Menu.Item
                         name='Build States'
                         as={NavLink}
                         to={'/buildStatusDashboard'}
@@ -80,7 +86,7 @@ const NavBar: React.FC = () => {
                         <Menu.Menu position='right'>
                             <Menu.Item
                                 name='login'
-                                onClick={() => openModal(<LoginForm/>)}
+                                onClick={() => openModal(<LoginForm />)}
                             />
                         </Menu.Menu>
                     )}

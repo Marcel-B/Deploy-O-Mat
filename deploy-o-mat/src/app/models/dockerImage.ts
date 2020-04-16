@@ -1,3 +1,11 @@
+export interface IBadge{
+    id: string;
+    url: string;
+    name: string;
+    description: string;
+    created: string;
+}
+
 export interface IDockerImage {
     id: string;
     name: string;
@@ -9,4 +17,6 @@ export interface IDockerImage {
     dockerfile: string;
     created: string;
     startTime: string;
+    badges: IBadge[];
 }
+

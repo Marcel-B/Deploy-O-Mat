@@ -20,7 +20,7 @@ const DockerImageDashboard: React.FC = () => {
             </Header>
             <Divider />
             <br/>
-            <Grid>
+            <Grid divided>
                 <Grid.Column width={10}>
                     <Header as='h2'>Images</Header>
                     <DockerImageList />

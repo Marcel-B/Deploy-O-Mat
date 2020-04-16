@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Application.Models;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
@@ -33,10 +32,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
         {
             var tmpDockerImage = await _repository.Get(dockerImage.Id);
 
+
             if (tmpDockerImage != null)
                 tmpDockerImage = _repository.Update(dockerImage, tmpDockerImage);
             else
                 tmpDockerImage = _repository.Create(dockerImage);
+
+            tmpDockerImage.StartTime = DateTime.UtcNow;
 
             if (await _repository.SaveChangesAsync())
                 return tmpDockerImage;

@@ -46,7 +46,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
                 sb.AppendLine($"'{image.Trim()}'");
                 sb.AppendLine($"'{ports.Trim()}'");
             }
-            _logger.LogError(sb.ToString());
+            //_logger.LogError(sb.ToString());
             return Task.CompletedTask;
         }
     }

@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
     isLoggedIn: boolean;
-}> = ({ dockerImage, isLoggedIn }) => {
+    restartDockerImage: (id: string) => void;
+}> = ({ dockerImage, isLoggedIn, restartDockerImage }) => {
     return (
         <Fragment>
             <Segment.Group>
@@ -48,11 +49,21 @@ const DockerImageListItem: React.FC<{
                 </Segment>
                 <Segment clearing>
                     {isLoggedIn && (
-                        <Button
-                            floated='right'
-                            color='green'
-                            content='Pull'
-                        />
+                        <Fragment>
+                            <Button
+                                floated='right'
+                                color='red'
+                                content='Restart'
+                                onClick={() =>
+                                    restartDockerImage(dockerImage.id)
+                                }
+                            />
+                            <Button
+                                floated='right'
+                                color='green'
+                                content='Pull'
+                            />
+                        </Fragment>
                     )}
 
                     <Button

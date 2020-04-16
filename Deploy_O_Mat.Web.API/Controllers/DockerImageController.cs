@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Images;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
 {
@@ -37,5 +39,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
         {
             return await Task.FromResult(true);
         }
+
+        [HttpPost("restart")]
+        public async Task<ActionResult<Unit>> Restart(
+            Restart.Command command)
+            => await Mediator.Send(command);
     }
 }

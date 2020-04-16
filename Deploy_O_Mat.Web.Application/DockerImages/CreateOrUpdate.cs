@@ -43,19 +43,26 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                 _mapper = mapper;
             }
 
+            private DockerHubWebhookCallbackDto BuildReturn(Guid id)
+                => new DockerHubWebhookCallbackDto
+                {
+                    Context = "Image received",
+                    State = "success",
+                    TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{id}",
+                };
+
             public async Task<DockerHubWebhookCallbackDto> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
                 var dockerImage = _mapper.Map<DockerImage>(request);
+
+                if (dockerImage.Tag != "latest")
+                    return BuildReturn(request.Id);
+
                 var tmpDockerImage = await _dockerImageService.CreateOrUpdateDockerImage(dockerImage);
 
-                var response = new DockerHubWebhookCallbackDto
-                {
-                    Context = "Image received",
-                    State = "success",
-                    TargetUrl = $"https://deploy.qaybe.de/dockerImageDetails/{tmpDockerImage.Id}",
-                };
+                var response = BuildReturn(tmpDockerImage.Id);
 
                 if (tmpDockerImage != null)
                 {

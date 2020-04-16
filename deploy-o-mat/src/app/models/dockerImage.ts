@@ -8,4 +8,5 @@ export interface IDockerImage {
     isActive: boolean;
     dockerfile: string;
     created: string;
+    startTime: string;
 }

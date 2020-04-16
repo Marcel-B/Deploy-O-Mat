@@ -41,7 +41,7 @@ const DockerImageListItem: React.FC<{
                                 </Item.Meta>
                                 <Item.Meta>
                                     <Icon name='clock' />{' '}
-                                    <TimeAgo date={dockerImage.updated} />
+                                    <TimeAgo date={dockerImage.startTime ?? dockerImage.updated} />
                                 </Item.Meta>
                             </Item.Content>
                         </Item>

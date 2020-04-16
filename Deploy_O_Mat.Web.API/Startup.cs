@@ -3,8 +3,6 @@ using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
-using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Application.Services;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
@@ -12,7 +10,6 @@ using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
 using com.b_velop.Utilities.Docker;
 using FluentValidation.AspNetCore;
 using MediatR;
-using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -95,6 +92,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             {
                 if (Env.IsDevelopment())
                     connection = Configuration.GetConnectionString("postgres");
+
                 options.UseNpgsql(connection);
                 options.UseLazyLoadingProxies();
             });
@@ -104,7 +102,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             identityBuilder.AddEntityFrameworkStores<WebContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
-            var secret = secretProvider.GetSecret("identity_signing_key");
+            var secret = secretProvider.GetSecret("identity_signing_key") ?? "only_a_test_foo_ab";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

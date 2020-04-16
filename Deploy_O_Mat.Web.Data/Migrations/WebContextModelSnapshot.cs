@@ -9,7 +9,7 @@ using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    partial class WebContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -177,7 +177,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
 
                     b.HasIndex("DockerImageId");
 
-                    b.ToTable("Badge");
+                    b.ToTable("Badges");
                 });
 
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", b =>
@@ -243,6 +243,29 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DockerImages");
+                });
+
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStack", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("File")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DockerStacks");
                 });
 
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStackService", b =>

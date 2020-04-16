@@ -5,6 +5,7 @@ import { LoadingComponent } from '../../app/layout/LoadingComponent';
 import { Segment, Header, Grid, Item } from 'semantic-ui-react';
 import ReactTimeago from 'react-timeago';
 import { RootStoreContext } from '../../app/stores/rootStore';
+import { format } from 'date-fns';
 
 interface IDetailParams {
     id: string;
@@ -36,7 +37,12 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                             {dockerImage.repoName}:{dockerImage.tag}
                         </Item.Content>
                         <Item.Content>{dockerImage.owner}</Item.Content>
-                        <Item.Content>{dockerImage.created.split('T')[0]}</Item.Content>
+                        <Item.Content>
+                            {format(
+                                Date.parse(dockerImage.updated),
+                                'dd.MM .yyyy'
+                            )}
+                        </Item.Content>
                         <Item.Content>
                             <ReactTimeago date={dockerImage.updated} />
                         </Item.Content>

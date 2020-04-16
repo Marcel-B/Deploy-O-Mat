@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 import { IDockerImage } from '../../app/models/dockerImage';
-import { Item, Icon, Button, Segment, Form } from 'semantic-ui-react';
+import { Item, Icon, Button, Segment } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
@@ -41,18 +40,15 @@ const DockerImageListItem: React.FC<{
                                 </Item.Meta>
                                 <Item.Meta>
                                     <Icon name='clock' />{' '}
-                                    <TimeAgo date={format(Date.parse(dockerImage.updated), 'dd.MM .yyyy')} />
+                                    <TimeAgo date={dockerImage.updated} />
                                 </Item.Meta>
                             </Item.Content>
                         </Item>
                     </Item.Group>
                 </Segment>
                 <Segment clearing>
-                    {isLoggedIn ?? (
+                    {isLoggedIn && (
                         <Button
-                            as={Link}
-                            to={`/dockerImageDetails/${dockerImage.id}`}
-                            toggle
                             floated='right'
                             color='green'
                             content='Pull'

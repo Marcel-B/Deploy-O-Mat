@@ -29,21 +29,24 @@ const DockerServiceListItem: React.FC<{ dockerService: IDockerService, loggedIn:
                         </Item>
                     </Item.Group>
                 </Segment>
-                <Segment>
+                <Segment clearing>
                     <Item.Group>
                         <Button
                             content='Start'
                             color='green'
+                            floated='right'
                             disabled={!loggedIn}
                         />
                         <Button
                             content='Update'
                             color='blue'
+                            floated='right'
                             disabled={!loggedIn}
                         />
                         <Button
                             content='Stop'
                             color='red'
+                            floated='right'
                             disabled={!loggedIn}
                         />
                     </Item.Group>

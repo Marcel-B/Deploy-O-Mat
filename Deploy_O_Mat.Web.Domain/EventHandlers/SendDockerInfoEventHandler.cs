@@ -33,6 +33,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
             {
                 if (idIdx > value.Length)
                     continue;
+                if (nameIdx < 0 || modeIdx < 0 || replicasIdx < 0 || imageIdx < 0)
+                    continue;
                 var id = value.Substring(0, idIdx);
                 var name = value[idIdx..nameIdx];
                 var mode = value[nameIdx..modeIdx];

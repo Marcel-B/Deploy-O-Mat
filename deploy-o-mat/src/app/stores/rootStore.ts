@@ -4,6 +4,7 @@ import { createContext } from 'react';
 import DockerServiceStore from './dockerSerivceStore';
 import UserStore from './userStore';
 import CommonStore from './commonStore';
+import ModalStore from './modalStore';
 
 configure({ enforceActions: 'always' });
 
@@ -12,12 +13,14 @@ export class RootStore {
     dockerServiceStore: DockerServiceStore;
     userStore: UserStore;
     commonStore: CommonStore;
+    modalStore: ModalStore;
 
     constructor() {
         this.dockerImageStore = new DockerImageStore(this);
         this.dockerServiceStore = new DockerServiceStore(this);
         this.userStore = new UserStore(this);
         this.commonStore = new CommonStore(this);
+        this.modalStore = new ModalStore(this);
     }
 }
 

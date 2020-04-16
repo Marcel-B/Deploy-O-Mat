@@ -47,15 +47,17 @@ const DockerImageListItem: React.FC<{
                     </Item.Group>
                 </Segment>
                 <Segment clearing>
-                    <Button
-                        as={Link}
-                        to={`/dockerImageDetails/${dockerImage.id}`}
-                        toggle
-                        floated='right'
-                        color='green'
-                        content='Pull'
-                        disabled={!isLoggedIn}
-                    />
+                    {isLoggedIn ?? (
+                        <Button
+                            as={Link}
+                            to={`/dockerImageDetails/${dockerImage.id}`}
+                            toggle
+                            floated='right'
+                            color='green'
+                            content='Pull'
+                        />
+                    )}
+
                     <Button
                         as={Link}
                         to={`/dockerImageDetails/${dockerImage.id}`}
@@ -63,7 +65,6 @@ const DockerImageListItem: React.FC<{
                         floated='right'
                         color='blue'
                         content='Details'
-                        disabled={!isLoggedIn}
                     />
                 </Segment>
             </Segment.Group>

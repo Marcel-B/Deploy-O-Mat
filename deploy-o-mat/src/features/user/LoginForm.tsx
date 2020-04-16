@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { Form, Button, Label } from 'semantic-ui-react';
+import { Form, Button, Label, Header } from 'semantic-ui-react';
 import TextInput from '../../app/common/form/TextInput';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import { IUserFormValues } from '../../app/models/user';
 import { FORM_ERROR } from 'final-form';
 import { combineValidators, isRequired } from 'revalidate';
+import ErrorMessage from '../../app/common/form/ErrorMessage';
 
 const validate = combineValidators({
     email: isRequired('Email'),
@@ -33,7 +34,13 @@ const LoginForm = () => {
                 pristine,
                 dirtySinceLastSubmit,
             }) => (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} error>
+                    <Header
+                        as='h2'
+                        content='Login to deploy-O-mat'
+                        color='teal'
+                        textAlign='center'
+                    />
                     <Field
                         name='email'
                         component={TextInput}
@@ -46,20 +53,19 @@ const LoginForm = () => {
                         type='password'
                     />
                     {submitError && !dirtySinceLastSubmit && (
-                        <Label
-                            color='red'
-                            basic
-                            content={submitError.statusText}
+                        <ErrorMessage
+                            error={submitError}
+                            text='Invalid email or password'
                         />
                     )}
-                    <br />
                     <Button
-                        positive
+                        color='teal'
                         disabled={
                             (invalid && !dirtySinceLastSubmit) || pristine
                         }
                         content='Login'
                         loading={submitting}
+                        fluid
                     />
                 </Form>
             )}

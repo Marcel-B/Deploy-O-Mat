@@ -2,17 +2,23 @@ import React, { useContext } from 'react';
 import { Menu, Container, Dropdown, Image } from 'semantic-ui-react';
 import { NavLink, Link } from 'react-router-dom';
 import { RootStoreContext } from '../../app/stores/rootStore';
+import LoginForm from '../user/LoginForm';
 
 const NavBar: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { user, isLoggedIn , logout} = rootStore.userStore;
+    const { user, isLoggedIn, logout } = rootStore.userStore;
+    const { openModal } = rootStore.modalStore;
 
     return (
         <Container>
             <Menu fixed='top' inverted secondary>
                 <Container>
                     <Menu.Item as={NavLink} exact to={'/'}>
-                        <Image src={'/assets/deploy.svg'} alt={'logo'} size='mini'/>
+                        <Image
+                            src={'/assets/deploy.svg'}
+                            alt={'logo'}
+                            size='mini'
+                        />
                     </Menu.Item>
 
                     <Menu.Item
@@ -51,7 +57,10 @@ const NavBar: React.FC = () => {
                                 spaced='right'
                                 src={'/assets/user.png'}
                             />
-                            <Dropdown pointing='top left' text={user.displayName}>
+                            <Dropdown
+                                pointing='top left'
+                                text={user.displayName}
+                            >
                                 <Dropdown.Menu>
                                     <Dropdown.Item
                                         as={Link}
@@ -59,7 +68,11 @@ const NavBar: React.FC = () => {
                                         text='My profile'
                                         icon='user'
                                     />
-                                    <Dropdown.Item onClick={logout} text='Logout' icon='power' />
+                                    <Dropdown.Item
+                                        onClick={logout}
+                                        text='Logout'
+                                        icon='power'
+                                    />
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Menu.Item>
@@ -67,8 +80,7 @@ const NavBar: React.FC = () => {
                         <Menu.Menu position='right'>
                             <Menu.Item
                                 name='login'
-                                as={NavLink}
-                                to={'/login'}
+                                onClick={() => openModal(<LoginForm/>)}
                             />
                         </Menu.Menu>
                     )}

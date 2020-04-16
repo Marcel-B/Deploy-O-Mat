@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { IDockerImage } from '../../app/models/dockerImage';
-import { Item, Icon, Button, Segment } from 'semantic-ui-react';
+import { Item, Icon, Button, Segment, Grid, Label } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
+import BuildStatusBanner from '../build-status/BuildStatusBanner';
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
@@ -13,24 +14,14 @@ const DockerImageListItem: React.FC<{
         <Fragment>
             <Segment.Group>
                 <Segment>
+                    {isLoggedIn && (
+                        <Label as='a' color='grey' ribbon>
+                            <Icon name='setting' />
+                        </Label>
+                    )}
+
                     <Item.Group>
                         <Item>
-                            <span style={{ marginBottom: '4px' }}>
-                                {dockerImage.isActive ? (
-                                    <Icon
-                                        name='play'
-                                        size='large'
-                                        color='green'
-                                    />
-                                ) : (
-                                    <Icon
-                                        name='stop'
-                                        size='large'
-                                        color='red'
-                                    />
-                                )}
-                            </span>
-
                             <Item.Content>
                                 <Item.Header>{dockerImage.name}</Item.Header>
                                 <Item.Description>
@@ -53,7 +44,15 @@ const DockerImageListItem: React.FC<{
                         </Item>
                     </Item.Group>
                 </Segment>
+                <Segment>
+                    <BuildStatusBanner badges={dockerImage.badges} />
+                </Segment>
                 <Segment clearing>
+                    {dockerImage.isActive ? (
+                        <Icon name='play' size='large' color='green' />
+                    ) : (
+                        <Icon name='stop' size='large' color='red' />
+                    )}
                     {isLoggedIn && (
                         <Fragment>
                             <Button

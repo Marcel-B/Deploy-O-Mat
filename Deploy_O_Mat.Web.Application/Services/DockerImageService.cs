@@ -54,7 +54,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
         {
             var dockerImages = await _repository.GetAll();
             foreach (var dockerImage in dockerImages)
+            {
                 dockerImage.Updated = dockerImage.Updated?.ToLocalTime();
+                dockerImage.StartTime = dockerImage.StartTime?.ToLocalTime();
+            }
             return dockerImages;
         }
 

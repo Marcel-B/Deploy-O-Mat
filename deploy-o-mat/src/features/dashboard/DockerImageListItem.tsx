@@ -40,8 +40,14 @@ const DockerImageListItem: React.FC<{
                                     {dockerImage.repoName}:{dockerImage.tag}
                                 </Item.Meta>
                                 <Item.Meta>
+                                    <Icon name='sync alternate' />{' '}
+                                    {dockerImage.startTime && (
+                                        <TimeAgo date={dockerImage.startTime} />
+                                    )}
+                                </Item.Meta>
+                                <Item.Meta>
                                     <Icon name='clock' />{' '}
-                                    <TimeAgo date={dockerImage.startTime ?? dockerImage.updated} />
+                                    <TimeAgo date={dockerImage.updated} />
                                 </Item.Meta>
                             </Item.Content>
                         </Item>
@@ -51,13 +57,17 @@ const DockerImageListItem: React.FC<{
                     {isLoggedIn && (
                         <Fragment>
                             <Button
+                                icon
+                                labelPosition='left'
                                 floated='right'
                                 color='red'
-                                content='Restart'
                                 onClick={() =>
                                     restartDockerImage(dockerImage.id)
                                 }
-                            />
+                            >
+                                <Icon name='sync alternate' />
+                                Restart
+                            </Button>
                             <Button
                                 floated='right'
                                 color='green'

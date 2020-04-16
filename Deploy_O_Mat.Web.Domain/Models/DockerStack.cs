@@ -8,5 +8,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         public DateTime? Updated { get; set; }
         public string Name { get; set; }
         public string File { get; set; }
+
+        public DockerStack()
+        {
+            Created = DateTime.UtcNow;
+        }
     }
 }

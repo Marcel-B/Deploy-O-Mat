@@ -26,7 +26,10 @@ namespace MicroRabbit.Infra.Bus
         private string passWord = "guest";
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public RabbitMQBus(IMediator mediator, IServiceScopeFactory serviceScopeFactory, SecretProvider secretProvider)
+        public RabbitMQBus(
+            IMediator mediator,
+            IServiceScopeFactory serviceScopeFactory,
+            SecretProvider secretProvider)
         {
             _secretProvider = secretProvider;
             _mediator = mediator;
@@ -35,16 +38,10 @@ namespace MicroRabbit.Infra.Bus
             _eventTypes = new List<Type>();
             userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
             passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-            //var HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost";
-            //Console.WriteLine(userName);
-            //Console.WriteLine(passWord);
-            //Console.WriteLine(HostName);
         }
 
         public Task SendCommand<T>(T command) where T : Command
-        {
-            return _mediator.Send(command);
-        }
+            => _mediator.Send(command);
 
         public void Publish<T>(T @event) where T : Event
         {
@@ -90,10 +87,10 @@ namespace MicroRabbit.Infra.Bus
 
         private void StartBassicConsume<T>() where T : Event
         {
-        
+
             var factory = new ConnectionFactory
             {
-                HostName =  _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
+                HostName = _secretProvider.GetSecret("HOSTNAME") ?? "localhost",
                 DispatchConsumersAsync = true,
                 Port = 5672,
                 UserName = userName ?? "guest",
@@ -125,7 +122,7 @@ namespace MicroRabbit.Infra.Bus
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
         }
 
@@ -133,18 +130,16 @@ namespace MicroRabbit.Infra.Bus
         {
             if (_handlers.ContainsKey(eventName))
             {
-                using (var scope = _serviceScopeFactory.CreateScope())
+                using var scope = _serviceScopeFactory.CreateScope();
+                var subscriptions = _handlers[eventName];
+                foreach (var subscription in subscriptions)
                 {
-                    var subscriptions = _handlers[eventName];
-                    foreach (var subscription in subscriptions)
-                    {
-                        var handler = scope.ServiceProvider.GetService(subscription);
-                        if (handler == null) continue;
-                        var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
-                        var @event = JsonConvert.DeserializeObject(message, eventType);
-                        var conreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
-                        await (Task)conreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
-                    }
+                    var handler = scope.ServiceProvider.GetService(subscription);
+                    if (handler == null) continue;
+                    var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
+                    var @event = JsonConvert.DeserializeObject(message, eventType);
+                    var conreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+                    await (Task)conreteType.GetMethod("Handle").Invoke(handler, new object[] { @event });
                 }
             }
         }

@@ -9,6 +9,7 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 const DockerImageList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const { dockerImagesByUpdated, loadingInitial } = rootStore.dockerImageStore;
+    const { isLoggedIn } = rootStore.userStore;
 
     if (loadingInitial)
         return <LoadingComponent content='Loading images...' />;
@@ -19,6 +20,7 @@ const DockerImageList: React.FC = () => {
                 <DockerImageListItem
                     dockerImage={dockerImage}
                     key={dockerImage.id}
+                    isLoggedIn={isLoggedIn}
                 />
             ))}
         </Item.Group>

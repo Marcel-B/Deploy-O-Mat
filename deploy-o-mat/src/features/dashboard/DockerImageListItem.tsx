@@ -4,9 +4,10 @@ import { Item, Icon, Button, Segment } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 
-const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
-    dockerImage,
-}) => {
+const DockerImageListItem: React.FC<{
+    dockerImage: IDockerImage;
+    isLoggedIn: boolean;
+}> = ({ dockerImage, isLoggedIn }) => {
     return (
         <Fragment>
             <Segment.Group>
@@ -53,6 +54,7 @@ const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
                         floated='right'
                         color='green'
                         content='Pull'
+                        disabled={!isLoggedIn}
                     />
                     <Button
                         as={Link}
@@ -61,6 +63,7 @@ const DockerImageListItem: React.FC<{ dockerImage: IDockerImage }> = ({
                         floated='right'
                         color='blue'
                         content='Details'
+                        disabled={!isLoggedIn}
                     />
                 </Segment>
             </Segment.Group>

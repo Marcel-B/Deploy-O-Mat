@@ -15,13 +15,14 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Context
         public DbSet<DockerStackService> DockerStackServices { get; set; }
         public DbSet<DockerStack> DockerStacks { get; set; }
         public DbSet<Badge> Badges { get; set; }
-
+        public DbSet<DockerStackLog> DockerStackLogs { get; set; }
 
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RequestLog>().HasIndex("Created");
+            modelBuilder.Entity<DockerStackLog>().HasIndex("Image");
         }
     }
 }

@@ -70,9 +70,10 @@ namespace MicroRabbit.Infra.IoC
             services.AddScoped<IUserAccessor, UserAccessor>();
 
             //Data
-            services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();
-            services.AddTransient<IDockerImageRepository, DockerImageRepository>();
-            services.AddTransient<IDockerStackServiceRepository, DockerStackServiceRespository>();
+            services.AddScoped<IDockerServiceRepository, DockerServiceRepository>();
+            services.AddScoped<IDockerImageRepository, DockerImageRepository>();
+            services.AddScoped<IDockerStackServiceRepository, DockerStackServiceRespository>();
+            services.AddScoped<IDeployOMatWebRepository, DeployOMatWebRepository>();
             //services.AddTransient<DockerServiceDbContext>();
             //services.AddTransient<WebContext>();
         }

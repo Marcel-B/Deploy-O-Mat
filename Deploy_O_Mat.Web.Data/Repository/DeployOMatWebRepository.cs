@@ -54,5 +54,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             _context.SaveChanges();
             return Task.CompletedTask;
         }
+
+        public async Task<IEnumerable<DockerStackLog>> GetDockerStackLogs()
+        {
+            return await _context.DockerStackLogs.ToListAsync();
+        }
     }
 }

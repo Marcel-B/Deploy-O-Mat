@@ -32,7 +32,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 if (current == null)// no log entry
                 {
                     current = stackLog;
-                    _context.Add(current);
+                    _context.DockerStackLogs.Add(current);
                 }
                 else
                 {

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { IDockerImage } from '../../app/models/dockerImage';
-import { Item, Icon, Button, Segment, Grid, Label } from 'semantic-ui-react';
+import { Item, Icon, Button, Segment, Label } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 import BuildStatusBanner from '../build-status/BuildStatusBanner';

@@ -30,26 +30,25 @@ const DockerServiceListItem: React.FC<{ dockerService: IDockerService, loggedIn:
                     </Item.Group>
                 </Segment>
                 <Segment clearing>
-                    <Item.Group>
-                        <Button
-                            content='Start'
-                            color='green'
-                            floated='right'
-                            disabled={!loggedIn}
-                        />
-                        <Button
-                            content='Update'
-                            color='blue'
-                            floated='right'
-                            disabled={!loggedIn}
-                        />
-                        <Button
-                            content='Stop'
-                            color='red'
-                            floated='right'
-                            disabled={!loggedIn}
-                        />
-                    </Item.Group>
+                    {loggedIn && (
+                        <Item.Group>
+                            <Button
+                                content='Start'
+                                color='green'
+                                floated='right'
+                            />
+                            <Button
+                                content='Update'
+                                color='blue'
+                                floated='right'
+                            />
+                            <Button
+                                content='Stop'
+                                color='red'
+                                floated='right'
+                            />
+                        </Item.Group>
+                    )}
                 </Segment>
             </Segment.Group>
         </Fragment>

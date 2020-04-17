@@ -8,20 +8,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
 {
     public class DockerInfoController : BaseController
     {
-        public DockerInfoController()
-        {
-        }
-
         [HttpGet]
         public async Task<ActionResult<Unit>> Get()
-        {
-            return await Mediator.Send(new Info.Command());
-        }
+            => await Mediator.Send(new Info.Command());
         
         [HttpGet("stackLogs")]
         public async Task<IEnumerable<Domain.Models.DockerStackLog>> StackLog()
-        {
-            return await Mediator.Send(new Application.DockerInfo.DockerStackLog.Query());
-        }
+            => await Mediator.Send(new DockerStackLog.Query());
     }
 }

@@ -2,14 +2,7 @@ import React, { useContext, useEffect, Fragment } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
-import {
-    Segment,
-    Header,
-    Grid,
-    Divider,
-    Table,
-    Icon,
-} from 'semantic-ui-react';
+import { Segment, Header, Grid, Divider, Table, Icon } from 'semantic-ui-react';
 import ReactTimeago from 'react-timeago';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import { format } from 'date-fns';
@@ -42,7 +35,7 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
             </Header>
 
             <Divider />
-
+            <br />
             <Grid divided>
                 <Grid.Column width={7}>
                     <Header as='h2'>Details</Header>

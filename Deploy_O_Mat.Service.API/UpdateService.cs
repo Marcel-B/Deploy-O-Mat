@@ -79,6 +79,7 @@ namespace Deploy_O_Mat.Service.Api
             using var scope = _serviceProvider.CreateScope();
             var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerInfoService>();
             var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+
 #if DEBUG
             services = File.ReadAllText("example.txt");
 #else

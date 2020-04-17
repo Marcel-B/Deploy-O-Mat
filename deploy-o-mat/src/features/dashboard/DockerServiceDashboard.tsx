@@ -7,10 +7,12 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 const DockerServiceDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const { loadDockerServices } = rootStore.dockerServiceStore;
+    const { loadDockerLogs } = rootStore.dockerInfoStore;
 
     useEffect(() => {
         loadDockerServices();
-    }, [loadDockerServices]);
+        loadDockerLogs();
+    }, [loadDockerServices, loadDockerLogs]);
 
     return (
         <Fragment>
@@ -20,13 +22,13 @@ const DockerServiceDashboard: React.FC = () => {
             </Header>
             <Divider />
             <br/>
-            <Grid>
-                <Grid.Column width={10}>
+            <Grid divided>
+                <Grid.Column width={7}>
                     <Header as='h2'>Services</Header>
                     <DockerServiceList />
                 </Grid.Column>
-                <Grid.Column width={6}>
-                    <Header as='h2'>Filters</Header>
+                <Grid.Column width={9}>
+                    <Header as='h2'>Stack Status</Header>
                     <DockerImageSidebar />
                 </Grid.Column>
             </Grid>

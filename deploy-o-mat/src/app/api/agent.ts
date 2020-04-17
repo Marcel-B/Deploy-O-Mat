@@ -4,6 +4,7 @@ import { IDockerService } from '../models/dockerService';
 import { IUser, IUserFormValues } from '../models/user';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { IDockerStackLog } from '../models/dockerStackLog';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL!;// 'http://localhost:5000/api';
 const responseBody = (response: AxiosResponse) => response.data;
@@ -50,10 +51,15 @@ const DockerServices = {
     list: (): Promise<IDockerService[]> => requests.get("/dockerservice"),
 }
 
+const DockerInfo = {
+    stackLogs: (): Promise<IDockerStackLog[]> => requests.get("/dockerinfo/stackLogs")
+
+}
+
 const User = {
     current: (): Promise<IUser> => requests.get('/user'),
     login: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/login`, user),
     register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user)
 }
 
-export default { DockerImages, DockerServices, User }
+export default { DockerImages, DockerServices, User, DockerInfo }

@@ -25,9 +25,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             foreach (var stackLog in stackLogs)
             {
                 var current = await _context.DockerStackLogs.FirstOrDefaultAsync(x => x.Image == stackLog.Image);
-                var repoNameIdx = stackLog.Image.LastIndexOf(':');
-                var repo = stackLog.Image.Substring(repoNameIdx);
-                var dockerImage = await _context.DockerImages.FirstOrDefaultAsync(x => x.RepoName == repo);
+                //var repoNameIdx = stackLog.Image.LastIndexOf(':');
+                //var repo = stackLog.Image.Substring(repoNameIdx);
+                //var dockerImage = await _context.DockerImages.FirstOrDefaultAsync(x => x.RepoName == repo);
 
                 if (current == null)// no log entry
                 {
@@ -36,7 +36,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 }
                 else
                 {
-                    current.DockerImageId = dockerImage?.Id;
+                    //current.DockerImageId = dockerImage?.Id;
                     current.Image = stackLog.Image;
                     current.Mode = stackLog.Mode;
                     current.Updated = DateTime.UtcNow;

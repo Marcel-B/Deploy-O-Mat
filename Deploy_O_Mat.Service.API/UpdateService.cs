@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Deploy_O_Mat.Service.Domain.Commands;
@@ -36,9 +37,11 @@ namespace Deploy_O_Mat.Service.Api
             _appLifetime.ApplicationStopped.Register(OnStopped);
 
             _timer = new Timer(RunJob, null, TimeSpan.Zero,
-           TimeSpan.FromMinutes(5));
-            //TimeSpan.FromSeconds(10));
-
+#if DEBUG
+            TimeSpan.FromSeconds(10));
+#else
+            TimeSpan.FromMinutes(5));
+#endif
             return Task.CompletedTask;
         }
 
@@ -72,10 +75,19 @@ namespace Deploy_O_Mat.Service.Api
         private async void RunJob(
             object state)
         {
+            string services = "";
             using var scope = _serviceProvider.CreateScope();
             var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerInfoService>();
             var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-            var services = await dockerInfoService.GetServices();
+#if DEBUG
+            services = File.ReadAllText("example.txt");
+#else
+            using var scope = _serviceProvider.CreateScope();
+            var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerInfoService>();
+            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+            services = await dockerInfoService.GetServices();
+#endif
+
             await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
         }
     }

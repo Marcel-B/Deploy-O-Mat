@@ -47,8 +47,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
                 var name = value[idIdx..nameIdx];
                 var mode = value[nameIdx..modeIdx];
                 var replicas = value[modeIdx..replicasIdx].Split('/');
-                var image = value[replicasIdx..imageIdx];
-                var ports = value[imageIdx..];
+                var image = "";
+                var ports = "";
+                if (value.Length > imageIdx)
+                {
+                    image = value[replicasIdx..imageIdx];
+                    ports = value[imageIdx..];
+                }
+                else
+                {
+                    image = value[replicasIdx..];
+                }
+
                 //sb.AppendLine($"'{id.Trim()}'");
                 //sb.AppendLine($"'{name.Trim()}'");
                 //sb.AppendLine($"'{mode.Trim()}'");
@@ -57,14 +67,14 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
                 //sb.AppendLine($"'{ports.Trim()}'");
                 lst.Add(new DockerStackLog
                 {
-                    Image = image,
-                    Mode = mode,
-                    Name = name,
-                    Ports = ports,
-                    ServiceId = id,
+                    Image = image.Trim(),
+                    Mode = mode.Trim(),
+                    Name = name.Trim(),
+                    Ports = ports.Trim(),
+                    ServiceId = id.Trim(),
                     Updated = DateTime.UtcNow,
-                    ReplicasOnline = int.Parse(replicas[0]),
-                    Replicas = int.Parse(replicas[1]),
+                    ReplicasOnline = int.Parse(replicas[0].Trim()),
+                    Replicas = int.Parse(replicas[1].Trim()),
                 });
             }
             _repo.CreateOrUpdateDockerStackLog(lst);

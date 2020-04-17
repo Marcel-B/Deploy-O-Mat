@@ -1,0 +1,14 @@
+ID                  NAME                             MODE                REPLICAS            IMAGE                                                 PORTS
+bkfk3frj6hjq        angulair_angulair                replicated          1/1                 millegalb/angulair:latest
+k7cu89ckfe9a        collector_sqlserver              replicated          1/1                 mcr.microsoft.com/mssql/server:2017-latest-ubuntu     *:1433->1433/tcp
+t1ckbx8n05yb        deploy-o-mat_deploy-o-mat        replicated          1/1                 millegalb/deploy-o-mat:latest
+v1a9ult5rqvt        deploy-o-mat_postgres            replicated          1/1                 postgres:latest                                       *:5400->5432/tcp
+zows962gq9gy        elk_elasticsearch                replicated          1/1                 docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+r8uxnn416hev        elk_kibana                       replicated          1/1                 docker.elastic.co/kibana/kibana:7.4.1
+21djzn2fbtzc        elk_logstash                     replicated          1/1                 docker.elastic.co/logstash/logstash:7.4.1
+mfj4rlfsizcj        feinstaub_db_feinstaub_db        replicated          1/1                 mcr.microsoft.com/mssql/server:2017-latest            *:1440->1433/tcp
+v8qbzd0s0dz0        feinstaub_feinstaubapi           replicated          1/1                 mbodenstein/feinstaubserver:latest
+pfbu8101c8kw        metrics_grafana                  replicated          1/1                 grafana/grafana:latest
+pca7lzerz3wp        metrics_prometheus               replicated          1/1                 prom/prometheus:latest
+b7s48r152ay4        rabbit_rabbitmq                  replicated          1/1                 rabbitmq:3-management                                 *:5672->5672/tcp, *:15672->15672/tcp
+8iooj3j372p5        slipways_slipways-api            replicated          1/1                 millegalb/slipways.api:latest

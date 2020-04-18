@@ -25,7 +25,7 @@ const DockerImageSidebar = () => {
                     <Table.Body>
                         {dockerInfoLogsArray.map(
                             (stackLog: IDockerStackLog) => (
-                                <Table.Row>
+                                <Table.Row key={stackLog.id}>
                                     <Table.Cell collapsing>
                                         {stackLog.name}
                                     </Table.Cell>

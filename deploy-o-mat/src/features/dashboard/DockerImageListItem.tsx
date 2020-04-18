@@ -4,18 +4,21 @@ import { Item, Icon, Button, Segment, Label } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 import BuildStatusBanner from '../build-status/BuildStatusBanner';
+import UpdateImageForm from '../image/UpdateImageForm';
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
     isLoggedIn: boolean;
+    openModal: (c: any) => void;
     restartDockerImage: (id: string) => void;
-}> = ({ dockerImage, isLoggedIn, restartDockerImage }) => {
+}> = ({ dockerImage, isLoggedIn, restartDockerImage, openModal }) => {
     return (
         <Fragment>
             <Segment.Group>
                 <Segment>
                     {isLoggedIn && (
-                        <Label as='a' color='grey' ribbon>
+                        <Label as='a' color='grey' ribbon
+                            onClick={() => openModal(<UpdateImageForm dockerImage={dockerImage}/>)}>
                             <Icon name='setting' />
                         </Label>
                     )}
@@ -28,8 +31,8 @@ const DockerImageListItem: React.FC<{
                                     <Icon name='user' /> {dockerImage.owner}
                                 </Item.Description>
                                 <Item.Meta>
-                                    <Icon name='docker' /> {dockerImage.repoName}:
-                                    {dockerImage.tag}
+                                    <Icon name='docker' />{' '}
+                                    {dockerImage.repoName}:{dockerImage.tag}
                                 </Item.Meta>
                                 <Item.Meta>
                                     <Icon name='sync alternate' />{' '}

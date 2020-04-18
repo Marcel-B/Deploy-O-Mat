@@ -69,6 +69,21 @@ export default class DockerImageStore {
         }
     }
 
+    @action updateImage = async (image: IDockerImage) => {
+        try {
+            console.log(image.id);
+            // const user = await agent.User.login(values);
+            // runInAction('login user', () => {
+            //     this.user = user;
+            // })
+            // this.rootStore.commonStore.setToken(user.token);
+            // this.rootStore.modalStore.closeModal();
+            // history.push('/images');
+        } catch (error) {
+            throw error;
+        }
+    }
+
     getDockerImage = (id: string) => {
         return this.dockerImageRegistry.get(id);
     }

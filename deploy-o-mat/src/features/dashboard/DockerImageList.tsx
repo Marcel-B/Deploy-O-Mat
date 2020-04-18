@@ -14,6 +14,7 @@ const DockerImageList: React.FC = () => {
         restartDockerImage,
     } = rootStore.dockerImageStore;
     const { isLoggedIn } = rootStore.userStore;
+    const { openModal } = rootStore.modalStore;
 
     if (loadingInitial)
         return <LoadingComponent content='Loading images...' />;
@@ -26,6 +27,7 @@ const DockerImageList: React.FC = () => {
                     key={dockerImage.id}
                     isLoggedIn={isLoggedIn}
                     restartDockerImage={restartDockerImage}
+                    openModal={openModal}
                 />
             ))}
         </Item.Group>

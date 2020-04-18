@@ -6,7 +6,7 @@ const BuildStatusBanner: React.FC<{badges: IBadge[]}> = ({badges}) => {
     return (
         <Image.Group size='mini' className='ui mini images'>
             {badges.map((badge) => (
-                <Label image size='mini'>
+                <Label image size='mini' key={badge.id}>
                     <Image src={badge.url} size='mini' />
                     {badge.description}
                 </Label>

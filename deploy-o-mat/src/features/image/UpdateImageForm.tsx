@@ -1,26 +1,28 @@
 import React, { useContext } from 'react';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { Form, Button, Header } from 'semantic-ui-react';
-import TextInput from '../../app/common/form/TextInput';
-import { RootStoreContext } from '../../app/stores/rootStore';
-import { IUserFormValues } from '../../app/models/user';
+import { IDockerImage } from '../../app/models/dockerImage';
 import { FORM_ERROR } from 'final-form';
 import { combineValidators, isRequired } from 'revalidate';
+import { Header, Form, Button } from 'semantic-ui-react';
+import TextInput from '../../app/common/form/TextInput';
 import ErrorMessage from '../../app/common/form/ErrorMessage';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const validate = combineValidators({
-    email: isRequired('Email'),
-    password: isRequired('Password'),
+    name: isRequired('Name'),
+    repoName: isRequired('Repo Name'),
 });
 
-const LoginForm = () => {
+const UpdateImageForm: React.FC<{ dockerImage: IDockerImage }> = ({
+    dockerImage,
+}) => {
     const rootStore = useContext(RootStoreContext);
-    const { login } = rootStore.userStore;
+    const { updateImage } = rootStore.dockerImageStore;
 
     return (
         <FinalForm
-            onSubmit={(values: IUserFormValues) =>
-                login(values).catch((error) => ({
+            onSubmit={(dockerImg: IDockerImage) =>
+                updateImage(dockerImg).catch((error) => ({
                     [FORM_ERROR]: error,
                 }))
             }
@@ -28,6 +30,7 @@ const LoginForm = () => {
             render={({
                 handleSubmit,
                 submitting,
+                form,
                 submitError,
                 invalid,
                 pristine,
@@ -36,20 +39,21 @@ const LoginForm = () => {
                 <Form onSubmit={handleSubmit} error>
                     <Header
                         as='h2'
-                        content='Login to deploy-O-mat'
+                        content='Update Docker Image'
                         color='teal'
                         textAlign='center'
                     />
                     <Field
-                        name='email'
+                        name='name'
                         component={TextInput}
-                        placeholder='email'
+                        placeholder='name'
+                        value={dockerImage.name}
                     />
                     <Field
-                        name='password'
+                        name='repoName'
                         component={TextInput}
-                        placeholder='password'
-                        type='password'
+                        placeholder='Repo Name'
+                        value={dockerImage.repoName}
                     />
                     {submitError && !dirtySinceLastSubmit && (
                         <ErrorMessage
@@ -62,7 +66,7 @@ const LoginForm = () => {
                         disabled={
                             (invalid && !dirtySinceLastSubmit) || pristine
                         }
-                        content='Login'
+                        content='Update'
                         loading={submitting}
                         fluid
                     />
@@ -72,4 +76,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default UpdateImageForm;

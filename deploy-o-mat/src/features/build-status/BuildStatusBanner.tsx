@@ -4,9 +4,9 @@ import { IBadge } from '../../app/models/dockerImage';
 
 const BuildStatusBanner: React.FC<{ badges: IBadge[] }> = ({ badges }) => {
     return (
-        <Image.Group size='small' className='ui small images'>
+        <Image.Group>
             {badges.map((badge) => (
-                <Image src={badge.url} key={badge.id} />
+                <Image src={badge.url} key={badge.id} class='badge' />
             ))}
         </Image.Group>
     );

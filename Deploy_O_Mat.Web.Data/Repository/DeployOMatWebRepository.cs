@@ -6,7 +6,6 @@ using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 {
@@ -20,21 +19,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             _context = context;
         }
 
-        public  Task CreateOrUpdateDockerStackLog(
+        public Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
             foreach (var stackLog in stackLogs)
             {
-                if (stackLog.Image == null) continue;
+                if (stackLog.Image == null)continue;
                 var current = _context.DockerStackLogs.FirstOrDefault(x => x.Image == stackLog.Image);
                 var repoNameIdx = stackLog.Image.LastIndexOf(':');
-                var repo = stackLog.Image.Substring(0,repoNameIdx);
-                var dockerImage =  _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
+                var repo = stackLog.Image.Substring(0, repoNameIdx);
+                var dockerImage = _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
 
                 if (dockerImage != null)
                     stackLog.DockerImageId = dockerImage.Id;
 
-                if (current == null)// no log entry
+                if (current == null) // no log entry
                 {
                     stackLog.Id = Guid.NewGuid();
                     _context.DockerStackLogs.Add(stackLog);
@@ -59,5 +58,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         {
             return await _context.DockerStackLogs.ToListAsync();
         }
+
+        public async Task<IEnumerable<DockerStack>> GetDockerStacks() => await _context.DockerStacks.ToListAsync();
     }
 }

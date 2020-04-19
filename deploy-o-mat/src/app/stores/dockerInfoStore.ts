@@ -1,6 +1,7 @@
 import agent from '../api/agent';
 import { observable, action, runInAction, computed } from 'mobx';
 import { RootStore } from './rootStore';
+import { format } from 'date-fns';
 
 export default class DockerInfoStore {
     rootStore: RootStore;
@@ -13,6 +14,13 @@ export default class DockerInfoStore {
 
     @computed get dockerInfoLogsArray() {
         return Array.from(this.dockerInfoLogs.values())//.sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
+    }
+
+    @computed get lastLogUpdate() {
+        let va = Array.from(this.dockerInfoLogs.values())[0];
+        if (va)
+            return (format(Date.parse(va.updated), 'dd. MMMM HH:mm'));
+        return '';
     }
 
     @action loadDockerLogs = async () => {

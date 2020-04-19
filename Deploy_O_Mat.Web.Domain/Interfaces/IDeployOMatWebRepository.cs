@@ -9,5 +9,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces
         Task CreateOrUpdateDockerStackLog(IEnumerable<DockerStackLog> stackLogs);
 
         Task<IEnumerable<DockerStackLog>> GetDockerStackLogs();
+        Task<IEnumerable<DockerStack>> GetDockerStacks();
     }
 }

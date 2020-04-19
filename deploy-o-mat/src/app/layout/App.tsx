@@ -14,9 +14,9 @@ import LoginForm from '../../features/user/LoginForm';
 import { RootStoreContext } from '../stores/rootStore';
 import { LoadingComponent } from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
-import DockerStackDashboard from '../../features/dashboard/DockerStackDashboard';
 import NotFound from './NotFound';
 import { ToastContainer } from 'react-toastify';
+import DockerStackDashboard from '../../features/docker-stack/DockerStackDashboard';
 
 function App() {
     const rootStore = useContext(RootStoreContext);

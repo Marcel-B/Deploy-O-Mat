@@ -6,6 +6,7 @@ import UserStore from './userStore';
 import CommonStore from './commonStore';
 import ModalStore from './modalStore';
 import DockerInfoStore from './dockerInfoStore';
+import DockerStackStore from './dockerStackStore';
 
 configure({ enforceActions: 'always' });
 
@@ -16,6 +17,7 @@ export class RootStore {
     commonStore: CommonStore;
     modalStore: ModalStore;
     dockerInfoStore: DockerInfoStore;
+    dockerStackStore: DockerStackStore;
 
     constructor() {
         this.dockerImageStore = new DockerImageStore(this);
@@ -24,6 +26,7 @@ export class RootStore {
         this.commonStore = new CommonStore(this);
         this.modalStore = new ModalStore(this);
         this.dockerInfoStore = new DockerInfoStore(this);
+        this.dockerStackStore = new DockerStackStore(this);
     }
 }
 

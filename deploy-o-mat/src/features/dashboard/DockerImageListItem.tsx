@@ -1,28 +1,19 @@
 import React, { Fragment } from 'react';
 import { IDockerImage } from '../../app/models/dockerImage';
-import { Item, Icon, Button, Segment, Label } from 'semantic-ui-react';
+import { Item, Icon, Button, Segment } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 import BuildStatusBanner from '../build-status/BuildStatusBanner';
-import UpdateImageForm from '../image/UpdateImageForm';
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
     isLoggedIn: boolean;
-    openModal: (c: any) => void;
     restartDockerImage: (id: string) => void;
-}> = ({ dockerImage, isLoggedIn, restartDockerImage, openModal }) => {
+}> = ({ dockerImage }) => {
     return (
         <Fragment>
             <Segment.Group>
                 <Segment>
-                    {isLoggedIn && (
-                        <Label as='a' color='grey' ribbon
-                            onClick={() => openModal(<UpdateImageForm dockerImage={dockerImage}/>)}>
-                            <Icon name='setting' />
-                        </Label>
-                    )}
-
                     <Item.Group>
                         <Item>
                             <Item.Content>
@@ -57,7 +48,7 @@ const DockerImageListItem: React.FC<{
                     ) : (
                         <Icon name='stop' size='large' color='red' />
                     )}
-                    {isLoggedIn && (
+                    {/* {isLoggedIn && (
                         <Fragment>
                             <Button
                                 icon
@@ -77,15 +68,16 @@ const DockerImageListItem: React.FC<{
                                 content='Pull'
                             />
                         </Fragment>
-                    )}
+                    )} */}
 
                     <Button
+                        circular
                         as={Link}
                         to={`/dockerImageDetails/${dockerImage.id}`}
                         toggle
                         floated='right'
                         color='blue'
-                        content='Details'
+                        icon='info'
                     />
                 </Segment>
             </Segment.Group>

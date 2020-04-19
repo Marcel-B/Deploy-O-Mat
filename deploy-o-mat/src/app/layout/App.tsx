@@ -3,7 +3,7 @@ import NavBar from '../../features/nav/NavBar';
 import { Container } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import Footer from '../../features/footer/Footer';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import BuildStatusDashboard from '../../features/build-status-dashboard/BuildStatusDashboard';
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
@@ -15,6 +15,8 @@ import { RootStoreContext } from '../stores/rootStore';
 import { LoadingComponent } from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
 import DockerStackDashboard from '../../features/dashboard/DockerStackDashboard';
+import NotFound from './NotFound';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     const rootStore = useContext(RootStoreContext);
@@ -34,24 +36,48 @@ function App() {
     return (
         <Fragment>
             <ModalContainer />
-            <NavBar />
-            <Container style={{ marginTop: '6em' }}>
-                <Route exact path='/' component={HomePage} />
-                <Route path='/images' component={DockerImageDashboard} />
-                <Route path='/services' component={DockerServiceDashboard} />
-                <Route path='/stacks' component={DockerStackDashboard} />
-                <Route
-                    path='/buildStatusDashboard'
-                    component={BuildStatusDashboard}
-                />
-                <Route
-                    path={'/dockerImageDetails/:id'}
-                    component={DockerImageDetails}
-                />
-                <Route path={'/disclaimer'} component={Disclaimer} />
-                <Route path={'/login'} component={LoginForm} />
-            </Container>
-            <Footer />
+            <ToastContainer position='bottom-right' />
+            <Route exact path='/' component={HomePage} />
+            <Route
+                path={'/(.+)'}
+                render={() => (
+                    <Fragment>
+                        <NavBar />
+                        <Container style={{ marginTop: '7em' }}>
+                            <Switch>
+                                <Route exact path='/' component={HomePage} />
+                                <Route
+                                    path='/images'
+                                    component={DockerImageDashboard}
+                                />
+                                <Route
+                                    path='/services'
+                                    component={DockerServiceDashboard}
+                                />
+                                <Route
+                                    path='/stacks'
+                                    component={DockerStackDashboard}
+                                />
+                                <Route
+                                    path='/buildStatusDashboard'
+                                    component={BuildStatusDashboard}
+                                />
+                                <Route
+                                    path={'/dockerImageDetails/:id'}
+                                    component={DockerImageDetails}
+                                />
+                                <Route
+                                    path={'/disclaimer'}
+                                    component={Disclaimer}
+                                />
+                                <Route path={'/login'} component={LoginForm} />
+                                <Route component={NotFound} />
+                            </Switch>
+                            <Footer />
+                        </Container>
+                    </Fragment>
+                )}
+            />
         </Fragment>
     );
 }

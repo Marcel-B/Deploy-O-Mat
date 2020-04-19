@@ -1,8 +1,17 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { history } from '../..';
 import { LoadingComponent } from '../../app/layout/LoadingComponent';
-import { Segment, Header, Grid, Divider, Table, Icon } from 'semantic-ui-react';
+import {
+    Segment,
+    Header,
+    Grid,
+    Divider,
+    Table,
+    Icon,
+    Button,
+} from 'semantic-ui-react';
 import ReactTimeago from 'react-timeago';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import { format } from 'date-fns';
@@ -18,8 +27,10 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
     const {
         dockerImage,
         loadDockerImage,
+        restartDockerImage,
         loadingInitial,
     } = rootStore.dockerImageStore;
+    const { isLoggedIn } = rootStore.userStore;
 
     useEffect(() => {
         loadDockerImage(match.params.id);
@@ -104,6 +115,27 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                             </Table.Row>
                         </Table.Body>
                     </Table>
+                    <Button.Group fluid>
+                        <Button
+                            content='Back'
+                            color='yellow'
+                            onClick={() => history.push('/images')}
+                        />
+                        {isLoggedIn && (
+                            <Fragment>
+                                <Button content='Edit' color='blue' disabled />
+                                <Button content='Pull' color='green' disabled />
+                                <Button content='Stop' color='red' disabled />
+                                <Button
+                                    content='Restart'
+                                    color='orange'
+                                    onClick={() =>
+                                        restartDockerImage(dockerImage.id)
+                                    }
+                                />
+                            </Fragment>
+                        )}
+                    </Button.Group>
                 </Grid.Column>
 
                 <Grid.Column width={9}>

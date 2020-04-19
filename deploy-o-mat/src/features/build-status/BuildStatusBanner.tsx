@@ -1,18 +1,15 @@
 import React from 'react';
-import { Image, Label } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import { IBadge } from '../../app/models/dockerImage';
 
-const BuildStatusBanner: React.FC<{badges: IBadge[]}> = ({badges}) => {
+const BuildStatusBanner: React.FC<{ badges: IBadge[] }> = ({ badges }) => {
     return (
-        <Image.Group size='mini' className='ui mini images'>
+        <Image.Group size='small' className='ui small images'>
             {badges.map((badge) => (
-                <Label image size='mini' key={badge.id}>
-                    <Image src={badge.url} size='mini' />
-                    {badge.description}
-                </Label>
+                <Image src={badge.url} key={badge.id} />
             ))}
         </Image.Group>
     );
-}
+};
 
-export default BuildStatusBanner
+export default BuildStatusBanner;

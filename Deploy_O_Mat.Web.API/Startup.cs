@@ -130,7 +130,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 //app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             // Security Headers
             app.UseXContentTypeOptions();
@@ -143,7 +143,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 .FontSources(_ => _.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FormActions(_ => _.Self())
                 .FrameAncestors(_ => _.Self())
-                .ImageSources(_ => _.Self())
+                .ImageSources(_ => _.Self().CustomSources("https://github.com"))
                 .ScriptSources(_ => _.Self().CustomSources("sha256-A+1Ei6kIUokroRUVKDJgHC5aqwihcYIWZy/4BkF8hmo=")));
             // ---
 

@@ -6,7 +6,7 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const DockerServiceDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { loadDockerServices } = rootStore.dockerServiceStore;
+    const { loadDockerServices,  } = rootStore.dockerServiceStore;
     const { loadDockerLogs } = rootStore.dockerInfoStore;
 
     useEffect(() => {

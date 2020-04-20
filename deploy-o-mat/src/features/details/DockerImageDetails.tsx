@@ -166,7 +166,8 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                                             color='orange'
                                             onClick={() =>
                                                 restartDockerImage(
-                                                    dockerImage.id
+                                                    dockerImage.id,
+                                                    dockerImage.repoName
                                                 )
                                             }
                                         >

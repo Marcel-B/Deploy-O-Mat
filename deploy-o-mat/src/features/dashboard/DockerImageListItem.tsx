@@ -8,7 +8,7 @@ import BuildStatusBanner from '../build-status/BuildStatusBanner';
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
     isLoggedIn: boolean;
-    restartDockerImage: (id: string) => void;
+    restartDockerImage: (id: string, name: string) => void;
 }> = ({ dockerImage }) => {
     return (
         <Fragment>

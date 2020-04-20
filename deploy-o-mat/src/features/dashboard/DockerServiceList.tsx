@@ -8,20 +8,28 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 
 const DockerServiceList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { dockerServicesByUpdated, loadingInitial } = rootStore.dockerServiceStore;
+    const {
+        dockerServicesByUpdated,
+        loadingServices,
+        removeDockerService,
+    } = rootStore.dockerServiceStore;
     const { isLoggedIn } = rootStore.userStore;
 
-    if (loadingInitial)
+    if (loadingServices)
         return <LoadingComponent content='Loading services...' />;
 
     return (
         <Item.Group divided>
             {dockerServicesByUpdated.map((dockerService: IDockerService) => (
-                <DockerServiceListItem key={dockerService.id} loggedIn={isLoggedIn} dockerService={dockerService}/>
+                <DockerServiceListItem
+                    key={dockerService.id}
+                    loggedIn={isLoggedIn}
+                    dockerService={dockerService}
+                    removeDockerService={removeDockerService}
+                />
             ))}
         </Item.Group>
     );
 };
 
-export default observer (DockerServiceList);
-
+export default observer(DockerServiceList);

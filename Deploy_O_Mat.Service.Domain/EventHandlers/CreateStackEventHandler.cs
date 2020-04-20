@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Deploy_O_Mat.Service.Domain.Commands;
 using Deploy_O_Mat.Service.Domain.Events;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MicroRabbit.Domain.Core.Bus;
@@ -11,12 +12,18 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
     {
         private ILogger<CreateStackEventHandler> _logger;
         private IDockerStackService _dockerStackService;
+        private readonly IDockerInfoService dockerInfoService;
+        private readonly IEventBus eventBus;
 
         public CreateStackEventHandler(
             IDockerStackService dockerStackService,
+            IDockerInfoService dockerInfoService,
+            IEventBus eventBus,
             ILogger<CreateStackEventHandler> logger)
         {
             _dockerStackService = dockerStackService;
+            this.dockerInfoService = dockerInfoService;
+            this.eventBus = eventBus;
             _logger = logger;
         }
 
@@ -25,11 +32,20 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
         {
 
             _logger.LogInformation($"Try create stack {@event.Name} Path {@event.File}");
-            var result = await _dockerStackService.CreateStack(new Models.DockerStack
+            await _dockerStackService.CreateStack(new Models.DockerStack
             {
                 File = @event.File,
                 Name = @event.Name,
             });
+            string services = "";
+
+#if DEBUG
+            services = File.ReadAllText("example.txt");
+#else
+            services = await dockerInfoService.GetServices();
+#endif
+
+            await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
             _logger.LogInformation($"Create Stack");
         }
     }

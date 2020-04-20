@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using Deploy_O_Mat.Service.Domain.Models;
 using MicroRabbit.Domain.Core.Bus;
@@ -10,15 +10,18 @@ namespace Deploy_O_Mat.Service.Application.Services
 {
     public class DockerServiceService : IDockerServiceService
     {
+        private readonly IProcessor processor;
         private readonly IDockerServiceRepository _dockerServiceRepository;
         private readonly ILogger<DockerServiceService> _logger;
         private readonly IEventBus _bus;
 
         public DockerServiceService(
+            IProcessor processor,
             IDockerServiceRepository dockerServiceRepository,
             ILogger<DockerServiceService> logger,
             IEventBus bus)
         {
+            this.processor = processor;
             _dockerServiceRepository = dockerServiceRepository;
             _logger = logger;
             _bus = bus;
@@ -29,46 +32,36 @@ namespace Deploy_O_Mat.Service.Application.Services
             return _dockerServiceRepository.GetDockerServices();
         }
 
-        public async Task<int> UpdateService(DockerService service)
+        public Task<int> StartService(
+            string service)
         {
-            var psi = new ProcessStartInfo
-            {
-                FileName = "docker",
-                //Arguments = "-c 3 8.8.8.8",
-                Arguments = $"service update --image {service.RepoName}:{service.Tag} {service.Name}",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-            var process = new Process
-            {
-                StartInfo = psi
-            };
-            process.Start();
-            var error = string.Empty;
-            while (!process.StandardOutput.EndOfStream)
-            {
-                var line = await process.StandardOutput.ReadLineAsync();
-                _logger.LogInformation(line);
-            }
-            while (!process.StandardError.EndOfStream)
-            {
-                error = await process.StandardError.ReadLineAsync();
-            }
+            throw new System.NotImplementedException();
+        }
 
-            process.WaitForExit();
-            if (process.ExitCode == 0)
-            {
-                //dockerService.BuildId = dockerImages.First(_ => _.Id == dockerService.Id).BuildId;
-                //dataContext.SaveChanges();
-                _logger.LogInformation($"Update Docker Service '{service.Name}' to BuildId '{service.BuildId}' completed");
-                return process.ExitCode;
-            }
+        public async Task<int> StopService(
+            string service)
+        {
+            var result = await processor.Process("docker", $"service rm {service}");
+
+            if (result.Success)
+                _logger.LogInformation($"Remove Docker Service '{service}' completed");
             else
-            {
-                _logger.LogWarning($"Error while updating '{service.Name}' to BuildId '{service.BuildId}': ({process.ExitCode}) - {error}");
-                return process.ExitCode;
-            }
+                _logger.LogWarning($"Error while removing '{service}': ({result.ReturnCode}) - {result.ErrorMessage}");
+
+            return result.ReturnCode;
+        }
+
+        public async Task<int> UpdateService(
+            DockerService service)
+        {
+            var result = await processor.Process("docker", $"service update --image {service.RepoName}:{service.Tag} {service.Name}");
+
+            if (result.Success)
+                _logger.LogInformation($"Update Docker Service '{service.Name}' to BuildId '{service.BuildId}' completed");
+            else
+                _logger.LogWarning($"Error while updating '{service.Name}' to BuildId '{service.BuildId}': ({result.ReturnCode}) - {result.ErrorMessage}");
+
+            return result.ReturnCode;
         }
     }
 }

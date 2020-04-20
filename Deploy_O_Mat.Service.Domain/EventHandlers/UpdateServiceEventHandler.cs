@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Deploy_O_Mat.Service.Domain.Commands;
 using Deploy_O_Mat.Service.Domain.Events;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MicroRabbit.Domain.Core.Bus;
@@ -10,15 +12,18 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
     {
         private ILogger<UpdateServiceEventHandler> _logger;
         private IDockerServiceService _dockerService;
-        private IDockerServiceRepository _dockerServiceRepository;
+        private readonly IDockerInfoService dockerInfoService;
+        private readonly IEventBus eventBus;
 
         public UpdateServiceEventHandler(
             IDockerServiceService dockerService,
-            IDockerServiceRepository dockerServiceRepository,
+            IDockerInfoService dockerInfoService,
+            IEventBus eventBus,
             ILogger<UpdateServiceEventHandler> logger)
         {
             _dockerService = dockerService;
-            _dockerServiceRepository = dockerServiceRepository;
+            this.dockerInfoService = dockerInfoService;
+            this.eventBus = eventBus;
             _logger = logger;
         }
 
@@ -34,6 +39,15 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
                 Name = @event.ServiceName,
                 Tag = @event.Tag,
             });
+            string services = "";
+
+#if DEBUG
+            services = File.ReadAllText("example.txt");
+#else
+            services = await dockerInfoService.GetServices();
+#endif
+
+            await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
             _logger.LogInformation($"Update {@event.RepoName} {@event.BuildId} result id = {result}");
         }
     }

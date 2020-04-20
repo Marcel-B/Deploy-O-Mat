@@ -12,5 +12,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
         Task<DockerImage> GetDockerImage(Guid id);
         Task<DockerImage> CreateOrUpdateDockerImage(DockerImage dockerImage);
         void UpdateDockerService(DockerServiceUpdate dockerServiceUpdate);
+        void RemoveDockerService(string serviceName);
     }
 }

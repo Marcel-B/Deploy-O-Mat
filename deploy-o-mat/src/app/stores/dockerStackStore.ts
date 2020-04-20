@@ -2,6 +2,7 @@ import { RootStore } from './rootStore';
 import { observable, action, runInAction, computed } from 'mobx';
 import agent from '../api/agent';
 import { IDockerStack } from '../models/dockerStack';
+import { toast } from 'react-toastify';
 
 export default class DockerStackStore {
     rootStore: RootStore;
@@ -24,7 +25,6 @@ export default class DockerStackStore {
             runInAction('loading dockerStacks', () => {
                 dockerStacks.forEach(dockerStack => {
                     this.dockerStackRegistry.set(dockerStack.id, dockerStack);
-                    this.loadingStack = false;
                 });
                 this.loadingStack = false;
             });
@@ -33,6 +33,22 @@ export default class DockerStackStore {
                 this.loadingStack = false;
                 throw error;
             });
+        }
+    }
+
+    @action createDockerStack = async (id: string) => {
+        try {
+            this.loadingStack = true;
+            const { name, file } = this.dockerStackRegistry.get(id);
+            await agent.DockerStacks.create(file, name);
+            runInAction('create dockerStack', () => {
+                this.loadingStack = false;
+                toast.success(`Stack ${name} created`)
+            })
+         } catch (error) {
+            this.loadingStack = false;
+            toast.error(`Error creating stack ${id}`);
+            throw error;
         }
     }
 }

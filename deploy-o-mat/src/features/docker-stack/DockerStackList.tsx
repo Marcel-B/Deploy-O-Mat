@@ -8,7 +8,7 @@ import DockerStackListItem from './DockerStackListItem';
 
 const DockerStackList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { loadingStack, dockerStacksByUpdated } = rootStore.dockerStackStore;
+    const { loadingStack, dockerStacksByUpdated, createDockerStack } = rootStore.dockerStackStore;
 
     // const { isLoggedIn } = rootStore.userStore;
 
@@ -20,6 +20,7 @@ const DockerStackList: React.FC = () => {
                 <DockerStackListItem
                     dockerStack={dockerStack}
                     key={dockerStack.id}
+                    createStack={createDockerStack}
                 />
             ))}
         </Item.Group>

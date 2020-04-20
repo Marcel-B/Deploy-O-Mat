@@ -3,8 +3,16 @@ import { IDockerService } from '../../app/models/dockerService';
 import { Segment, Item, Button, Icon } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 
-const DockerServiceListItem: React.FC<{ dockerService: IDockerService, loggedIn: boolean }> = ({
-    dockerService, loggedIn
+interface IProps {
+    removeDockerService: (serviceName: string) => void;
+    dockerService: IDockerService;
+    loggedIn: boolean;
+}
+
+const DockerServiceListItem: React.FC<IProps> = ({
+    dockerService,
+    loggedIn,
+    removeDockerService,
 }) => {
     return (
         <Fragment>
@@ -46,6 +54,7 @@ const DockerServiceListItem: React.FC<{ dockerService: IDockerService, loggedIn:
                                 content='Stop'
                                 color='red'
                                 floated='right'
+                                onClick={() => removeDockerService(dockerService.name)}
                             />
                         </Item.Group>
                     )}

@@ -2,6 +2,7 @@ import agent from '../api/agent';
 import { observable, action, runInAction, computed } from 'mobx';
 import { IDockerImage } from '../models/dockerImage';
 import { RootStore } from './rootStore';
+import { toast } from 'react-toastify';
 
 export default class DockerImageStore {
     rootStore: RootStore;
@@ -35,12 +36,13 @@ export default class DockerImageStore {
         }
     }
 
-    @action restartDockerImage = async (id: string) => {
+    @action restartDockerImage = async (id: string, name: string) => {
         try {
             this.loadingInitial = true;
             await agent.DockerImages.restart(id);
             runInAction('restart dockerImage', () => {
                 this.loadingInitial = false;
+                toast.info(`Service ${name} restarted`);
             })
         } catch (error) {
             throw error;

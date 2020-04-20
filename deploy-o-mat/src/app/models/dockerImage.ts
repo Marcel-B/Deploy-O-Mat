@@ -1,10 +1,4 @@
-export interface IBadge{
-    id: string;
-    url: string;
-    name: string;
-    description: string;
-    created: string;
-}
+import { IBadge } from './badge';
 
 export interface IDockerImage {
     id: string;

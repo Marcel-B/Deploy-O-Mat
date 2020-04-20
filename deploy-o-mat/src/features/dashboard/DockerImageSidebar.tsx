@@ -24,7 +24,7 @@ const DockerImageSidebar = () => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {dockerInfoLogsArray.map(
+                        {dockerInfoLogsArray.filter((a: IDockerStackLog) => a.isActive).map(
                             (stackLog: IDockerStackLog) => (
                                 <Table.Row key={stackLog.id}>
                                     <Table.Cell collapsing>

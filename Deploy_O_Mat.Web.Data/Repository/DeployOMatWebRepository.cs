@@ -22,9 +22,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         public Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
+       
+
             foreach (var stackLog in stackLogs)
             {
-                if (stackLog.Image == null)continue;
+                if (stackLog.Image == null)
+                    continue;
                 var current = _context.DockerStackLogs.FirstOrDefault(x => x.Image == stackLog.Image);
                 var repoNameIdx = stackLog.Image.LastIndexOf(':');
                 var repo = stackLog.Image.Substring(0, repoNameIdx);
@@ -36,6 +39,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 if (current == null) // no log entry
                 {
                     stackLog.Id = Guid.NewGuid();
+                    stackLog.IsActive = true;
                     _context.DockerStackLogs.Add(stackLog);
                 }
                 else
@@ -48,6 +52,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     current.Replicas = stackLog.Replicas;
                     current.ReplicasOnline = stackLog.ReplicasOnline;
                     current.ServiceId = stackLog.ServiceId;
+                    current.IsActive = true;
+                }
+            }
+            var logs = _context.DockerStackLogs.ToList();
+            foreach (var log in logs)
+            {
+                var stackLog = stackLogs.FirstOrDefault(_ => _.Image == log.Image);
+                if (stackLog == null)
+                {
+                    log.IsActive = false;
+                    continue;
                 }
             }
             _context.SaveChanges();

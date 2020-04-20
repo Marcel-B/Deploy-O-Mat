@@ -14,5 +14,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         public int ReplicasOnline { get; set; }
         public string Image { get; set; }
         public string Ports { get; set; }
+        public bool IsActive { get; set; }
     }
 }

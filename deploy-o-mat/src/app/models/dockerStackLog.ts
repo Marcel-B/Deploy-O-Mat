@@ -9,5 +9,6 @@ export interface IDockerStackLog {
     image: string;
     replicas: number;
     replicasOnline: number;
+    isActive: boolean;
     dockerImage?: IDockerImage;
 }

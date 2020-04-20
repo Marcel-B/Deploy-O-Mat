@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace com.b_velop.Deploy_O_Mat.Web.Domain.Commands
+﻿namespace com.b_velop.Deploy_O_Mat.Web.Domain.Commands
 {
     public class CreateCreateStackCommand : CreateStackCommand
     {

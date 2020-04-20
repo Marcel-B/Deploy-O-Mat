@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Deploy_O_Mat.Service.Domain.Commands;
-using Deploy_O_Mat.Service.Domain.Events;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.DependencyInjection;

@@ -3,5 +3,6 @@
     public interface IDockerStackService
     {
         void CreateStack(Domain.Models.DockerStack dockerStack);
+        void RemoveStack(string stackName);
     }
 }

@@ -8,5 +8,7 @@ namespace Deploy_O_Mat.Service.Domain.Interfaces
     {
         IEnumerable<DockerService> GetDockerServices();
         Task<int> UpdateService(DockerService service);
+        Task<int> StopService(string service);
+        Task<int> StartService(string service);
     }
 }

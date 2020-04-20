@@ -63,7 +63,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Web.Infrastructure", "Deploy_O_Mat.Web.Infrastructure\Deploy_O_Mat.Web.Infrastructure.csproj", "{CC870BB9-B5E9-4035-A46C-200615ECCFB6}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Deploy_O_Mat.Service.API", "Deploy_O_Mat.Service.API\Deploy_O_Mat.Service.API.csproj", "{32D1FA86-9276-4B5D-BBC3-10F6675E0E01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.API", "Deploy_O_Mat.Service.API\Deploy_O_Mat.Service.API.csproj", "{32D1FA86-9276-4B5D-BBC3-10F6675E0E01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{9CD1041E-902A-46B9-9234-8B6D28609271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Util", "Deploy_O_Mat.Service.Util\Deploy_O_Mat.Service.Util.csproj", "{E323E339-305A-48F2-8F04-D98843014809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +135,10 @@ Global
 		{32D1FA86-9276-4B5D-BBC3-10F6675E0E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32D1FA86-9276-4B5D-BBC3-10F6675E0E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32D1FA86-9276-4B5D-BBC3-10F6675E0E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E323E339-305A-48F2-8F04-D98843014809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E323E339-305A-48F2-8F04-D98843014809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E323E339-305A-48F2-8F04-D98843014809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E323E339-305A-48F2-8F04-D98843014809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,5 +175,7 @@ Global
 		{C5A011E5-34B7-4543-BD48-11F123FEAC66} = {4C77F209-A1B6-47E8-92AA-957E1C265347}
 		{CC870BB9-B5E9-4035-A46C-200615ECCFB6} = {C5A011E5-34B7-4543-BD48-11F123FEAC66}
 		{32D1FA86-9276-4B5D-BBC3-10F6675E0E01} = {CD39F23E-49E8-4DF1-9EEB-8C046808A036}
+		{9CD1041E-902A-46B9-9234-8B6D28609271} = {EA29DD77-3176-4A76-A405-0826CBF8FB3D}
+		{E323E339-305A-48F2-8F04-D98843014809} = {9CD1041E-902A-46B9-9234-8B6D28609271}
 	EndGlobalSection
 EndGlobal

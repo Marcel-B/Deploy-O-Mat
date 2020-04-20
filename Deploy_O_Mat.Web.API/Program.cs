@@ -41,7 +41,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
+                    webBuilder
+                    .UseKestrel(x => x.AddServerHeader = false)
+                    .UseStartup<Startup>()
                     .UseUrls("http://*:5000");
                 })
               .ConfigureLogging(logging =>

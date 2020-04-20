@@ -14,7 +14,6 @@ using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -132,6 +131,22 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             }
 
             //app.UseHttpsRedirection();
+
+            // Security Headers
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            //app.UseCspReportOnly(opt => opt.BlockAllMixedContent()
+            app.UseCsp(opt => opt.BlockAllMixedContent()
+                .StyleSources(_ => _.Self().CustomSources("https://fonts.googleapis.com"))
+                .FontSources(_ => _.Self().CustomSources("https://fonts.gstatic.com", "data:"))
+                .FormActions(_ => _.Self())
+                .FrameAncestors(_ => _.Self())
+                .ImageSources(_ => _.Self())
+                .ScriptSources(_ => _.Self().CustomSources("sha256-A+1Ei6kIUokroRUVKDJgHC5aqwihcYIWZy/4BkF8hmo=")));
+            // ---
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

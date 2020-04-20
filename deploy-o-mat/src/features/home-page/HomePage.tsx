@@ -37,7 +37,6 @@ const HomePage: React.FC = () => {
                     <br />
                     <br />
                     <Transition.Group
-                        visible={true}
                         animation='scale'
                         duration={1200}
                     >

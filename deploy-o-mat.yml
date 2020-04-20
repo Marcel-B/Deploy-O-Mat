@@ -12,20 +12,30 @@ services:
             - rabbit_user
             - rabbit_pass
             - rabbit_cookie
+            - identity_signing_key
         networks:
-            - galaxy
+            - skynet
         deploy:
             replicas: 1
             restart_policy:
                 condition: on-failure
             labels:
                 - "traefik.enable=true"
+                
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.sslredirect=true"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.stsIncludeSubDomains=true"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.stsSeconds=31536000"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.isDevelopment=false"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.forceSTSHeader=true"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.stsPreload=true"
+                - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.featurePolicy=fullscreen"
 
                 - "traefik.http.middlewares.https-only.redirectscheme.scheme=https"
                 - "traefik.http.routers.deploy-o-mat-http.entrypoints=web"
                 - "traefik.http.routers.deploy-o-mat-http.rule=Host(`deploy.qaybe.de`)"
                 - "traefik.http.routers.deploy-o-mat-http.middlewares=https-only@docker"
 
+                - "traefik.http.routers.deploy-o-mat-https.middlewares=testHeader@docker"
                 - "traefik.http.routers.deploy-o-mat-https.entrypoints=websecure"
                 - "traefik.http.routers.deploy-o-mat-https.rule=Host(`deploy.qaybe.de`)"
                 - "traefik.http.routers.deploy-o-mat-https.tls=true"
@@ -42,7 +52,7 @@ services:
             placement:
                 constraints: [node.hostname == titan.marcelbenders.de]
         networks:
-            - galaxy
+            - skynet
         environment:
             - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_db_password
             - POSTGRES_USER=admin
@@ -61,8 +71,10 @@ secrets:
         external: true
     rabbit_cookie:
         external: true
+    identity_signing_key:
+        external: true
 volumes:
     postgresql:
 networks:
-    galaxy:
+    skynet:
         external: true

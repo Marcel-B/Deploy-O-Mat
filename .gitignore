@@ -10,3 +10,5 @@ dockerService.db-wal
 wwwroot
 dockerImageSample.json
 rabbit.yml
+kibana.yml
+traefik.yml

@@ -130,7 +130,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 //app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             // Security Headers
             app.UseXContentTypeOptions();

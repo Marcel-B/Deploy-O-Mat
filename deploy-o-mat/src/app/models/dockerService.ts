@@ -1,8 +1,12 @@
-import { IDockerImage } from './dockerImage';
 export interface IDockerService {
     id: string;
+    created: string;
     name: string;
-    updated: string;
-    machineName: string;
-    dockerImage: IDockerImage;
+    repo: string;
+    tag: string;
+    script: string;
+    isActive: boolean;
+    updated?: string;
+    network?: string;
+    lastRestart?: string;
 }

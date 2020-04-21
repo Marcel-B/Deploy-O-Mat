@@ -8,7 +8,6 @@ import BuildStatusDashboard from '../../features/build-status-dashboard/BuildSta
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
 import DockerImageDetails from '../../features/details/DockerImageDetails';
-import DockerServiceDashboard from '../../features/dashboard/DockerServiceDashboard';
 import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
 import LoginForm from '../../features/user/LoginForm';
 import { RootStoreContext } from '../stores/rootStore';
@@ -17,6 +16,7 @@ import ModalContainer from '../common/modals/ModalContainer';
 import NotFound from './NotFound';
 import { ToastContainer } from 'react-toastify';
 import DockerStackDashboard from '../../features/docker-stack/DockerStackDashboard';
+import DockerServiceDashboard from '../../features/docker-service/DockerServiceDashboard';
 
 function App() {
     const rootStore = useContext(RootStoreContext);

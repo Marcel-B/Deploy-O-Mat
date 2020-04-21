@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Application.DockerStackServices;
+using com.b_velop.Deploy_O_Mat.Web.Application.DockerService;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;
-using MicroRabbit.Domain.Core.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,14 +12,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IEnumerable<DockerStackService>> List()
+        public async Task<IEnumerable<DockerService>> List()
             => await Mediator.Send(new List.Query());
+
+        [HttpPost("create")]
+        public async Task<ActionResult<Unit>> Create(
+            Create.Command command)
+            => await Mediator.Send(command);
 
         [HttpPost("remove")]
         public async Task<ActionResult<Unit>> Remove(
             Remove.Command command)
-        {
-            return await Mediator.Send(command);
-        }
+            => await Mediator.Send(command);
     }
 }

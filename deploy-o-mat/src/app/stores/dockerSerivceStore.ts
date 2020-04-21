@@ -2,7 +2,6 @@ import { RootStore } from './rootStore';
 import { observable, computed, action, runInAction } from 'mobx';
 import { IDockerService } from '../models/dockerService';
 import agent from '../api/agent';
-import Logstash from 'logstash-client';
 import { toast } from 'react-toastify';
 
 // var logstash = new Logstash({
@@ -25,16 +24,34 @@ export default class DockerServiceStore {
         return Array.from(this.dockerServiceRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
-    @action removeDockerService = async (serviceName: string) => {
+    @action removeDockerService = async (id: string) => {
         try {
             this.loadingServices = true;
-            await agent.DockerServices.remove(serviceName);
+            const service: IDockerService = this.dockerServiceRegistry.get(id);
+            await agent.DockerServices.remove(id);
             runInAction('remove dockerService', () => {
                 this.loadingServices = false;
-                toast.warn(`Service ${serviceName} removed`);
+                toast.info(`Service ${service.name} removed`);
             });
         } catch (error) {
             runInAction('error removing dockerService', () => {
+                this.loadingServices = false;
+                throw error;
+            });
+        }
+    }
+
+    @action createDockerService = async (id: string) => {
+        try {
+            this.loadingServices = true;
+            const service: IDockerService = this.dockerServiceRegistry.get(id);
+            await agent.DockerServices.create(id);
+            runInAction('create dockerService', () => {
+                this.loadingServices = false;
+                toast.info(`Service ${service.name} created`);
+            });
+        } catch (error) {
+            runInAction('error creating dockerService', () => {
                 this.loadingServices = false;
                 throw error;
             });

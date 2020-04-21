@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using Deploy_O_Mat.Service.Domain.Models;
+using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
 
@@ -27,18 +28,24 @@ namespace Deploy_O_Mat.Service.Application.Services
             _bus = bus;
         }
 
+        public async Task<int> Create(
+            DockerService service)
+        {
+            var script = $"service create --name {service.Name} {service.Net} {service.Script} {service.Repo}";
+            var result = await processor.Process("docker", script);
+
+            if (result.Success)
+                _logger.LogInformation($"Remove Docker Service '{service}' completed");
+            else
+                _logger.LogWarning($"Error while removing '{service}': ({result.ReturnCode}) - {result.ErrorMessage}");
+
+            return result.ReturnCode;
+        }
+
         public IEnumerable<DockerService> GetDockerServices()
-        {
-            return _dockerServiceRepository.GetDockerServices();
-        }
+            => _dockerServiceRepository.GetDockerServices();
 
-        public Task<int> StartService(
-            string service)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<int> StopService(
+        public async Task<int> Remove(
             string service)
         {
             var result = await processor.Process("docker", $"service rm {service}");

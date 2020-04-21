@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Deploy_O_Mat.Service.Domain.Models
 {
@@ -16,5 +17,31 @@ namespace Deploy_O_Mat.Service.Domain.Models
         public Guid BuildId { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
+        public string Script { get; set; }
+        public string Network { get; set; }
+
+        [NotMapped]
+        public string Repo
+        {
+            get
+            {
+                var repo = RepoName;
+                if (!string.IsNullOrWhiteSpace(Tag))
+                    repo += $":{Tag}";
+                return repo;
+            }
+        }
+
+        [NotMapped]
+        public string Net
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Network))
+                    return $"--network {Network}";
+                return "";
+            }
+        }
+
     }
 }

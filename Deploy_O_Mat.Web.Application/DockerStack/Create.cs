@@ -12,8 +12,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
     {
         public class Command : IRequest
         {
-            public string File { get; set; }
-            public string Name { get; set; }
+            public Guid Id { get; set; }
         }
 
 
@@ -21,29 +20,28 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
         {
             public CommandValidator()
             {
-                RuleFor(x => x.File).NotEmpty();
-                RuleFor(x => x.Name).NotEmpty();
+                RuleFor(x => x.Id).NotEmpty();
             }
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly WebContext _context;
-            private readonly IDockerStackService dockerStackService;
+            private readonly IDockerStackService _dockerStackService;
 
             public Handler(
                 WebContext context,
                 IDockerStackService dockerStackService)
             {
                 _context = context;
-                this.dockerStackService = dockerStackService;
+                _dockerStackService = dockerStackService;
             }
 
             public Task<Unit> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                dockerStackService.CreateStack(new Domain.Models.DockerStack { File = request.File, Name = request.Name });
+                _dockerStackService.CreateStack(request.Id);
                 return Task.FromResult(Unit.Value);
             }
         }

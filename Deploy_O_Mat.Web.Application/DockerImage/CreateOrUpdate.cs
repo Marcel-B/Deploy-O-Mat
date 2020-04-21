@@ -71,15 +71,15 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                     try
                     {
                         if (tmpDockerImage.IsActive)
-                            if (tmpDockerImage.DockerStackServices != null)
-                                foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
+                            if (tmpDockerImage.DockerServices != null)
+                                foreach (var dockerService in tmpDockerImage.DockerServices)
                                 {
                                     _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
                                     {
                                         BuildId = tmpDockerImage.BuildId,
                                         RepoName = tmpDockerImage.RepoName,
                                         Tag = tmpDockerImage.Tag,
-                                        ServiceName = dockerStackService.Name
+                                        ServiceName = dockerService.Name
                                     });
                                 }
                     }

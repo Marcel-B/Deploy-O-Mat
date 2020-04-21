@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Deploy_O_Mat.Service.Domain.Commands;
 using Deploy_O_Mat.Service.Domain.Events;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using Deploy_O_Mat.Service.Domain.Models;
@@ -9,18 +10,24 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
 {
     public class CreateDockerServiceEventHandler : IEventHandler<DockerServiceCreatedEvent>
     {
+        private IEventBus _eventBus;
         private IDockerServiceService _service;
+        private IDockerInfoService _dockerInfoService;
 
         public CreateDockerServiceEventHandler(
+            IEventBus eventBus,
+            IDockerInfoService dockerInfoService,
             IDockerServiceService service)
         {
+            _eventBus = eventBus;
             _service = service;
+            _dockerInfoService = dockerInfoService;
         }
 
-        public Task Handle(
+        public async Task Handle(
             DockerServiceCreatedEvent @event)
         {
-            _service.Create(new DockerService
+            await _service.Create(new DockerService
             {
                 Name = @event.Name,
                 RepoName = @event.Repo,
@@ -28,7 +35,15 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
                 Script = @event.Script,
                 Network = @event.Network
             });
-            return Task.CompletedTask;
+
+            var services = string.Empty;
+#if DEBUG
+            services = File.ReadAllText("example.txt");
+#else
+            services = await _dockerInfoService.GetServices();
+#endif
+
+            await _eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
         }
     }
 }

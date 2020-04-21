@@ -116,69 +116,17 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                             </Table.Row>
                         </Table.Body>
                     </Table>
-                    <Button.Group fluid>
-                        <Popup
-                            content='Back'
-                            trigger={
-                                <Button
-                                    color='yellow'
-                                    onClick={() => history.push('/images')}
-                                >
-                                    <Icon name='angle left' />
-                                </Button>
-                            }
-                        />
-                        {isLoggedIn && (
-                            <Fragment>
-                                <Popup
-                                    content='Edit service'
-                                    trigger={
-                                        <Button color='blue' disabled>
-                                            <Icon name='edit' />
-                                        </Button>
-                                    }
-                                />
-
-                                <Popup
-                                    content='Pull image from DockerHub'
-                                    trigger={
-                                        <Button
-                                            content='Pull'
-                                            color='green'
-                                            disabled
-                                        />
-                                    }
-                                />
-
-                                <Popup
-                                    content='Stop service'
-                                    trigger={
-                                        <Button color='red' disabled>
-                                            <Icon name='stop' />
-                                        </Button>
-                                    }
-                                />
-
-                                <Popup
-                                    content='Restart service'
-                                    trigger={
-                                        <Button
-                                            color='orange'
-                                            onClick={() =>
-                                                restartDockerImage(
-                                                    dockerImage.id,
-                                                    dockerImage.repoName
-                                                )
-                                            }
-                                        >
-                                            {' '}
-                                            <Icon name='sync alternate' />
-                                        </Button>
-                                    }
-                                />
-                            </Fragment>
-                        )}
-                    </Button.Group>
+                    <Popup
+                        content='Back'
+                        trigger={
+                            <Button
+                                color='yellow'
+                                onClick={() => history.push('/images')}
+                            >
+                                <Icon name='angle left' />
+                            </Button>
+                        }
+                    />
                 </Grid.Column>
 
                 <Grid.Column width={9}>

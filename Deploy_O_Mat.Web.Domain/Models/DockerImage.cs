@@ -28,7 +28,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         public Guid BuildId { get; set; }
         public bool IsActive { get; set; } = false;
 
-        public virtual ICollection<DockerStackService> DockerStackServices { get; set; }
+        public virtual ICollection<DockerService> DockerServices { get; set; }
         public virtual ICollection<Badge> Badges { get; set; }
     }
 }

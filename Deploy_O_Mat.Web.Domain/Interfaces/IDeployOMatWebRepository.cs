@@ -13,6 +13,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces
         Task<IEnumerable<DockerStack>> GetDockerStacks();
         Task<IEnumerable<DockerService>> GetDockerServices();
 
+        Task<DockerStack> GetDockerStack(Guid id);
         Task<DockerService> GetDockerService(Guid id);
     }
 }

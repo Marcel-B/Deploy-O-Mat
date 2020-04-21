@@ -39,15 +39,31 @@ export default class DockerStackStore {
     @action createDockerStack = async (id: string) => {
         try {
             this.loadingStack = true;
-            const { name, file } = this.dockerStackRegistry.get(id);
-            await agent.DockerStacks.create(file, name);
+            const { name } = this.dockerStackRegistry.get(id);
+            await agent.DockerStacks.create(id);
             runInAction('create dockerStack', () => {
                 this.loadingStack = false;
                 toast.success(`Stack ${name} created`)
             })
          } catch (error) {
             this.loadingStack = false;
-            toast.error(`Error creating stack ${id}`);
+            toast.info(`Error creating stack ${id}`);
+            throw error;
+        }
+    }
+
+    @action removeDockerStack = async (id: string) => {
+        try {
+            this.loadingStack = true;
+            const { name } = this.dockerStackRegistry.get(id);
+            await agent.DockerStacks.remove(id);
+            runInAction('remove dockerStack', () => {
+                this.loadingStack = false;
+                toast.info(`Stack ${name} removed`)
+            })
+        } catch (error) {
+            this.loadingStack = false;
+            toast.error(`Error removing stack ${id}`);
             throw error;
         }
     }

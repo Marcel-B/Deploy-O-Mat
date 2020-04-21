@@ -47,20 +47,20 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 {
                     if (tmpDockerImage.IsActive)
                     {
-                        if (tmpDockerImage.DockerStackServices != null)
-                        {
-                            foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
-                            {
-                                tmpDockerImage.StartTime = DateTime.UtcNow;
-                                _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
-                                {
-                                    BuildId = tmpDockerImage.BuildId,
-                                    RepoName = tmpDockerImage.RepoName,
-                                    Tag = tmpDockerImage.Tag,
-                                    ServiceName = dockerStackService.Name
-                                });
-                            }
-                        }
+                        //if (tmpDockerImage.DockerStackServices != null)
+                        //{
+                        //    foreach (var dockerStackService in tmpDockerImage.DockerStackServices)
+                        //    {
+                        //        tmpDockerImage.StartTime = DateTime.UtcNow;
+                        //        _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
+                        //        {
+                        //            BuildId = tmpDockerImage.BuildId,
+                        //            RepoName = tmpDockerImage.RepoName,
+                        //            Tag = tmpDockerImage.Tag,
+                        //            ServiceName = dockerStackService.Name
+                        //        });
+                        //    }
+                        //}
                     }
                     await _repo.SaveChangesAsync();
                 }

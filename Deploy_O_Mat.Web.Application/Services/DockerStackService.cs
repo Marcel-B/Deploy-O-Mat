@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
@@ -30,7 +29,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerStack = await _repo.GetDockerStack(id);
 
             if (dockerStack == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, $"DockerStack '{id}' not found");
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerStack = "Not found", id });
 
             await _eventBus.SendCommand(new CreateCreateStackCommand(dockerStack.Name, dockerStack.File));
         }
@@ -42,7 +41,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerStack = await _repo.GetDockerStack(id);
 
             if (dockerStack == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, $"DockerStack '{id}' not found");
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerStack = "Not found", id });
 
             await _eventBus.SendCommand(new CreateRemoveStackCommand(dockerStack.Name));
         }

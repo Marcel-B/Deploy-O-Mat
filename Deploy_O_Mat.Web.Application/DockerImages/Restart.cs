@@ -18,17 +18,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
 
         public class Handler : IRequestHandler<Command, Unit>
         {
-            private readonly IDockerImageRepository _dockerImageRepository;
+            private readonly IDeployOMatWebRepository _repo;
             private readonly IDockerImageService _dockerImageService;
             private readonly ILogger<Handler> _logger;
 
             public Handler(
-                IDockerImageRepository dockerImageRepository,
+                IDeployOMatWebRepository repo,
                 IDockerImageService dockerImageService,
                 ILogger<Handler> logger)
             {
                 _dockerImageService = dockerImageService;
-                _dockerImageRepository = dockerImageRepository;
+                _repo = repo;
                 _logger = logger;
             }
 
@@ -36,13 +36,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var tmpDockerImage = await _dockerImageRepository.Get(request.Id);
+                var tmpDockerImage = await _repo.GetDockerImage(request.Id);
 
                 if (tmpDockerImage == null)
-                    throw new RestException(System.Net.HttpStatusCode.NotFound, $"No Entity with Id '{request.Id}'");
+                    throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerImage = "Not found", request.Id });
 
                 if (!tmpDockerImage.IsActive || tmpDockerImage.Tag != "latest")
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, "Entity not valid for this action");
+                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { dockerImage = "Not valid", request.Id });
                 try
                 {
                     if (tmpDockerImage.IsActive)
@@ -62,7 +62,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                             }
                         }
                     }
-                    await _dockerImageRepository.SaveChangesAsync();
+                    await _repo.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {

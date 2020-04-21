@@ -2,12 +2,12 @@
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.Events
 {
-    public class StackCreatedEvent : Event
+    public class DockerStackCreatedEvent : Event
     {
         public string File { get; set; }
         public string Name { get; set; }
 
-        public StackCreatedEvent(
+        public DockerStackCreatedEvent(
             string file,
             string name)
         {

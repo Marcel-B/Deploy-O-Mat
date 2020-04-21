@@ -2,11 +2,11 @@
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.Events
 {
-    public class StackRemovedEvent : Event
+    public class DockerStackRemovedEvent : Event
     {
         public string StackName { get; set; }
 
-        public StackRemovedEvent(
+        public DockerStackRemovedEvent(
             string stackName)
         {
             StackName = stackName;

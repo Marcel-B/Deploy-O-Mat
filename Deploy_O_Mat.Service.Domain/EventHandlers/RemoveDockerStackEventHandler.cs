@@ -7,13 +7,13 @@ using MicroRabbit.Domain.Core.Bus;
 
 namespace Deploy_O_Mat.Service.Domain.EventHandlers
 {
-    public class RemoveStackEventHandler : IEventHandler<StackRemovedEvent>
+    public class RemoveDockerStackEventHandler : IEventHandler<DockerStackRemovedEvent>
     {
         private readonly IDockerInfoService dockerInfoService;
         private IDockerStackService _dockerStackService;
         private readonly IEventBus eventBus;
 
-        public RemoveStackEventHandler(
+        public RemoveDockerStackEventHandler(
             IEventBus eventBus,
             IDockerInfoService dockerInfoService,
             IDockerStackService dockerStackService)
@@ -25,7 +25,7 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
 
 
         public async Task Handle(
-            StackRemovedEvent @event)
+            DockerStackRemovedEvent @event)
         {
             await _dockerStackService.RemoveStack(@event.StackName);
             string services = "";

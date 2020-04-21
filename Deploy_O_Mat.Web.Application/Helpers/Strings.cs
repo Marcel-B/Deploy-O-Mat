@@ -1,5 +1,4 @@
-﻿using System;
-namespace com.b_velop.Deploy_O_Mat.Web.Application.Helpers
+﻿namespace com.b_velop.Deploy_O_Mat.Web.Application.Helpers
 {
     public class Strings
     {

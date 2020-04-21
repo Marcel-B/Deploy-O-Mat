@@ -2,11 +2,11 @@
 
 namespace Deploy_O_Mat.Service.Domain.Events
 {
-    public class StackRemovedEvent : Event
+    public class DockerStackRemovedEvent : Event
     {
         public string StackName { get; set; }
 
-        public StackRemovedEvent(
+        public DockerStackRemovedEvent(
             string stackName)
         {
             StackName = stackName;

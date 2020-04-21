@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
@@ -22,8 +23,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         public Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
-
-
             foreach (var stackLog in stackLogs)
             {
                 if (stackLog.Image == null)
@@ -78,6 +77,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 
         public async Task<IEnumerable<DockerService>> GetDockerServices()
             => await _context.DockerServices.ToListAsync();
+
+        public async Task<DockerStack> GetDockerStack(Guid id)
+            => await _context.DockerStacks.FindAsync(id);
 
         public async Task<IEnumerable<DockerStackLog>> GetDockerStackLogs()
             => await _context.DockerStackLogs.ToListAsync();

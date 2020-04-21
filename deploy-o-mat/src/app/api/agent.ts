@@ -49,9 +49,9 @@ const DockerImages = {
 }
 
 const DockerStacks = {
-    list: (): Promise<IDockerStack[]> => requests.get("/DockerStack"),
-    remove: (stackName: string) => requests.post(`/dockerstack/remove`, { stackName }),
-    create: (file: string, name: string) => requests.post(`/dockerstack/create`, { file, name })
+    list: (): Promise<IDockerStack[]> => requests.get("/dockerstack"),
+    remove: (id: string) => requests.post(`/dockerstack/remove`, { id }),
+    create: (id: string) => requests.post(`/dockerstack/create`, { id })
 }
 
 const DockerServices = {

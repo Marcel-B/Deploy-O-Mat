@@ -1,42 +1,43 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using FluentValidation;
 using MediatR;
 
-namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStackServices
+namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerService
 {
     public class Remove
     {
         public class Command : IRequest
         {
-            public string ServiceName { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.ServiceName).NotEmpty();
+                RuleFor(x => x.Id).NotEmpty();
             }
         }
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly IDockerImageService dockerStackService;
+            private readonly IDockerServiceService _service;
 
             public Handler(
-                IDockerImageService dockerStackService)
+                IDockerServiceService service)
             {
-                this.dockerStackService = dockerStackService;
+                _service = service;
             }
 
-            public Task<Unit> Handle(
+            public async Task<Unit> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                dockerStackService.RemoveDockerService(request.ServiceName);
-                return Unit.Task;
+                await _service.RemoveDockerService(request.Id);
+                return Unit.Value;
             }
         }
     }

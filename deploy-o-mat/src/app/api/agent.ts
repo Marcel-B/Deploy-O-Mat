@@ -56,7 +56,8 @@ const DockerStacks = {
 
 const DockerServices = {
     list: (): Promise<IDockerService[]> => requests.get("/dockerservice"),
-    remove: (id: string) => requests.post(`/dockerservice/remove`, {serviceName: id})
+    remove: (id: string) => requests.post(`/dockerservice/remove`, { id }),
+    create: (id: string) => requests.post(`/dockerservice/create`, { id })
 }
 
 const DockerInfo = {

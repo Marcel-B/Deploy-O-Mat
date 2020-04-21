@@ -8,21 +8,21 @@ using MicroRabbit.Domain.Core.Bus;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers
 {
-    public class RemoveServiceCommandHandler : IRequestHandler<CreateRemoveServiceCommand, bool>
+    public class RemoveDockerServiceCommandHandler: IRequestHandler<CreateRemoveDockerServiceCommand, bool>
     {
         private IEventBus _eventBus;
 
-        public RemoveServiceCommandHandler(
+        public RemoveDockerServiceCommandHandler(
             IEventBus eventBus)
         {
             _eventBus = eventBus;
         }
 
         public Task<bool> Handle(
-            CreateRemoveServiceCommand request,
+            CreateRemoveDockerServiceCommand request,
             CancellationToken cancellationToken)
         {
-            _eventBus.Publish(new ServiceRemovedEvent(request.ServiceName));
+            _eventBus.Publish(new DockerServiceRemovedEvent(request.ServiceName));
             return Task.FromResult(true);
         }
     }

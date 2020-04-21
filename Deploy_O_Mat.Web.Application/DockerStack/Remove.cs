@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using FluentValidation;
@@ -10,14 +11,14 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
     {
         public class Command : IRequest
         {
-            public string StackName { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x => x.StackName).NotEmpty();
+                RuleFor(x => x.Id).NotEmpty();
             }
         }
 
@@ -35,7 +36,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
                 Command request,
                 CancellationToken cancellationToken)
             {
-                _dockerStackService.RemoveStack(request.StackName);
+                _dockerStackService.RemoveStack(request.Id, cancellationToken);
                 return Unit.Task;
             }
         }

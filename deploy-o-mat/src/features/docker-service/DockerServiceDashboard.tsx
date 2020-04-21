@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import { Header, Icon, Grid, Divider } from 'semantic-ui-react';
-import DockerImageSidebar from './DockerImageSidebar';
 import DockerServiceList from './DockerServiceList';
 import { RootStoreContext } from '../../app/stores/rootStore';
+import DockerImageSidebar from '../dashboard/DockerImageSidebar';
 
 const DockerServiceDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);

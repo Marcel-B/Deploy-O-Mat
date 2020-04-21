@@ -40,7 +40,9 @@ namespace Deploy_O_Mat.Service.Api
                 eventBus.Subscribe<StackCreatedEvent, CreateStackEventHandler>();
                 eventBus.Subscribe<DockerInfoEvent, DockerInfoEventHandler>();
                 eventBus.Subscribe<StackRemovedEvent, RemoveStackEventHandler>();
-                eventBus.Subscribe<ServiceRemovedEvent, RemoveServiceEventHandler>();
+
+                eventBus.Subscribe<DockerServiceCreatedEvent, CreateDockerServiceEventHandler>();
+                eventBus.Subscribe<DockerServiceRemovedEvent, RemoveDockerServiceEventHandler>();
                 host.Run();
             }
             catch (Exception ex)

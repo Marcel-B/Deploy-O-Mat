@@ -24,7 +24,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
-    <Folder Include="DockerStackServices\" />
+    <Folder Include="DockerService\" />
     <Folder Include="User\" />
     <Folder Include="DockerStack\" />
     <Folder Include="DockerInfo\" />

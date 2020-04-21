@@ -22,7 +22,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         public Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
-       
+
 
             foreach (var stackLog in stackLogs)
             {
@@ -69,11 +69,20 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             return Task.CompletedTask;
         }
 
-        public async Task<IEnumerable<DockerStackLog>> GetDockerStackLogs()
+        public async Task<DockerService> GetDockerService(
+            Guid id)
         {
-            return await _context.DockerStackLogs.ToListAsync();
+            var dockerService = await _context.DockerServices.FindAsync(id);
+            return dockerService;
         }
 
-        public async Task<IEnumerable<DockerStack>> GetDockerStacks() => await _context.DockerStacks.ToListAsync();
+        public async Task<IEnumerable<DockerService>> GetDockerServices()
+            => await _context.DockerServices.ToListAsync();
+
+        public async Task<IEnumerable<DockerStackLog>> GetDockerStackLogs()
+            => await _context.DockerStackLogs.ToListAsync();
+
+        public async Task<IEnumerable<DockerStack>> GetDockerStacks()
+            => await _context.DockerStacks.ToListAsync();
     }
 }

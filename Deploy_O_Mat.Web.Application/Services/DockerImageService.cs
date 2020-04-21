@@ -71,11 +71,5 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                 dockerServiceUpdate.BuildId);
             _bus.SendCommand(createUpdateDockerServiceCommand);
         }
-
-        public void RemoveDockerService(
-            string serviceName)
-        {
-            _bus.SendCommand(new CreateRemoveServiceCommand(serviceName));
-        }
     }
 }

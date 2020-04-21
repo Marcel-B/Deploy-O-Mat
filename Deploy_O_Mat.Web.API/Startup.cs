@@ -99,8 +99,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             });
 
             var builder = services.AddIdentityCore<AppUser>();
-            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+
+            var identityBuilder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
+
             identityBuilder.AddEntityFrameworkStores<WebContext>();
+            identityBuilder.AddRoleValidator<RoleValidator<AppRole>>();
+            identityBuilder.AddRoleManager<RoleManager<AppRole>>();
+
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
             var secret = secretProvider.GetSecret("identity_signing_key") ?? "only_a_test_foo_ab";

@@ -21,7 +21,7 @@ services:
                 condition: on-failure
             labels:
                 - "traefik.enable=true"
-                
+
                 - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.sslredirect=true"
                 - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.stsIncludeSubDomains=true"
                 - "traefik.http.middlewares.deploy-o-mat-sec-header.headers.stsSeconds=31536000"
@@ -35,7 +35,7 @@ services:
                 - "traefik.http.routers.deploy-o-mat-http.rule=Host(`deploy.qaybe.de`)"
                 - "traefik.http.routers.deploy-o-mat-http.middlewares=https-only@docker"
 
-                - "traefik.http.routers.deploy-o-mat-https.middlewares=testHeader@docker"
+                - "traefik.http.routers.deploy-o-mat-https.middlewares=deploy-o-mat-sec-header@docker"
                 - "traefik.http.routers.deploy-o-mat-https.entrypoints=websecure"
                 - "traefik.http.routers.deploy-o-mat-https.rule=Host(`deploy.qaybe.de`)"
                 - "traefik.http.routers.deploy-o-mat-https.tls=true"

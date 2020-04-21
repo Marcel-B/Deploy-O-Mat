@@ -68,12 +68,48 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             return Task.CompletedTask;
         }
 
+        public async Task<bool> SaveChangesAsync()
+        {
+            var success = await _context.SaveChangesAsync() > 0;
+            return success;
+        }
+
+        public DockerImage UpdateDockerImage(
+           DockerImage newDockerImage,
+           DockerImage oldDockerImage,
+           CancellationToken cancellationToken = default)
+        {
+            if (oldDockerImage == null)
+                throw new ArgumentException($"Entity with key '{oldDockerImage.Id}' not found", nameof(oldDockerImage));
+
+            else
+            {
+                oldDockerImage.BuildId = Guid.NewGuid();
+                oldDockerImage.Pusher = newDockerImage.Pusher;
+                oldDockerImage.Tag = newDockerImage.Tag;
+                oldDockerImage.Updated = newDockerImage.Updated;
+                oldDockerImage.Dockerfile = newDockerImage.Dockerfile;
+            }
+            return oldDockerImage;
+        }
+
+        public DockerImage CreateDockerImage(
+            DockerImage entity,
+            CancellationToken cancellationToken = default)
+            => _context.DockerImages.Add(entity).Entity;
+
+        public async Task<DockerImage> GetDockerImage(
+            Guid id,
+            CancellationToken cancellationToken = default)
+            => await _context.DockerImages.FindAsync(id);
+
+        public async Task<IEnumerable<DockerImage>> GetDockerImages(
+           CancellationToken cancellationToken = default)
+            => await _context.DockerImages.ToListAsync();
+
         public async Task<DockerService> GetDockerService(
             Guid id)
-        {
-            var dockerService = await _context.DockerServices.FindAsync(id);
-            return dockerService;
-        }
+            => await _context.DockerServices.FindAsync(id);
 
         public async Task<IEnumerable<DockerService>> GetDockerServices()
             => await _context.DockerServices.ToListAsync();

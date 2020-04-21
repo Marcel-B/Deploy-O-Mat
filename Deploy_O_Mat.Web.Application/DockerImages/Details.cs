@@ -19,11 +19,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
 
         public class Handler : IRequestHandler<Query, DockerImage>
         {
-            private readonly IDockerImageRepository _repository;
+            private readonly IDeployOMatWebRepository _repository;
             private readonly ILogger<Handler> _logger;
 
             public Handler(
-                IDockerImageRepository repository,
+                IDeployOMatWebRepository repository,
                 ILogger<Handler> logger)
             {
                 _repository = repository;
@@ -32,7 +32,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
 
             public async Task<DockerImage> Handle(Query request, CancellationToken cancellationToken)
             {
-                var dockerImage = await _repository.Get(request.Id);
+                var dockerImage = await _repository.GetDockerImage(request.Id);
 
                 if (dockerImage == null)
                     throw new RestException(HttpStatusCode.NotFound, new { dockerImage = "Not found" });

@@ -13,30 +13,29 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
 {
     public class DockerImageService : IDockerImageService
     {
-        private readonly IDockerImageRepository _repository;
         private readonly IEventBus _bus;
+        private readonly IDeployOMatWebRepository _repository;
         private readonly ILogger<DockerImageService> _logger;
 
         public DockerImageService(
-            IDockerImageRepository repository,
             IEventBus bus,
+            IDeployOMatWebRepository repository,
             ILogger<DockerImageService> logger)
         {
-            _repository = repository;
             _bus = bus;
+            _repository = repository;
             _logger = logger;
         }
 
         public async Task<DockerImage> CreateOrUpdateDockerImage(
             DockerImage dockerImage)
         {
-            var tmpDockerImage = await _repository.Get(dockerImage.Id);
-
+            var tmpDockerImage = await _repository.GetDockerImage(dockerImage.Id);
 
             if (tmpDockerImage != null)
-                tmpDockerImage = _repository.Update(dockerImage, tmpDockerImage);
+                tmpDockerImage = _repository.UpdateDockerImage(dockerImage, tmpDockerImage);
             else
-                tmpDockerImage = _repository.Create(dockerImage);
+                tmpDockerImage = _repository.CreateDockerImage(dockerImage);
 
             tmpDockerImage.StartTime = DateTime.UtcNow;
 
@@ -47,12 +46,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             return null;
         }
 
-        public async Task<DockerImage> GetDockerImage(Guid id)
-            => await _repository.Get(id);
+        public async Task<DockerImage> GetDockerImage(
+            Guid id)
+            => await _repository.GetDockerImage(id);
 
         public async Task<IEnumerable<DockerImage>> GetDockerImages()
         {
-            var dockerImages = await _repository.GetAll();
+            var dockerImages = await _repository.GetDockerImages();
             foreach (var dockerImage in dockerImages)
             {
                 dockerImage.Updated = dockerImage.Updated?.ToLocalTime();
@@ -69,6 +69,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                 dockerServiceUpdate.RepoName,
                 dockerServiceUpdate.Tag,
                 dockerServiceUpdate.BuildId);
+
             _bus.SendCommand(createUpdateDockerServiceCommand);
         }
     }

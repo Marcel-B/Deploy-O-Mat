@@ -30,7 +30,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerService = await _repo.GetDockerService(id);
 
             if (dockerService == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, $"DockerService with id '{id}' not found");
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerService = "Not found", id });
 
             await _eventBus.SendCommand(new CreateCreateDockerServiceCommand(dockerService.Name, dockerService.Repo, dockerService.Tag, dockerService.Network, dockerService.Script));
         }
@@ -46,7 +46,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerService = await _repo.GetDockerService(id);
 
             if (dockerService == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, $"DockerService with id '{id}' not found");
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerService = "Not found", id });
 
             await _eventBus.SendCommand(new CreateRemoveDockerServiceCommand(dockerService.Name));
         }

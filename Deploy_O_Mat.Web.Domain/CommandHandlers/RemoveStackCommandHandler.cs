@@ -22,7 +22,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers
             CancellationToken cancellationToken)
         {
             // Publish event to RabbitMQ
-            _eventBus.Publish(new StackRemovedEvent(request.StackName));
+            _eventBus.Publish(new DockerStackRemovedEvent(request.StackName));
             return Task.FromResult(true);
         }
     }

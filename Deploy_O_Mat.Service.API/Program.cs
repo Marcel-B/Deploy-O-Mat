@@ -37,9 +37,9 @@ namespace Deploy_O_Mat.Service.Api
                 //Console.WriteLine(HostName);
 
                 eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
-                eventBus.Subscribe<StackCreatedEvent, CreateStackEventHandler>();
+                eventBus.Subscribe<DockerStackCreatedEvent, CreateDockerStackEventHandler>();
                 eventBus.Subscribe<DockerInfoEvent, DockerInfoEventHandler>();
-                eventBus.Subscribe<StackRemovedEvent, RemoveStackEventHandler>();
+                eventBus.Subscribe<DockerStackRemovedEvent, RemoveDockerStackEventHandler>();
 
                 eventBus.Subscribe<DockerServiceCreatedEvent, CreateDockerServiceEventHandler>();
                 eventBus.Subscribe<DockerServiceRemovedEvent, RemoveDockerServiceEventHandler>();

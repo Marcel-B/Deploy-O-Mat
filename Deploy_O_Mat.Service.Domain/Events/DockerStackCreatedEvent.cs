@@ -2,12 +2,12 @@
 
 namespace Deploy_O_Mat.Service.Domain.Events
 {
-    public class StackCreatedEvent : Event
+    public class DockerStackCreatedEvent : Event
     {
         public string File { get; set; }
         public string Name { get; set; }
 
-        public StackCreatedEvent(
+        public DockerStackCreatedEvent(
             string file,
             string name)
         {

@@ -8,18 +8,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Deploy_O_Mat.Service.Domain.EventHandlers
 {
-    public class CreateStackEventHandler : IEventHandler<StackCreatedEvent>
+    public class CreateDockerStackEventHandler : IEventHandler<DockerStackCreatedEvent>
     {
-        private ILogger<CreateStackEventHandler> _logger;
+        private ILogger<CreateDockerStackEventHandler> _logger;
         private IDockerStackService _dockerStackService;
         private readonly IDockerInfoService dockerInfoService;
         private readonly IEventBus eventBus;
 
-        public CreateStackEventHandler(
+        public CreateDockerStackEventHandler(
             IDockerStackService dockerStackService,
             IDockerInfoService dockerInfoService,
             IEventBus eventBus,
-            ILogger<CreateStackEventHandler> logger)
+            ILogger<CreateDockerStackEventHandler> logger)
         {
             _dockerStackService = dockerStackService;
             this.dockerInfoService = dockerInfoService;
@@ -28,7 +28,7 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
         }
 
         public async Task Handle(
-            StackCreatedEvent @event)
+            DockerStackCreatedEvent @event)
         {
 
             _logger.LogInformation($"Try create stack {@event.Name} Path {@event.File}");
@@ -50,4 +50,3 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
         }
     }
 }
-

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Events;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;

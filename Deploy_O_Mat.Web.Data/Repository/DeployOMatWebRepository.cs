@@ -25,9 +25,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         {
             foreach (var stackLog in stackLogs)
             {
-                if (stackLog.Image == null)
+                if (stackLog.Name == null)
                     continue;
-                var current = _context.DockerStackLogs.FirstOrDefault(x => x.Image == stackLog.Image);
+
+                var current = _context
+                    .DockerStackLogs
+                    .FirstOrDefault(x => x.Name == stackLog.Name);
+                
                 var repoNameIdx = stackLog.Image.LastIndexOf(':');
                 var repo = stackLog.Image.Substring(0, repoNameIdx);
                 var dockerImage = _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
@@ -57,7 +61,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             var logs = _context.DockerStackLogs.ToList();
             foreach (var log in logs)
             {
-                var stackLog = stackLogs.FirstOrDefault(_ => _.Image == log.Image);
+                var stackLog = stackLogs.FirstOrDefault(_ => _.Name == log.Name);
                 if (stackLog == null)
                 {
                     log.IsActive = false;

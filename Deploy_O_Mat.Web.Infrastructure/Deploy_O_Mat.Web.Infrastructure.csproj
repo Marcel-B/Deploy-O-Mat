@@ -9,9 +9,9 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj" />
   </ItemGroup>
 </Project>

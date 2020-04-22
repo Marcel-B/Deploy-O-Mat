@@ -15,6 +15,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
         public async Task<IEnumerable<DockerService>> List()
             => await Mediator.Send(new List.Query());
 
+        [HttpPost("update")]
+        public async Task<ActionResult<Unit>> Update(
+            Update.Command command)
+            => await Mediator.Send(command);
+
         [HttpPost("create")]
         public async Task<ActionResult<Unit>> Create(
             Create.Command command)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Application.Models;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
@@ -61,16 +60,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             return dockerImages;
         }
 
-        public void UpdateDockerService(
-            DockerServiceUpdate dockerServiceUpdate)
+        public async Task<IServiceResponse> UpdateDockerService(
+           string service,
+           string image)
         {
-            var createUpdateDockerServiceCommand = new CreateUpdateServiceCommand(
-                dockerServiceUpdate.ServiceName,
-                dockerServiceUpdate.RepoName,
-                dockerServiceUpdate.Tag,
-                dockerServiceUpdate.BuildId);
-
-            _bus.SendCommand(createUpdateDockerServiceCommand);
+            var createUpdateDockerServiceCommand = new CreateUpdateDockerServiceCommand(
+                service,
+                image);
+            await _bus.SendCommand(createUpdateDockerServiceCommand);
+            return new ServiceResponse
+            {
+                Success = true
+            };
         }
     }
 }

@@ -59,14 +59,15 @@ namespace Deploy_O_Mat.Service.Application.Services
         }
 
         public async Task<int> UpdateService(
-            DockerService service)
+            string image,
+            string service)
         {
-            var result = await processor.Process("docker", $"service update --image {service.RepoName}:{service.Tag} {service.Name}");
+            var result = await processor.Process("docker", $"service update --image {image} {service}");
 
             if (result.Success)
-                _logger.LogInformation($"Update Docker Service '{service.Name}' to BuildId '{service.BuildId}' completed");
+                _logger.LogInformation($"Update Docker Service '{service}' completed");
             else
-                _logger.LogWarning($"Error while updating '{service.Name}' to BuildId '{service.BuildId}': ({result.ReturnCode}) - {result.ErrorMessage}");
+                _logger.LogWarning($"Error while updating '{service}' to Build '{image}': ({result.ReturnCode}) - {result.ErrorMessage}");
 
             return result.ReturnCode;
         }

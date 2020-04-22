@@ -74,13 +74,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                             if (tmpDockerImage.DockerServices != null)
                                 foreach (var dockerService in tmpDockerImage.DockerServices)
                                 {
-                                    _dockerImageService.UpdateDockerService(new Models.DockerServiceUpdate
-                                    {
-                                        BuildId = tmpDockerImage.BuildId,
-                                        RepoName = tmpDockerImage.RepoName,
-                                        Tag = tmpDockerImage.Tag,
-                                        ServiceName = dockerService.Name
-                                    });
+                                    await _dockerImageService.UpdateDockerService(
+                                        dockerService.Name,
+                                        $"{tmpDockerImage.RepoName}:{tmpDockerImage.Tag}");
                                 }
                     }
                     catch (Exception ex)

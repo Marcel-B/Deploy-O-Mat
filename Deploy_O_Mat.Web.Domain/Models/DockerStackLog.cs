@@ -15,5 +15,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         public string Image { get; set; }
         public string Ports { get; set; }
         public bool IsActive { get; set; }
+
+        public Guid DockerActiveServiceId { get; set; }
+        public virtual DockerActiveService DockerActiveService { get; set; }
     }
 }

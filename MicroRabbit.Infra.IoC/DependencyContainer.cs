@@ -37,7 +37,7 @@ namespace MicroRabbit.Infra.IoC
             });
 
             //Subscriptions
-            services.AddTransient<UpdateServiceEventHandler>();
+            services.AddTransient<UpdateDockerServiceEventHandler>();
             services.AddTransient<CreateDockerStackEventHandler>();
             services.AddTransient<DockerInfoEventHandler>();
             services.AddTransient<SendDockerInfoEventHandler>();
@@ -46,7 +46,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<RemoveDockerStackEventHandler>();
 
             //Domain Events
-            services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.ServiceUpdatedEvent>, UpdateServiceEventHandler>();
+            services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceUpdatedEvent>, UpdateDockerServiceEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackCreatedEvent>, CreateDockerStackEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerInfoEvent>, DockerInfoEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackRemovedEvent>, RemoveDockerStackEventHandler>();
@@ -58,7 +58,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Domain.Events.SendDockerInfoEvent>, SendDockerInfoEventHandler>();
 
             //Domain Commands
-            services.AddTransient<IRequestHandler<CreateUpdateServiceCommand, bool>, UpdateServiceCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateServiceCommandHandler>();
             services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
             services.AddTransient<IRequestHandler<CreateSendDockerInfoCommand, bool>, SendDockerInfoCommandHandler>();
             services.AddTransient<IRequestHandler<DockerInfoCommand, bool>, DockerInfoCommandHandler>();

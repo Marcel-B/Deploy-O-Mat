@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
@@ -9,9 +10,10 @@ using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20200421220233_AddDockerImageService")]
+    partial class AddDockerImageService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,47 +141,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                     b.ToTable("Badges");
                 });
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerActiveService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("DockerImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("DockerServiceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("DockerStackId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("LastManualRestart")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("LastRestart")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("ServiceName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DockerImageId");
-
-                    b.HasIndex("DockerServiceId");
-
-                    b.HasIndex("DockerStackId");
-
-                    b.ToTable("DockerActiveServices");
-                });
-
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -248,6 +209,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                     b.ToTable("DockerImages");
                 });
 
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImageService", b =>
+                {
+                    b.Property<Guid>("DockerImageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DockerServiceId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("DockerImageId", "DockerServiceId");
+
+                    b.HasIndex("DockerServiceId");
+
+                    b.ToTable("DockerImageServices");
+                });
+
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerService", b =>
                 {
                     b.Property<Guid>("Id")
@@ -257,7 +233,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DockerImageId")
+                    b.Property<Guid?>("DockerImageId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
@@ -314,28 +290,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                     b.ToTable("DockerStacks");
                 });
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStackImage", b =>
-                {
-                    b.Property<Guid>("DockerImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DockerStackId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("DockerImageId", "DockerStackId");
-
-                    b.HasIndex("DockerStackId");
-
-                    b.ToTable("DockerStackImages");
-                });
-
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStackLog", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DockerActiveServiceId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("DockerImageId")
@@ -369,8 +327,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DockerActiveServiceId");
 
                     b.HasIndex("DockerImageId");
 
@@ -597,55 +553,30 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerActiveService", b =>
+            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImageService", b =>
                 {
                     b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", "DockerImage")
-                        .WithMany()
+                        .WithMany("DockerImageServices")
                         .HasForeignKey("DockerImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerService", "DockerService")
-                        .WithMany()
-                        .HasForeignKey("DockerServiceId");
-
-                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStack", "DockerStack")
-                        .WithMany()
-                        .HasForeignKey("DockerStackId");
+                        .WithMany("DockerImageServices")
+                        .HasForeignKey("DockerServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerService", b =>
                 {
-                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", "DockerImage")
+                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", null)
                         .WithMany("DockerServices")
-                        .HasForeignKey("DockerImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStackImage", b =>
-                {
-                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", "DockerImage")
-                        .WithMany("DockerStackImages")
-                        .HasForeignKey("DockerImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStack", "DockerStack")
-                        .WithMany("DockerStackImages")
-                        .HasForeignKey("DockerStackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DockerImageId");
                 });
 
             modelBuilder.Entity("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerStackLog", b =>
                 {
-                    b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerActiveService", "DockerActiveService")
-                        .WithMany()
-                        .HasForeignKey("DockerActiveServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("com.b_velop.Deploy_O_Mat.Web.Domain.Models.DockerImage", "DockerImage")
                         .WithMany()
                         .HasForeignKey("DockerImageId");

@@ -19,6 +19,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
             Create.Command command)
             => await Mediator.Send(command);
 
+        [HttpPost("update")]
+        public async Task<ActionResult<Unit>> Update(
+           Update.Command command)
+           => await Mediator.Send(command);
+
         [HttpPost("remove")]
         public async Task<ActionResult<Unit>> Remove(
             Remove.Command command)

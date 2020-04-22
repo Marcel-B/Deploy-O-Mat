@@ -1,48 +1,46 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using FluentValidation;
 using MediatR;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
 {
-    public class Create
+    public class Update
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
+            public string ServiceName { get; set; }
         }
-
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
                 RuleFor(x => x.Id).NotEqual(Guid.Empty);
+                RuleFor(x => x.ServiceName).NotEmpty();
             }
         }
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly WebContext _context;
-            private readonly IDockerStackService _dockerStackService;
+            private IDockerStackService _service;
 
             public Handler(
-                WebContext context,
-                IDockerStackService dockerStackService)
+                IDockerStackService service)
             {
-                _context = context;
-                _dockerStackService = dockerStackService;
+                _service = service;
             }
 
-            public Task<Unit> Handle(
+            public async Task<Unit> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                _dockerStackService.CreateStack(request.Id);
-                return Task.FromResult(Unit.Value);
+                await _service.UpdateStack(request.Id, request.ServiceName);
+                return Unit.Value;
             }
         }
     }

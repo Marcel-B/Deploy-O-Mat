@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using com.b_velop.Utilities.Extensions;
 
@@ -8,7 +9,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
     {
         public MappingProfile()
         {
-            CreateMap<CreateOrUpdate.Command, DockerImage>()
+            CreateMap<Badge, BadgeDto>();
+            CreateMap<Domain.Models.DockerImage, DockerImageDto>();
+
+            CreateMap<CreateOrUpdate.Command, Domain.Models.DockerImage>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Repository.Name))
                 .ForMember(dest => dest.Tag, opt => opt.MapFrom(src => src.PushData.Tag))
                 .ForMember(dest => dest.Pusher, opt => opt.MapFrom(src => src.PushData.Pusher))

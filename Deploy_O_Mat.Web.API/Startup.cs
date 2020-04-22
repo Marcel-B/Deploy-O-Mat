@@ -1,6 +1,7 @@
 using System.Text;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
+using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;

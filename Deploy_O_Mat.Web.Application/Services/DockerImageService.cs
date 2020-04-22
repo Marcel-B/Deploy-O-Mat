@@ -26,8 +26,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             _logger = logger;
         }
 
-        public async Task<DockerImage> CreateOrUpdateDockerImage(
-            DockerImage dockerImage)
+        public async Task<Domain.Models.DockerImage> CreateOrUpdateDockerImage(
+            Domain.Models.DockerImage dockerImage)
         {
             var tmpDockerImage = await _repository.GetDockerImage(dockerImage.Id);
 
@@ -45,11 +45,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             return null;
         }
 
-        public async Task<DockerImage> GetDockerImage(
+        public async Task<Domain.Models.DockerImage> GetDockerImage(
             Guid id)
             => await _repository.GetDockerImage(id);
 
-        public async Task<IEnumerable<DockerImage>> GetDockerImages()
+        public async Task<IEnumerable<Domain.Models.DockerImage>> GetDockerImages()
         {
             var dockerImages = await _repository.GetDockerImages();
             foreach (var dockerImage in dockerImages)

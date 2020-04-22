@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Images;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
@@ -15,12 +16,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IEnumerable<DockerImage>> List()
+        public async Task<IEnumerable<DockerImageDto>> List()
             => await Mediator.Send(new List.Query());
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<DockerImage>> Details(Guid id)
+        public async Task<ActionResult<DockerImageDto>> Details(Guid id)
             => await Mediator.Send(new Details.Query { Id = id });
 
         [HttpPost]

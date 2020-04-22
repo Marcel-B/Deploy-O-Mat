@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -59,7 +58,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                 Command request,
                 CancellationToken cancellationToken)
             {
-                var dockerImage = _mapper.Map<DockerImage>(request);
+                var dockerImage = _mapper.Map<Domain.Models.DockerImage>(request);
 
                 if (dockerImage.Tag != "latest")
                     return BuildReturn(request.Id);

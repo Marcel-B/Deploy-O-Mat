@@ -30,7 +30,6 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
         public async Task Handle(
             DockerServiceUpdatedEvent @event)
         {
-
             _logger.LogInformation($"Try update {@event.Image} {@event.Service}");
             var result = await _dockerService.UpdateService( @event.Service, @event.Image);
             string services = "";

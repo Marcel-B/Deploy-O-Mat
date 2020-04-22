@@ -133,5 +133,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 
         public async Task<IEnumerable<DockerStack>> GetDockerStacks()
             => await _context.DockerStacks.ToListAsync();
+
+        public  IEnumerable<DockerActiveService> GetDockerActiveServicesByImageId(Guid id)
+            =>  _context.DockerActiveServices.Where(x => x.DockerImageId == id);
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -30,15 +31,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
         public class Handler : IRequestHandler<Command, DockerHubWebhookCallbackDto>
         {
             private readonly IDockerImageService _dockerImageService;
+            private readonly IDeployOMatWebRepository _repo;
             private readonly ILogger<Handler> _logger;
             private readonly IMapper _mapper;
 
             public Handler(
                 IDockerImageService dockerImageService,
+                IDeployOMatWebRepository repo,
                 ILogger<Handler> logger,
                 IMapper mapper)
             {
                 _dockerImageService = dockerImageService;
+                _repo = repo;
                 _logger = logger;
                 _mapper = mapper;
             }
@@ -63,7 +67,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                 var tmpDockerImage = await _dockerImageService.CreateOrUpdateDockerImage(dockerImage);
 
                 var response = BuildReturn(tmpDockerImage.Id);
-
+                _logger.LogInformation($"New Update incoming");
                 if (tmpDockerImage != null)
                 {
                     response.State = "success";
@@ -71,13 +75,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                     try
                     {
                         if (tmpDockerImage.IsActive)
-                            if (tmpDockerImage.DockerServices != null)
-                                foreach (var dockerService in tmpDockerImage.DockerServices)
-                                {
-                                    await _dockerImageService.UpdateDockerService(
-                                        dockerService.Name,
-                                        $"{tmpDockerImage.RepoName}:{tmpDockerImage.Tag}");
-                                }
+                        {
+                            // Collect all active services and deploy
+                            var activeServices = _repo.GetDockerActiveServicesByImageId(tmpDockerImage.Id);
+                            foreach (var activeService in activeServices)
+                            {
+                                await _dockerImageService.UpdateDockerService(
+                                       activeService.ServiceName,
+                                       $"{tmpDockerImage.RepoName}:{tmpDockerImage.Tag}");
+                                activeService.LastRestart = DateTime.UtcNow;
+                            }
+                            await _repo.SaveChangesAsync();
+                        }
                     }
                     catch (Exception ex)
                     {

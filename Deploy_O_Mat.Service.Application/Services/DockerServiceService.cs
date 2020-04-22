@@ -32,12 +32,13 @@ namespace Deploy_O_Mat.Service.Application.Services
             DockerService service)
         {
             var script = $"service create --name {service.Name} {service.Net} {service.Script} {service.Repo}";
+            _logger.LogInformation($"Try to update:\n{script}");
             var result = await processor.Process("docker", script);
 
             if (result.Success)
-                _logger.LogInformation($"Remove Docker Service '{service}' completed");
+                _logger.LogInformation($"Create Docker Service '{service}' completed");
             else
-                _logger.LogWarning($"Error while removing '{service}': ({result.ReturnCode}) - {result.ErrorMessage}");
+                _logger.LogWarning($"Error while creating '{service}': ({result.ReturnCode}) - {result.ErrorMessage}");
 
             return result.ReturnCode;
         }

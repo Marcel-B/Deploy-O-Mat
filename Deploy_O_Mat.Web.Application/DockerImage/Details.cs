@@ -30,7 +30,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 _logger = logger;
             }
 
-            public async Task<DockerImage> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<DockerImage> Handle(
+                Query request,
+                CancellationToken cancellationToken)
             {
                 var dockerImage = await _repository.GetDockerImage(request.Id);
 

@@ -20,6 +20,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces
         Task<DockerImage> GetDockerImage(Guid id, CancellationToken cancellationToken = default);
         Task<DockerStack> GetDockerStack(Guid id);
         Task<DockerService> GetDockerService(Guid id);
+        IEnumerable<DockerActiveService> GetDockerActiveServicesByImageId(Guid id);
 
         DockerImage UpdateDockerImage(DockerImage newDockerImage, DockerImage oldDockerImage, CancellationToken cancellationToken = default);
 

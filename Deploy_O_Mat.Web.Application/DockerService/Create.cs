@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 
@@ -19,7 +18,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerService
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Id).NotEmpty();
+                RuleFor(x => x.Id).NotEqual(Guid.Empty);
             }
         }
 

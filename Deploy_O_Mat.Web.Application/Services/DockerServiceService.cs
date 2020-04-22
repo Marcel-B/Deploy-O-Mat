@@ -50,5 +50,33 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
 
             await _eventBus.SendCommand(new CreateRemoveDockerServiceCommand(dockerService.Name));
         }
+
+        public async Task<IServiceResponse> UpdateDockerService(
+            Guid id,
+            CancellationToken cancellationToken = default)
+        {
+            var dockerService = await _repo.GetDockerService(id);
+
+            if (dockerService == null)
+            {
+                return new ServiceResponse
+                {
+                    Success = false,
+                    Error = new { dockerService = "Not found", id },
+                    Message = $"DockerService not found",
+                    HttpStatusCode = System.Net.HttpStatusCode.NotFound
+                };
+            }
+
+            var image = dockerService.Image;
+            var service = dockerService.Name;
+
+            await _eventBus.SendCommand(new CreateUpdateDockerServiceCommand(service, image));
+
+            return new ServiceResponse
+            {
+                Success = true,
+            };
+        }
     }
 }

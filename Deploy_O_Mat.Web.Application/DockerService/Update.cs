@@ -2,19 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
 using FluentValidation;
 using MediatR;
 
-namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
+namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerService
 {
-    public class Create
+    public class Update
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
         }
-
 
         public class CommandValidator : AbstractValidator<Command>
         {
@@ -26,23 +25,24 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
 
         public class Handler : IRequestHandler<Command>
         {
-            private readonly WebContext _context;
-            private readonly IDockerStackService _dockerStackService;
+            IDockerServiceService _service;
 
             public Handler(
-                WebContext context,
-                IDockerStackService dockerStackService)
+                IDockerServiceService service)
             {
-                _context = context;
-                _dockerStackService = dockerStackService;
+                _service = service;
             }
 
-            public Task<Unit> Handle(
+            public async Task<Unit> Handle(
                 Command request,
                 CancellationToken cancellationToken)
             {
-                _dockerStackService.CreateStack(request.Id);
-                return Task.FromResult(Unit.Value);
+                var result = await _service.UpdateDockerService(request.Id);
+
+                if (!result.Success)
+                    throw new RestException(result.HttpStatusCode, result.Error);
+
+                return Unit.Value;
             }
         }
     }

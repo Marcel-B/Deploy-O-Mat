@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
 {
     public class DockerService
@@ -20,6 +22,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         public DockerService()
         {
             Created = DateTime.UtcNow;
+        }
+
+        public virtual DockerImage DockerImage { get; set; }
+        public Guid DockerImageId { get; set; }
+
+        [NotMapped]
+        public string Image
+        {
+            get
+                => $"{Repo}:{Tag}";
         }
     }
 }

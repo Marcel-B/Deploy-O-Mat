@@ -18,7 +18,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
         {
             public CommandValidator()
             {
-                RuleFor(x => x.Id).NotEmpty();
+                RuleFor(x => x.Id).NotEqual(Guid.Empty);
             }
         }
 

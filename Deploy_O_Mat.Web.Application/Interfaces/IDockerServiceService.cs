@@ -9,6 +9,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
     {
         Task RemoveDockerService(Guid id, CancellationToken cancellationToken = default);
         Task CreateDockerService(Guid id, CancellationToken cancellationToken = default);
-        Task<IEnumerable<Deploy_O_Mat.Web.Domain.Models.DockerService>> Get(CancellationToken cancellationToken = default);
+        Task<IServiceResponse> UpdateDockerService(Guid id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Domain.Models.DockerService>> Get(CancellationToken cancellationToken = default);
     }
 }

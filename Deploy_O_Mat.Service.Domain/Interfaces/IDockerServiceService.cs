@@ -7,7 +7,7 @@ namespace Deploy_O_Mat.Service.Domain.Interfaces
     public interface IDockerServiceService
     {
         IEnumerable<DockerService> GetDockerServices();
-        Task<int> UpdateService(DockerService service);
+        Task<int> UpdateService(string service, string image);
         Task<int> Remove(string service);
         Task<int> Create(DockerService service);
     }

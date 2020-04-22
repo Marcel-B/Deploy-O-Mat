@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Context
 {
-    public class WebContext : IdentityDbContext<AppUser, AppRole, string, IdentityUserClaim<string>, AppUserRole,  IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
+    public class WebContext : IdentityDbContext<AppUser, AppRole, string, IdentityUserClaim<string>, AppUserRole, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public WebContext(
             DbContextOptions<WebContext> options) : base(options) { }
@@ -17,6 +17,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Context
         public DbSet<Badge> Badges { get; set; }
         public DbSet<DockerStackLog> DockerStackLogs { get; set; }
         public DbSet<DockerService> DockerServices { get; set; }
+        public DbSet<DockerStackImage> DockerStackImages { get; set; }
+        public DbSet<DockerActiveService> DockerActiveServices { get; set; }
 
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)
@@ -24,6 +26,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RequestLog>().HasIndex("Created");
             modelBuilder.Entity<DockerStackLog>().HasIndex("Image");
+
+            modelBuilder.Entity<DockerStackImage>(x => x.HasKey(dis => new { dis.DockerImageId, dis.DockerStackId }));
+            modelBuilder.Entity<DockerStackImage>()
+                .HasOne(i => i.DockerImage)
+                .WithMany(s => s.DockerStackImages)
+                .HasForeignKey(i => i.DockerImageId);
+            modelBuilder.Entity<DockerStackImage>()
+                .HasOne(s => s.DockerStack)
+                .WithMany(i => i.DockerStackImages)
+                .HasForeignKey(s => s.DockerStackId);
         }
     }
 }

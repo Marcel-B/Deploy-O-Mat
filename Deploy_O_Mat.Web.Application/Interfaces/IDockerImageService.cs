@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Application.Models;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
@@ -11,6 +10,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
         Task<IEnumerable<DockerImage>> GetDockerImages();
         Task<DockerImage> GetDockerImage(Guid id);
         Task<DockerImage> CreateOrUpdateDockerImage(DockerImage dockerImage);
-        void UpdateDockerService(DockerServiceUpdate dockerServiceUpdate);
+        Task<IServiceResponse> UpdateDockerService(string service, string image);
     }
 }

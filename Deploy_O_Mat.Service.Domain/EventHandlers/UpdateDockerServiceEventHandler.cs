@@ -8,18 +8,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Deploy_O_Mat.Service.Domain.EventHandlers
 {
-    public class UpdateServiceEventHandler : IEventHandler<ServiceUpdatedEvent>
+    public class UpdateDockerServiceEventHandler : IEventHandler<DockerServiceUpdatedEvent>
     {
-        private ILogger<UpdateServiceEventHandler> _logger;
+        private ILogger<UpdateDockerServiceEventHandler> _logger;
         private IDockerServiceService _dockerService;
         private readonly IDockerInfoService dockerInfoService;
         private readonly IEventBus eventBus;
 
-        public UpdateServiceEventHandler(
+        public UpdateDockerServiceEventHandler(
             IDockerServiceService dockerService,
             IDockerInfoService dockerInfoService,
             IEventBus eventBus,
-            ILogger<UpdateServiceEventHandler> logger)
+            ILogger<UpdateDockerServiceEventHandler> logger)
         {
             _dockerService = dockerService;
             this.dockerInfoService = dockerInfoService;
@@ -28,17 +28,11 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
         }
 
         public async Task Handle(
-            ServiceUpdatedEvent @event)
+            DockerServiceUpdatedEvent @event)
         {
 
-            _logger.LogInformation($"Try update {@event.RepoName} {@event.BuildId}");
-            var result = await _dockerService.UpdateService(new Models.DockerService
-            {
-                BuildId = @event.BuildId,
-                RepoName = @event.RepoName,
-                Name = @event.ServiceName,
-                Tag = @event.Tag,
-            });
+            _logger.LogInformation($"Try update {@event.Image} {@event.Service}");
+            var result = await _dockerService.UpdateService( @event.Service, @event.Image);
             string services = "";
 
 #if DEBUG
@@ -48,7 +42,7 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
 #endif
 
             await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
-            _logger.LogInformation($"Update {@event.RepoName} {@event.BuildId} result id = {result}");
+            _logger.LogInformation($"Update {@event.Service} {@event.Image} result id = {result}");
         }
     }
 }

@@ -45,5 +45,31 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
 
             await _eventBus.SendCommand(new CreateRemoveStackCommand(dockerStack.Name));
         }
+
+        public async Task<IServiceResponse> UpdateStack(
+            Guid id,
+            string serviceName,
+            CancellationToken cancellationToken = default)
+        {
+            var dockerStack = await _repo.GetDockerStack(id);
+
+            if (dockerStack == null)
+            {
+                return new ServiceResponse
+                {
+                    Error = new { dockerStack = "Not found", id },
+                    Message = $"DockerStack not found",
+                    HttpStatusCode = System.Net.HttpStatusCode.NotFound,
+                    Success = false
+                };
+            }
+
+            //var service = dockerStack.
+            //await _eventBus.SendCommand(new CreateUpdateDockerServiceCommand());
+            return new ServiceResponse
+            {
+                Success = true
+            };
+        }
     }
 }

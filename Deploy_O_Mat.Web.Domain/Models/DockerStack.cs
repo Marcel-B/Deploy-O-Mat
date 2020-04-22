@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
 {
     public class DockerStack
@@ -13,5 +15,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.Models
         {
             Created = DateTime.UtcNow;
         }
+
+        public virtual ICollection<DockerStackImage> DockerStackImages { get; set; }
     }
 }

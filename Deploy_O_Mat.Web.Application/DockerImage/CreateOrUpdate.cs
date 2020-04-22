@@ -80,8 +80,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
                             foreach (var activeService in activeServices)
                             {
                                 await _dockerImageService.UpdateDockerService(
-                                       activeService.ServiceName,
-                                       $"{tmpDockerImage.RepoName}:{tmpDockerImage.Tag}");
+                                    $"{tmpDockerImage.RepoName}:{tmpDockerImage.Tag}",
+                                       activeService.ServiceName);
                                 activeService.LastRestart = DateTime.UtcNow;
                             }
                             await _repo.SaveChangesAsync();

@@ -71,7 +71,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var image = dockerService.Image;
             var service = dockerService.Name;
 
-            await _eventBus.SendCommand(new CreateUpdateDockerServiceCommand(service, image));
+            await _eventBus.SendCommand(new CreateUpdateDockerServiceCommand(image, service));
 
             return new ServiceResponse
             {

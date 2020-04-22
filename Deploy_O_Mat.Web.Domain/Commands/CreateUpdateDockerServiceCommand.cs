@@ -3,8 +3,8 @@
     public class CreateUpdateDockerServiceCommand : UpdateDockerServiceCommand
     {
         public CreateUpdateDockerServiceCommand(
-            string service,
-            string image)
+            string image,
+            string service)
         {
             Service = service;
             Image = image;

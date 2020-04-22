@@ -61,12 +61,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
         }
 
         public async Task<IServiceResponse> UpdateDockerService(
-           string service,
-           string image)
+            string image,
+           string service)
         {
             var createUpdateDockerServiceCommand = new CreateUpdateDockerServiceCommand(
-                service,
-                image);
+               image,
+               service);
             await _bus.SendCommand(createUpdateDockerServiceCommand);
             return new ServiceResponse
             {

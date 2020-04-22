@@ -42,7 +42,7 @@ const DockerStackListItem: React.FC<{
                                         createDockerStack(dockerStack.id)
                                     }
                                 />
-                                <Button content='Update' color='blue' />
+                                {/* <Button content='Update' color='blue' /> */}
                                 <Button
                                     content='Remove'
                                     color='red'

@@ -19,7 +19,6 @@
     },
     "Deploy_O_Mat.API": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "identity_signing_key": "hello_this_is_very_cool",

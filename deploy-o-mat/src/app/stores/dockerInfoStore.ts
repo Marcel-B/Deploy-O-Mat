@@ -2,6 +2,8 @@ import agent from '../api/agent';
 import { observable, action, runInAction, computed } from 'mobx';
 import { RootStore } from './rootStore';
 import { format } from 'date-fns';
+import { convertToLocalTime } from 'date-fns-timezone';
+import { IDockerStackLog } from '../models/dockerStackLog';
 
 export default class DockerInfoStore {
     rootStore: RootStore;
@@ -17,9 +19,11 @@ export default class DockerInfoStore {
     }
 
     @computed get lastLogUpdate() {
-        let va = Array.from(this.dockerInfoLogs.values())[0];
-        if (va)
-            return (format(Date.parse(va.updated), 'dd. MMMM HH:mm'));
+        let va: IDockerStackLog = Array.from(this.dockerInfoLogs.values())[0];
+        if (va) {
+            const d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
+            return (format(d, 'dd. MMMM HH:mm'));
+        }
         return '';
     }
 

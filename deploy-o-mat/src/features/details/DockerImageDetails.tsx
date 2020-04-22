@@ -28,10 +28,8 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
     const {
         dockerImage,
         loadDockerImage,
-        restartDockerImage,
         loadingInitial,
     } = rootStore.dockerImageStore;
-    const { isLoggedIn } = rootStore.userStore;
 
     useEffect(() => {
         loadDockerImage(match.params.id);

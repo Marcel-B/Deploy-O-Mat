@@ -6,7 +6,7 @@ const BuildStatusBanner: React.FC<{ badges: IBadge[] }> = ({ badges }) => {
     return (
         <Image.Group>
             {badges.map((badge) => (
-                <Image src={badge.url} key={badge.id} className='badge' />
+                <Image src={badge.url} key={badge.url} className='badge' />
             ))}
         </Image.Group>
     );

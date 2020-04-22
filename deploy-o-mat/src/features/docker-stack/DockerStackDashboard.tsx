@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import { Header, Divider, Icon } from 'semantic-ui-react';
+import { Header, Divider, Icon, Grid } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import DockerStackList from './DockerStackList';
 
@@ -21,7 +21,11 @@ const DockerStackDashboard = () => {
             </Header>
             <Divider />
             <br />
-            <DockerStackList />
+            <Grid divided>
+                <Grid.Column width={7}>
+                    <DockerStackList />
+                </Grid.Column>
+            </Grid>
         </Fragment>
     );
 };

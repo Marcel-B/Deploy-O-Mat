@@ -26,20 +26,26 @@ const DockerServiceListItem: React.FC<IProps> = ({
                                 <Item.Header>{dockerService.name}</Item.Header>
                                 <Item.Meta>
                                     <Icon name='clock' />{' '}
-                                    <TimeAgo date={dockerService.updated!} />
+                                    {dockerService.updated && (
+                                        <TimeAgo date={dockerService.updated} />
+                                    )}
                                 </Item.Meta>
                                 <Item.Meta>
                                     <Icon name='sync alternate' />{' '}
-                                    <TimeAgo date={dockerService.lastRestart!} />
+                                    {dockerService.lastRestart && (
+                                        <TimeAgo
+                                            date={dockerService.lastRestart}
+                                        />
+                                    )}
                                 </Item.Meta>
                                 <Item.Meta>
                                     Name: {dockerService.name}
                                 </Item.Meta>
                                 <Item.Meta>
-                                    Repo: {dockerService.repo}{
-                                        dockerService.tag?.length > 0 ?
-                                           `:${dockerService.tag}` : ""
-                                    }
+                                    Repo: {dockerService.repo}
+                                    {dockerService.tag?.length > 0
+                                        ? `:${dockerService.tag}`
+                                        : ''}
                                 </Item.Meta>
                             </Item.Content>
                         </Item>

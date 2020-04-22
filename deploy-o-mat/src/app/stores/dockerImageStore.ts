@@ -15,7 +15,7 @@ export default class DockerImageStore {
     @observable dockerImage: IDockerImage | null = null;
 
     @computed get dockerImagesByUpdated() {
-        return Array.from(this.dockerImageRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
+        return Array.from(this.dockerImageRegistry.values()).filter(a => !a.isOfficial).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
     @action loadDockerImages = async () => {

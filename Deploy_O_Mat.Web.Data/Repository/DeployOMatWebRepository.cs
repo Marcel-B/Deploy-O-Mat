@@ -37,13 +37,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 var repo = stackLog.Image.Substring(0, repoNameIdx);
 
                 var dockerImage = _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
-                var dasid = _context.DockerActiveServices.FirstOrDefault(x => x.ServiceName == stackLog.Name);
+                var dockerActiveService = _context.DockerActiveServices.FirstOrDefault(x => x.ServiceName == stackLog.Name);
 
-                if (dockerImage == null || dasid == null)
+                if (dockerImage == null || dockerActiveService == null || dockerActiveService.Id == Guid.Empty)
                     continue;
 
                 stackLog.DockerImageId = dockerImage.Id;
-                stackLog.DockerActiveServiceId = dasid.Id;
+                stackLog.DockerActiveServiceId = dockerActiveService.Id;
 
                 if (current == null) // no log entry
                 {
@@ -62,7 +62,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     current.ReplicasOnline = stackLog.ReplicasOnline;
                     current.ServiceId = stackLog.ServiceId;
                     current.IsActive = true;
-                    current.DockerActiveServiceId = stackLog.DockerActiveServiceId;
+                    current.DockerActiveServiceId = dockerActiveService.Id;
                 }
             }
             var logs = _context.DockerStackLogs.ToList();

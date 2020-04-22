@@ -9,6 +9,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
         Task<IEnumerable<Domain.Models.DockerImage>> GetDockerImages();
         Task<Domain.Models.DockerImage> GetDockerImage(Guid id);
         Task<Domain.Models.DockerImage> CreateOrUpdateDockerImage(Domain.Models.DockerImage dockerImage);
-        Task<IServiceResponse> UpdateDockerService(string service, string image);
+        Task<IServiceResponse> UpdateDockerService(string image, string service);
     }
 }

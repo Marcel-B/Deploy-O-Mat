@@ -31,7 +31,7 @@ namespace Deploy_O_Mat.Service.Domain.EventHandlers
             DockerServiceUpdatedEvent @event)
         {
             _logger.LogInformation($"Try update {@event.Image} {@event.Service}");
-            var result = await _dockerService.UpdateService( @event.Service, @event.Image);
+            var result = await _dockerService.UpdateService(@event.Image, @event.Service);
             string services = "";
 
 #if DEBUG

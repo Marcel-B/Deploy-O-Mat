@@ -68,7 +68,7 @@ namespace Deploy_O_Mat.Service.Application.Services
             if (result.Success)
                 _logger.LogInformation($"Update Docker Service '{service}' completed");
             else
-                _logger.LogWarning($"Error while updating '{service}' to Build '{image}': ({result.ReturnCode}) - {result.ErrorMessage}");
+                _logger.LogWarning($"Error while updating service '{service}' with image '{image}': ({result.ReturnCode}) - {result.ErrorMessage}");
 
             return result.ReturnCode;
         }

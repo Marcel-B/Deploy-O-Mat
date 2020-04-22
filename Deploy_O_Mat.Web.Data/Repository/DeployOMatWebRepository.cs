@@ -31,13 +31,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 var current = _context
                     .DockerStackLogs
                     .FirstOrDefault(x => x.Name == stackLog.Name);
-                
+
                 var repoNameIdx = stackLog.Image.LastIndexOf(':');
                 var repo = stackLog.Image.Substring(0, repoNameIdx);
+
                 var dockerImage = _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
 
-                if (dockerImage != null)
-                    stackLog.DockerImageId = dockerImage.Id;
+                if (dockerImage == null)
+                    continue;
+
+                stackLog.DockerImageId = dockerImage.Id;
+
 
                 if (current == null) // no log entry
                 {

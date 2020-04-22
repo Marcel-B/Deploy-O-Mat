@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
@@ -36,12 +37,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 var repo = stackLog.Image.Substring(0, repoNameIdx);
 
                 var dockerImage = _context.DockerImages.FirstOrDefault(x => x.RepoName == repo);
+                var dasid = _context.DockerActiveServices.FirstOrDefault(x => x.ServiceName == stackLog.Name);
 
-                if (dockerImage == null)
+                if (dockerImage == null || dasid == null)
                     continue;
 
                 stackLog.DockerImageId = dockerImage.Id;
-
+                stackLog.DockerActiveServiceId = dasid.Id;
 
                 if (current == null) // no log entry
                 {
@@ -60,6 +62,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     current.ReplicasOnline = stackLog.ReplicasOnline;
                     current.ServiceId = stackLog.ServiceId;
                     current.IsActive = true;
+                    current.DockerActiveServiceId = stackLog.DockerActiveServiceId;
                 }
             }
             var logs = _context.DockerStackLogs.ToList();

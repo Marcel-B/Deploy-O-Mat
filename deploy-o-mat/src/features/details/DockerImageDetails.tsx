@@ -121,10 +121,11 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                         trigger={
                             <Button
                                 color='yellow'
+                                circular
+                                floated='right'
                                 onClick={() => history.push('/images')}
-                            >
-                                <Icon name='angle left' />
-                            </Button>
+                                icon='angle left'
+                            />
                         }
                     />
                 </Grid.Column>

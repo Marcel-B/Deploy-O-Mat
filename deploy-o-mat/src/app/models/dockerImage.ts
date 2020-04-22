@@ -11,6 +11,7 @@ export interface IDockerImage {
     dockerfile: string;
     created: string;
     startTime: string;
+    isOfficial: boolean;
     badges: IBadge[];
 }
 

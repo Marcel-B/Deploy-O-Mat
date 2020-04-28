@@ -76,7 +76,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";
 
-
+            services.AddSignalR();
             //eventBus = services.GetRequiredService<IEventBus>();
             //var secretProvider = services.GetRequiredService<SecretProvider>();
             //var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
@@ -165,6 +165,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ServiceUpdateHub>("/update");
                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }

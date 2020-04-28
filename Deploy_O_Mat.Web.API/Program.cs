@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
+using RabbitMQ.Client.Exceptions;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -22,13 +23,25 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<WebContext>();
+            var eventBus = services.GetRequiredService<IEventBus>();
+
             try
             {
-                var context = services.GetRequiredService<WebContext>();
-                var eventBus = services.GetRequiredService<IEventBus>();
-                eventBus.Subscribe<SendDockerInfoEvent, SendDockerInfoEventHandler>();
                 context.Database.Migrate();
                 Seed.SeedData(context);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
+            }
+            try
+            {
+                eventBus.Subscribe<SendDockerInfoEvent, SendDockerInfoEventHandler>();
+            }
+            catch(BrokerUnreachableException ex)
+            {
+                logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during connection");
             }
             catch (Exception ex)
             {

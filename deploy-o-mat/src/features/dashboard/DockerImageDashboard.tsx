@@ -7,12 +7,16 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 const DockerImageDashboard: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const { loadDockerImages } = rootStore.dockerImageStore;
-    const { loadDockerLogs } = rootStore.dockerInfoStore;
+    const { loadDockerLogs , createHubConnection, stopHubConnection } = rootStore.dockerInfoStore;
 
     useEffect(() => {
         loadDockerImages();
         loadDockerLogs();
-    }, [loadDockerImages, loadDockerLogs]);
+        createHubConnection();
+        return () => {
+            stopHubConnection();
+        }
+    }, [loadDockerImages, loadDockerLogs, createHubConnection, stopHubConnection]);
 
     return (
         <Fragment>

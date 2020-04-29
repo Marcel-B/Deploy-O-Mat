@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Events;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +23,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
             _repo = repo;
             _logger = logger;
         }
-
 
         public Task Handle(
             SendDockerInfoEvent @event)
@@ -57,13 +57,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers
                 {
                     image = value[replicasIdx..];
                 }
-
-                //sb.AppendLine($"'{id.Trim()}'");
-                //sb.AppendLine($"'{name.Trim()}'");
-                //sb.AppendLine($"'{mode.Trim()}'");
-                //sb.AppendLine($"'{replicas.Trim()}'");
-                //sb.AppendLine($"'{image.Trim()}'");
-                //sb.AppendLine($"'{ports.Trim()}'");
                 lst.Add(new DockerStackLog
                 {
                     Image = image.Trim(),

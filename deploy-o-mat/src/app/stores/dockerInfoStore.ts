@@ -4,6 +4,7 @@ import { RootStore } from './rootStore';
 import { format } from 'date-fns';
 import { convertToLocalTime } from 'date-fns-timezone';
 import { IDockerStackLog } from '../models/dockerStackLog';
+import {HubConnection, HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
 
 export default class DockerInfoStore {
     rootStore: RootStore;
@@ -13,6 +14,7 @@ export default class DockerInfoStore {
 
     @observable dockerInfoLogs = new Map();
     @observable loadingInitial = false;
+    @observable.ref hubConnection: HubConnection | null = null;
 
     @computed get dockerInfoLogsArray() {
         return Array.from(this.dockerInfoLogs.values())//.sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
@@ -21,10 +23,31 @@ export default class DockerInfoStore {
     @computed get lastLogUpdate() {
         let va: IDockerStackLog = Array.from(this.dockerInfoLogs.values())[0];
         if (va) {
-            const d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
-            return (format(d, 'dd. MMMM HH:mm'));
+            let d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
+            console.log(d);
+            let da =  Date.now();
+            return (format(da, 'dd. MMMM HH:mm'));
         }
         return '';
+    }
+
+    @action createHubConnection = () =>  {
+        this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/info', {
+            accessTokenFactory: () => this.rootStore.commonStore.token!
+        }).configureLogging(LogLevel.Information).build();
+        this.hubConnection.start().then(() => console.log(this.hubConnection!.state)).catch(error => console.log('Error establishing connection: ', error))
+        this.hubConnection.on('SendUpdate', (dockerLogs: IDockerStackLog[]) => {
+            runInAction('update dockerLogs', () => {
+                if (dockerLogs)
+                    dockerLogs.forEach((dockerLog: IDockerStackLog) => {
+                        this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+                    });
+            });
+        });
+    }
+
+    @action stopHubConnection = () => {
+        this.hubConnection!.stop();
     }
 
     @action loadDockerLogs = async () => {

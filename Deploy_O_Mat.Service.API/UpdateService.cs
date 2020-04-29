@@ -39,7 +39,7 @@ namespace Deploy_O_Mat.Service.Api
 #if DEBUG
             TimeSpan.FromSeconds(10));
 #else
-            TimeSpan.FromMinutes(5));
+                TimeSpan.FromSeconds(10));
 #endif
             return Task.CompletedTask;
         }

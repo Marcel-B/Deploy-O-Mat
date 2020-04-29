@@ -32,10 +32,6 @@ namespace Deploy_O_Mat.Service.Api
                 var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
                 var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
 
-                //Console.WriteLine(userName);
-                //Console.WriteLine(passWord);
-                //Console.WriteLine(HostName);
-
                 eventBus.Subscribe<DockerServiceUpdatedEvent, UpdateDockerServiceEventHandler>();
                 eventBus.Subscribe<DockerStackCreatedEvent, CreateDockerStackEventHandler>();
                 eventBus.Subscribe<DockerInfoEvent, DockerInfoEventHandler>();

@@ -24,9 +24,9 @@ export default class DockerInfoStore {
         let va: IDockerStackLog = Array.from(this.dockerInfoLogs.values())[0];
         if (va) {
             let d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
-            console.log(d);
+            //console.log(d);
             let da =  Date.now();
-            return (format(da, 'dd. MMMM HH:mm'));
+            return  (format(da, 'dd. MMMM HH:mm'));
         }
         return '';
     }
@@ -38,10 +38,13 @@ export default class DockerInfoStore {
         this.hubConnection.start().then(() => console.log(this.hubConnection!.state)).catch(error => console.log('Error establishing connection: ', error))
         this.hubConnection.on('SendUpdate', (dockerLogs: IDockerStackLog[]) => {
             runInAction('update dockerLogs', () => {
+                this.loadingInitial = true;
                 if (dockerLogs)
-                    dockerLogs.forEach((dockerLog: IDockerStackLog) => {
+                    dockerLogs.forEach((dockerLog) => {
+                        console.log(dockerLog.image);
                         this.dockerInfoLogs.set(dockerLog.id, dockerLog);
                     });
+                this.loadingInitial = false;
             });
         });
     }

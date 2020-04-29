@@ -26,7 +26,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             _context = context;
         }
 
-        public Task CreateOrUpdateDockerStackLog(
+        public async Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
             foreach (var stackLog in stackLogs)
@@ -81,9 +81,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 }
 
             }
-            _hub.Clients.All.SendAsync("SendUpdate", logs);
+            await _hub.Clients.All.SendAsync("SendUpdate", logs);
             _context.SaveChanges();
-            return Task.CompletedTask;
         }
 
         public async Task<bool> SaveChangesAsync()

@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 {
     public class DeployOMatWebRepository : IDeployOMatWebRepository
     {
+        private readonly IHubContext<DockerServiceUpdateHub>  _hub;
         private WebContext _context;
 
         public DeployOMatWebRepository(
+            IHubContext<DockerServiceUpdateHub> hub,
             WebContext context)
         {
+            _hub = hub;
             _context = context;
         }
 
@@ -74,7 +79,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     log.IsActive = false;
                     continue;
                 }
+
             }
+            _hub.Clients.All.SendAsync("SendUpdate", logs);
             _context.SaveChanges();
             return Task.CompletedTask;
         }

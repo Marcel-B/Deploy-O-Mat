@@ -48,7 +48,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.User
                     throw new RestException(HttpStatusCode.Unauthorized);
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (result.Succeeded)
-                    return new User { DisplayName = user.DisplayName, Token = _jwtGenerator.CreateToken(user), Username = user.UserName };
+                    return new User { DisplayName = user.DisplayName, Token = await _jwtGenerator.CreateToken(user), Username = user.UserName };
                 throw new RestException(HttpStatusCode.Unauthorized);
             }
         }

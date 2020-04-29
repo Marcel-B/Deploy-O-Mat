@@ -8,7 +8,7 @@ import { IDockerStackLog } from '../models/dockerStackLog';
 import { IDockerStack } from '../models/dockerStack';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL!;// 'http://localhost:5000/api';
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response?.data;
 
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('jwt');
@@ -21,6 +21,12 @@ axios.interceptors.request.use((config) => {
 });
 
 axios.interceptors.response.use(undefined, error => {
+    if(!error.response)
+    {
+        history.push('/notfound');
+        toast.error('No network present');
+        return;
+    }
     if (error.message === 'Network Error' && !error.response) {
         toast.error('Network error - make sure API is running!');
     }

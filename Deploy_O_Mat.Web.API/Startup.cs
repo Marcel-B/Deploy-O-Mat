@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
@@ -7,6 +8,7 @@ using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
 using com.b_velop.Utilities.Docker;
 using FluentValidation.AspNetCore;
@@ -23,6 +25,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using NLog.StructuredLogging.Json.Helpers;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -64,7 +67,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             {
                 options.AddPolicy(Strings.CorsPolicy, policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "http://localhost:3001");
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5000", "http://localhost:3000", "http://localhost:3001");
                 });
             });
 
@@ -76,7 +79,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var username = secretProvider.GetSecret("username") ?? "";
             var host = secretProvider.GetSecret("host") ?? "";
 
-
+            services.AddSignalR();
+            
             //eventBus = services.GetRequiredService<IEventBus>();
             //var secretProvider = services.GetRequiredService<SecretProvider>();
             //var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
@@ -122,7 +126,24 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                         ValidateAudience = false, // Url is comming from
                         ValidateIssuer = false
                     };
+                    opt.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if(!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/info")))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            });
             DependencyContainer.RegisterServices(services);
         }
 
@@ -165,6 +186,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<DockerServiceUpdateHub>("/info");
                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }

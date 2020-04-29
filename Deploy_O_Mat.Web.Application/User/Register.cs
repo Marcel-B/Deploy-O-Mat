@@ -72,7 +72,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.User
                     return new User
                     {
                         DisplayName = user.DisplayName,
-                        Token = _jwtGenerator.CreateToken(user),
+                        Token = await _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
                     };
 

@@ -34,7 +34,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.User
                 {
                     DisplayName = user.DisplayName,
                     Username = user.UserName,
-                    Token = _jwtGenerator.CreateToken(user),
+                    Token = await _jwtGenerator.CreateToken(user),
                 };
             }
         }

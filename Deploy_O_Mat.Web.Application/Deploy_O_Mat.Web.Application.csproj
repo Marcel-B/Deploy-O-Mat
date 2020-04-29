@@ -21,7 +21,6 @@
     <Folder Include="DockerImage\" />
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="DockerService\" />
     <Folder Include="User\" />

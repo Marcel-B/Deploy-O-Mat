@@ -4,6 +4,7 @@ import { Item, Icon, Button, Segment } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 import BuildStatusBanner from '../build-status/BuildStatusBanner';
+import TimeItem from "../time-item/TimeItem";
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
@@ -31,10 +32,7 @@ const DockerImageListItem: React.FC<{
                                         <TimeAgo date={dockerImage.startTime} />
                                     )}
                                 </Item.Meta>
-                                <Item.Meta>
-                                    <Icon name='clock' />{' '}
-                                    <TimeAgo date={dockerImage.updated} />
-                                </Item.Meta>
+                                <TimeItem iconName={'clock'} time={dockerImage.updated}/>
                             </Item.Content>
                         </Item>
                     </Item.Group>

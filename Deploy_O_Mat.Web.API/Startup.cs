@@ -123,6 +123,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                         ValidateIssuer = false
                     };
                 });
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            });
             DependencyContainer.RegisterServices(services);
         }
 

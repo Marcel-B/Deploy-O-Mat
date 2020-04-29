@@ -21,13 +21,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Services\" />
-    <Folder Include="Domain\" />
-    <Folder Include="CommandHandlers\" />
-    <Folder Include="Commands\" />
-    <Folder Include="EventHandlers\" />
-    <Folder Include="Events\" />
-    <Folder Include="Contracts\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="nlog.config" />

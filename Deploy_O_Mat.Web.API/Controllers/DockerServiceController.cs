@@ -21,11 +21,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
             => await Mediator.Send(command);
 
         [HttpPost("create")]
+        [Authorize(Policy = "RequireAdminRole")]
         public async Task<ActionResult<Unit>> Create(
             Create.Command command)
             => await Mediator.Send(command);
 
         [HttpPost("remove")]
+        [Authorize(Policy = "RequireAdminRole")]
         public async Task<ActionResult<Unit>> Remove(
             Remove.Command command)
             => await Mediator.Send(command);

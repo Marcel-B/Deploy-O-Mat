@@ -6,11 +6,11 @@ export interface IDockerImage {
     tag: string;
     owner: string;
     repoName: string;
-    updated: string;
+    updated: Date;
     isActive: boolean;
     dockerfile: string;
-    created: string;
-    startTime: string;
+    created: Date;
+    startTime: Date;
     isOfficial: boolean;
     badges: IBadge[];
 }

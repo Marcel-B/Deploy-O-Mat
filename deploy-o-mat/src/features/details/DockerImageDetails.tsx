@@ -87,7 +87,7 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
                                 <Table.Cell>
                                     {' '}
                                     {format(
-                                        Date.parse(dockerImage.created),
+                                        dockerImage.created,
                                         'dd.MM.yyyy'
                                     )}
                                 </Table.Cell>

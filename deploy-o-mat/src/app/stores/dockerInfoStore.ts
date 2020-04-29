@@ -32,7 +32,7 @@ export default class DockerInfoStore {
     }
 
     @action createHubConnection = () =>  {
-        this.hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/info', {
+        this.hubConnection = new HubConnectionBuilder().withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
         }).configureLogging(LogLevel.Information).build();
         this.hubConnection.start().then(() => console.log(this.hubConnection!.state)).catch(error => console.log('Error establishing connection: ', error))

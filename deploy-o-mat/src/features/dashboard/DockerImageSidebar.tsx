@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment, useEffect } from 'react';
 import { Icon, Table, Label } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import { IDockerStackLog } from '../../app/models/dockerStackLog';
@@ -6,8 +6,17 @@ import { observer } from 'mobx-react-lite';
 
 const DockerImageSidebar = () => {
     const rootStore = useContext(RootStoreContext);
-    const { dockerInfoLogsArray, lastLogUpdate } = rootStore.dockerInfoStore;
+    const { loadDockerLogs, dockerInfoLogsArray, lastLogUpdate, createHubConnection, stopHubConnection  } = rootStore.dockerInfoStore;
     const { isLoggedIn } = rootStore.userStore;
+
+    useEffect(() => {
+        loadDockerLogs();
+        createHubConnection();
+        return () => {
+            stopHubConnection();
+        }
+    }, [ loadDockerLogs, createHubConnection, stopHubConnection]);
+    
     return (
         // <Segment>
         <Fragment>

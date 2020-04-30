@@ -27,7 +27,7 @@ export default class DockerInfoStore {
             let d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
             //console.log(d);
             let da =  Date.now();
-            return  (format(da, 'dd. MMMM HH:mm'));
+            return  (format(da, 'dd. MMMM HH:mm:ss'));
         }
         return '';
     }
@@ -37,7 +37,7 @@ export default class DockerInfoStore {
         .withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
         })
-        .configureLogging(LogLevel.Debug)
+        .configureLogging(LogLevel.Trace)
         .build();
 
         this.hubConnection

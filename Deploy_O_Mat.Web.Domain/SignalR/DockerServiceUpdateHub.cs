@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
@@ -8,7 +9,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
 {
     public interface IDockerServiceUpdate
     {
-        Task SendUpdate(DockerStackLog log);
+        Task SendUpdate(string log);
     }
 
     public class DockerServiceUpdateHub : Hub
@@ -22,9 +23,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
         }
 
         public async Task SendUpdate(
-            IEnumerable<DockerStackLog> log)
+            string log)
         {
-            await Clients.All.SendAsync("SendUpdate", log);
+            
+            await Clients.All.SendAsync("SendUpdate", DateTime.Now.ToString());
         }
     }
 }

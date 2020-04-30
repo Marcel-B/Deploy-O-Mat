@@ -9,6 +9,13 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
 {
+    public class Fooar
+    {
+        public string Id { get; set; }
+        public string Service { get; set; }
+        public string Image { get; set; }
+        public string Replicas { get; set; }
+    }
     public interface IDockerServiceUpdate
     {
         Task SendUpdate(string log);
@@ -27,8 +34,18 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
         public async Task SendUpdate(
             List<DockerStackLog> logs)
         {
-            var r = JsonSerializer.Serialize(logs);
-            await Clients.All.SendAsync("SendUpdate", r);
+            var l = new List<Fooar>();
+            foreach (var log in logs)
+            {
+                l.Add(new Fooar
+                {
+                    Id = log.Id.ToString(),Image = log.Image,
+                    Replicas = $"{log.ReplicasOnline}/{log.Replicas}",
+                    Service = log.ServiceId
+                });
+            }
+            var lst =  JsonSerializer.Serialize(l);
+            await Clients.All.SendAsync("SendUpdate", l);
         }
     }
 }

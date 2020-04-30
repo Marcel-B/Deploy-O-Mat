@@ -50,8 +50,9 @@ export default class DockerImageStore {
     }
 
     @action loadDockerImage = async (id: string) => {
-        let dockerImage = this.getDockerImage(id);
+        let dockerImage: IDockerImage = this.getDockerImage(id);
         if (dockerImage) {
+            console.log(dockerImage);
             this.dockerImage = dockerImage;
         } else {
             this.loadingInitial = true;
@@ -59,7 +60,8 @@ export default class DockerImageStore {
                 dockerImage = await agent.DockerImages.details(id);
                 runInAction('getting dockerImage', () => {
                     this.dockerImage = dockerImage;
-                    this.loadingInitial = false;
+            this.dockerImage = dockerImage;
+            this.loadingInitial = false;
                     this.dockerImageRegistry.set(dockerImage.id, dockerImage);
                 })
             } catch (error) {

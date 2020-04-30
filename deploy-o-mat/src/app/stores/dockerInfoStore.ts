@@ -30,7 +30,7 @@ export default class DockerInfoStore {
         .withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
         })
-        .configureLogging(LogLevel.Information)
+        .configureLogging(LogLevel.Error)
         .build();
 
         this.hubConnection
@@ -38,17 +38,14 @@ export default class DockerInfoStore {
         .then(() => console.log(this.hubConnection!.state))
         .catch(error => console.log('Error establishing connection: ', error))
         
-        this.hubConnection.on('SendUpdate', log => {
-            const inc: ILogBatch = JSON.parse(log);
-            inc.values.forEach(element => {
-                console.log(element.image);
-            });
+        this.hubConnection.on('SendUpdate', serviceUpdates => {
+            const logBatch: ILogBatch = JSON.parse(serviceUpdates);
             runInAction('update dockerLogs', () => {
-                this.lastUpdate = Date.now();
                 this.loadingInitial = true;
-               if (inc)
-                 inc.values.forEach((dockerLog) => {
-                     this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+                this.lastUpdate = Date.now();
+               if (logBatch)
+                    logBatch.values.forEach((infoLog) => {
+                     this.dockerInfoLogs.set(infoLog.id, infoLog);
                  });
              this.loadingInitial = false;
            })

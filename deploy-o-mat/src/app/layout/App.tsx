@@ -8,7 +8,7 @@ import BuildStatusDashboard from '../../features/build-status-dashboard/BuildSta
 import HomePage from '../../features/home-page/HomePage';
 import Disclaimer from '../../features/disclaimer/Disclaimer';
 import DockerImageDetails from '../../features/details/DockerImageDetails';
-import DockerImageDashboard from '../../features/dashboard/DockerImageDashboard';
+import DockerImageDashboard from '../../features/docker-image/DockerImageDashboard';
 import LoginForm from '../../features/user/LoginForm';
 import { RootStoreContext } from '../stores/rootStore';
 import { LoadingComponent } from './LoadingComponent';

@@ -4,7 +4,7 @@ import { RootStoreContext } from '../../app/stores/rootStore';
 import { IInfoLog } from '../../app/models/dockerStackLog';
 import { observer } from 'mobx-react-lite';
 
-const DockerImageSidebar = () => {
+const Sidebar = () => {
     const rootStore = useContext(RootStoreContext);
     const { dockerInfoLogsArray, lastLogUpdate, createHubConnection, stopHubConnection  } = rootStore.dockerInfoStore;
     const { isLoggedIn } = rootStore.userStore;
@@ -56,4 +56,4 @@ const DockerImageSidebar = () => {
     );
 };
 
-export default observer(DockerImageSidebar);
+export default observer(Sidebar);

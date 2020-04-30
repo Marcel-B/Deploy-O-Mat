@@ -12,18 +12,15 @@ namespace Deploy_O_Mat.Service.Application.Services
     public class DockerServiceService : IDockerServiceService
     {
         private readonly IProcessor processor;
-        private readonly IDockerServiceRepository _dockerServiceRepository;
         private readonly ILogger<DockerServiceService> _logger;
         private readonly IEventBus _bus;
 
         public DockerServiceService(
             IProcessor processor,
-            IDockerServiceRepository dockerServiceRepository,
             ILogger<DockerServiceService> logger,
             IEventBus bus)
         {
             this.processor = processor;
-            _dockerServiceRepository = dockerServiceRepository;
             _logger = logger;
             _bus = bus;
         }
@@ -42,9 +39,6 @@ namespace Deploy_O_Mat.Service.Application.Services
 
             return result.ReturnCode;
         }
-
-        public IEnumerable<DockerService> GetDockerServices()
-            => _dockerServiceRepository.GetDockerServices();
 
         public async Task<int> Remove(
             string service)

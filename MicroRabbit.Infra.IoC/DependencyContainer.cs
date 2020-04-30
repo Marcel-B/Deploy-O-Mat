@@ -1,5 +1,4 @@
 ﻿using Deploy_O_Mat.Service.Application.Services;
-using Deploy_O_Mat.Service.Data.Repository;
 using Deploy_O_Mat.Service.Domain.EventHandlers;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MediatR;
@@ -50,11 +49,8 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackCreatedEvent>, CreateDockerStackEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerInfoEvent>, DockerInfoEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackRemovedEvent>, RemoveDockerStackEventHandler>();
-
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceRemovedEvent>, RemoveDockerServiceEventHandler>();
-
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceCreatedEvent>, CreateDockerServiceEventHandler>();
-
             services.AddTransient<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Domain.Events.SendDockerInfoEvent>, SendDockerInfoEventHandler>();
 
             //Domain Commands
@@ -84,7 +80,6 @@ namespace MicroRabbit.Infra.IoC
             services.AddScoped<IUserAccessor, UserAccessor>();
 
             //Data
-            services.AddTransient<IDockerServiceRepository, DockerServiceRepository>();
             services.AddTransient<IDeployOMatWebRepository, DeployOMatWebRepository>();
         }
     }

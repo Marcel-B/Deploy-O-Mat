@@ -14,10 +14,6 @@
     <PackageReference Include="b-velop.Utilities" Version="2.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="nlog.config" />
     <None Remove="appsettings.json" />
   </ItemGroup>

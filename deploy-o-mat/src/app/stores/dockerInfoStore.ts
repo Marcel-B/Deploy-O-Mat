@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { convertToLocalTime } from 'date-fns-timezone';
 import { IDockerStackLog } from '../models/dockerStackLog';
 import {HubConnection, HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
+import { toast } from 'react-toastify';
 
 export default class DockerInfoStore {
     rootStore: RootStore;
@@ -32,10 +33,18 @@ export default class DockerInfoStore {
     }
 
     @action createHubConnection = () =>  {
-        this.hubConnection = new HubConnectionBuilder().withUrl(process.env.REACT_APP_HUB_URL!, {
+        this.hubConnection = new HubConnectionBuilder()
+        .withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
-        }).configureLogging(LogLevel.Information).build();
-        this.hubConnection.start().then(() => console.log(this.hubConnection!.state)).catch(error => console.log('Error establishing connection: ', error))
+        })
+        .configureLogging(LogLevel.Information)
+        .build();
+
+        this.hubConnection
+        .start()
+        .then(() => console.log(this.hubConnection!.state))
+        .catch(error => console.log('Error establishing connection: ', error))
+        
         this.hubConnection.on('SendUpdate', (dockerLogs: IDockerStackLog[]) => {
             runInAction('update dockerLogs', () => {
                 this.loadingInitial = true;
@@ -45,8 +54,9 @@ export default class DockerInfoStore {
                         this.dockerInfoLogs.set(dockerLog.id, dockerLog);
                     });
                 this.loadingInitial = false;
-            });
-        });
+            })
+            toast.info(`Received '${dockerLogs.length}' Logs`)
+        })
     }
 
     @action stopHubConnection = () => {

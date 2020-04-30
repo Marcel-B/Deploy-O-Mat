@@ -96,7 +96,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 
             services.AddDbContext<WebContext>(options =>
             {
-                if (Env.IsDevelopment())
+                // if (Env.IsDevelopment())
                     connection = Configuration.GetConnectionString("postgres");
 
                 options.UseNpgsql(connection);
@@ -164,8 +164,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseReferrerPolicy(opt => opt.NoReferrer());
             app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
             app.UseXfo(opt => opt.Deny());
-            //app.UseCspReportOnly(opt => opt.BlockAllMixedContent()
-            app.UseCsp(opt => opt.BlockAllMixedContent()
+            app.UseCspReportOnly(opt => opt.BlockAllMixedContent()
+            //app.UseCsp(opt => opt.BlockAllMixedContent()
                 .StyleSources(_ => _.Self().CustomSources("https://fonts.googleapis.com"))
                 .FontSources(_ => _.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FormActions(_ => _.Self())

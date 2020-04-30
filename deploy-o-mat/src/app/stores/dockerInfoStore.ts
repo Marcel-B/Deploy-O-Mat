@@ -45,8 +45,8 @@ export default class DockerInfoStore {
         .then(() => console.log(this.hubConnection!.state))
         .catch(error => console.log('Error establishing connection: ', error))
         
-        this.hubConnection.on('SendUpdate', (dockerLogs) => {
-            console.log(dockerLogs);
+        this.hubConnection.on('SendUpdate', fancyupdate => {
+            console.log(fancyupdate);
         //    runInAction('update dockerLogs', () => {
         //        this.loadingInitial = true;
         //        if (dockerLogs)
@@ -56,7 +56,6 @@ export default class DockerInfoStore {
         //            });
         //        this.loadingInitial = false;
         //   })
-            toast.info(`Received '${dockerLogs.length}' Logs`)
         })
     }
 

@@ -96,7 +96,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 
             services.AddDbContext<WebContext>(options =>
             {
-                // if (Env.IsDevelopment())
+                if (Env.IsDevelopment())
                     connection = Configuration.GetConnectionString("postgres");
 
                 options.UseNpgsql(connection);

@@ -81,7 +81,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 }
 
             }
-            await _hub.Clients.All.SendAsync("SendUpdate", logs);
+            await _hub.Clients.All.SendAsync("SendUpdate", "Hello");
              _context.SaveChanges();
         }
 

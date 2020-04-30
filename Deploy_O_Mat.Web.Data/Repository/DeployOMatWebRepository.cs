@@ -82,7 +82,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 
             }
             await _hub.Clients.All.SendAsync("SendUpdate", logs);
-            _context.SaveChanges();
+             _context.SaveChanges();
         }
 
         public async Task<bool> SaveChangesAsync()

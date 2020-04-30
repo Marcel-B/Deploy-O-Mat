@@ -6,13 +6,16 @@ import { observer } from 'mobx-react-lite';
 
 const DockerImageSidebar = () => {
     const rootStore = useContext(RootStoreContext);
-    const { loadDockerLogs, dockerInfoLogsArray, lastLogUpdate, createHubConnection  } = rootStore.dockerInfoStore;
+    const { loadDockerLogs, dockerInfoLogsArray, lastLogUpdate, createHubConnection, stopHubConnection  } = rootStore.dockerInfoStore;
     const { isLoggedIn } = rootStore.userStore;
 
     useEffect(() => {
         loadDockerLogs();
         createHubConnection();
-    }, [ loadDockerLogs, createHubConnection]);
+        return () => {
+            stopHubConnection();
+          }
+    }, [ loadDockerLogs, createHubConnection, stopHubConnection]);
 
     return (
         // <Segment>

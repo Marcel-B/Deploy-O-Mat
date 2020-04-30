@@ -3,7 +3,7 @@ import { observable, action, runInAction, computed } from 'mobx';
 import { RootStore } from './rootStore';
 import { format } from 'date-fns';
 import { convertToLocalTime } from 'date-fns-timezone';
-import { IDockerStackLog } from '../models/dockerStackLog';
+import { IDockerStackLog, IInfoLog, ILogBatch } from '../models/dockerStackLog';
 import {HubConnection, HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
 import { toast } from 'react-toastify';
 
@@ -45,17 +45,21 @@ export default class DockerInfoStore {
         .then(() => console.log(this.hubConnection!.state))
         .catch(error => console.log('Error establishing connection: ', error))
         
-        this.hubConnection.on('SendUpdate', fancyupdate => {
-            console.log(fancyupdate);
-        //    runInAction('update dockerLogs', () => {
-        //        this.loadingInitial = true;
-        //        if (dockerLogs)
-        //            dockerLogs.forEach((dockerLog) => {
-        //                console.log(dockerLog.image);
-        //                this.dockerInfoLogs.set(dockerLog.id, dockerLog);
-        //            });
-        //        this.loadingInitial = false;
-        //   })
+        this.hubConnection.on('SendUpdate', log => {
+            const inc: ILogBatch = JSON.parse(log);
+            console.log(inc);
+            inc.values.forEach(element => {
+                console.log(element.image);
+            });
+            //runInAction('update dockerLogs', () => {
+            //    this.loadingInitial = true;
+            //    if (dockerLogs)
+             //       dockerLogs.forEach((dockerLog) => {
+            //            console.log(dockerLog.image);
+            //            this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+            //        });
+            //    this.loadingInitial = false;
+           //})
         })
     }
 

@@ -12,3 +12,13 @@ export interface IDockerStackLog {
     isActive: boolean;
     dockerImage?: IDockerImage;
 }
+export interface IInfoLog{
+    id: string;
+    service: string;
+    image: string;
+    replicas: string;
+}
+export interface ILogBatch{
+    values: IInfoLog[];
+}
+

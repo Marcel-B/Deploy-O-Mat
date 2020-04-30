@@ -8,6 +8,7 @@ using com.b_velop.Deploy_O_Mat.Web.Data.Context;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
+using Deploy_O_Mat.Web.Domain.SignalR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -71,6 +72,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 }
             }
             var logs = _context.DockerStackLogs.ToList();
+            var s = new SocketDto();
             foreach (var log in logs)
             {
                 var stackLog = stackLogs.FirstOrDefault(_ => _.Name == log.Name);
@@ -79,9 +81,15 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     log.IsActive = false;
                     continue;
                 }
+                s.Values.Add(new TransferData{
+                    Id = log.Id.ToString(),
+                    Image = log.Image,
+                    Service = log.ServiceId,
+                    Replicas = $"{log.ReplicasOnline}/{log.Replicas}"
+                });
 
             }
-            await _hub.Clients.All.SendAsync("SendUpdate", logs);
+            await _hub.Clients.All.SendAsync("SendUpdate", s);
              _context.SaveChanges();
         }
 

@@ -47,19 +47,17 @@ export default class DockerInfoStore {
         
         this.hubConnection.on('SendUpdate', log => {
             const inc: ILogBatch = JSON.parse(log);
-            console.log(inc);
             inc.values.forEach(element => {
                 console.log(element.image);
             });
-            //runInAction('update dockerLogs', () => {
-            //    this.loadingInitial = true;
-            //    if (dockerLogs)
-             //       dockerLogs.forEach((dockerLog) => {
-            //            console.log(dockerLog.image);
-            //            this.dockerInfoLogs.set(dockerLog.id, dockerLog);
-            //        });
-            //    this.loadingInitial = false;
-           //})
+            runInAction('update dockerLogs', () => {
+                this.loadingInitial = true;
+               if (inc)
+                 inc.values.forEach((dockerLog) => {
+                     this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+                 });
+             this.loadingInitial = false;
+           })
         })
     }
 
@@ -73,7 +71,13 @@ export default class DockerInfoStore {
             const dockerLogs = await agent.DockerInfo.stackLogs();
             runInAction('loading dockerLogs', () => {
                 dockerLogs.forEach(dockerLog => {
-                    this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+                    const log: IInfoLog = {
+                        id: dockerLog.id,
+                        image: dockerLog.image,
+                        service:  dockerLog.name,
+                        replicas: `${dockerLog.replicasOnline}/${dockerLog.replicas}`
+                    };
+                    this.dockerInfoLogs.set(log.id, log);
                     this.loadingInitial = false;
                 });
             });

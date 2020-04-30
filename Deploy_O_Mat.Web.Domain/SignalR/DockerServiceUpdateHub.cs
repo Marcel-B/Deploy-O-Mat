@@ -22,10 +22,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
         }
 
         public async Task SendUpdate(
-            SocketDto values)
+            string values)
         {
-            var lst =  JsonSerializer.Serialize(values);
-            await Clients.All.SendAsync("SendUpdate", lst);
+            await Clients.All.SendAsync("SendUpdate", values);
         }
     }
 }

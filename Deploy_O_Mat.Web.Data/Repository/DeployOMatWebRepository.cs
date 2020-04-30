@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Data.Context;
@@ -89,7 +90,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 });
 
             }
-            await _hub.Clients.All.SendAsync("SendUpdate", s);
+
+            var v = JsonSerializer.Serialize(s);
+            await _hub.Clients.All.SendAsync("SendUpdate", v);
              _context.SaveChanges();
         }
 

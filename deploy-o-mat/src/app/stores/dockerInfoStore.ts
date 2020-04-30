@@ -37,7 +37,7 @@ export default class DockerInfoStore {
         .withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
         })
-        .configureLogging(LogLevel.Information)
+        .configureLogging(LogLevel.Debug)
         .build();
 
         this.hubConnection

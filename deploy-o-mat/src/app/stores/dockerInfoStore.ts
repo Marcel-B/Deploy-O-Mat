@@ -2,10 +2,8 @@ import agent from '../api/agent';
 import { observable, action, runInAction, computed } from 'mobx';
 import { RootStore } from './rootStore';
 import { format } from 'date-fns';
-import { convertToLocalTime } from 'date-fns-timezone';
-import { IDockerStackLog, IInfoLog, ILogBatch } from '../models/dockerStackLog';
+import { IInfoLog, ILogBatch } from '../models/dockerStackLog';
 import {HubConnection, HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
-import { toast } from 'react-toastify';
 
 export default class DockerInfoStore {
     rootStore: RootStore;
@@ -16,20 +14,15 @@ export default class DockerInfoStore {
     @observable dockerInfoLogs = new Map();
     @observable loadingInitial = false;
     @observable.ref hubConnection: HubConnection | null = null;
+    @observable lastUpdate = Date.now();
 
     @computed get dockerInfoLogsArray() {
         return Array.from(this.dockerInfoLogs.values())//.sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
     @computed get lastLogUpdate() {
-        let va: IDockerStackLog = Array.from(this.dockerInfoLogs.values())[0];
-        if (va) {
-            let d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
-            //console.log(d);
-            let da =  Date.now();
-            return  (format(da, 'dd. MMMM HH:mm:ss'));
-        }
-        return '';
+//         let d = convertToLocalTime(Date.parse(`${va.updated}Z`), { timeZone: 'Europe/Berlin'} );
+            return  (format(this.lastUpdate, 'dd. MMMM HH:mm:ss'));
     }
 
     @action createHubConnection = () =>  {
@@ -37,7 +30,7 @@ export default class DockerInfoStore {
         .withUrl(process.env.REACT_APP_HUB_URL!, {
             accessTokenFactory: () => this.rootStore.commonStore.token!
         })
-        .configureLogging(LogLevel.Trace)
+        .configureLogging(LogLevel.Information)
         .build();
 
         this.hubConnection
@@ -51,6 +44,7 @@ export default class DockerInfoStore {
                 console.log(element.image);
             });
             runInAction('update dockerLogs', () => {
+                this.lastUpdate = Date.now();
                 this.loadingInitial = true;
                if (inc)
                  inc.values.forEach((dockerLog) => {
@@ -75,6 +69,7 @@ export default class DockerInfoStore {
                         id: dockerLog.id,
                         image: dockerLog.image,
                         service:  dockerLog.name,
+                        isActive: dockerLog.isActive,
                         replicas: `${dockerLog.replicasOnline}/${dockerLog.replicas}`
                     };
                     this.dockerInfoLogs.set(log.id, log);

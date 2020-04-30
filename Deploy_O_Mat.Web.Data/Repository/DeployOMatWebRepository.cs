@@ -86,6 +86,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     Id = log.Id.ToString(),
                     Image = log.Image,
                     Service = log.Name,
+                    IsActive = log.IsActive,
                     Replicas = $"{log.ReplicasOnline}/{log.Replicas}"
                 });
 

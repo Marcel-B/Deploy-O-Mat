@@ -11,8 +11,12 @@ namespace Deploy_O_Mat.Web.Domain.SignalR
         public string Service { get; set; }
         [JsonPropertyName("image")]
         public string Image { get; set; }
+
         [JsonPropertyName("replicas")]
         public string Replicas { get; set; }
+
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
     }
 
     public class SocketDto

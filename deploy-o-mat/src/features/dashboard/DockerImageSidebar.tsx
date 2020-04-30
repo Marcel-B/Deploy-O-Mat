@@ -1,21 +1,20 @@
 import React, { useContext, Fragment, useEffect } from 'react';
 import { Icon, Table, Label } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
-import { IDockerStackLog, IInfoLog } from '../../app/models/dockerStackLog';
+import { IInfoLog } from '../../app/models/dockerStackLog';
 import { observer } from 'mobx-react-lite';
 
 const DockerImageSidebar = () => {
     const rootStore = useContext(RootStoreContext);
-    const { loadDockerLogs, dockerInfoLogsArray, lastLogUpdate, createHubConnection, stopHubConnection  } = rootStore.dockerInfoStore;
+    const { dockerInfoLogsArray, lastLogUpdate, createHubConnection, stopHubConnection  } = rootStore.dockerInfoStore;
     const { isLoggedIn } = rootStore.userStore;
 
     useEffect(() => {
-        loadDockerLogs();
         createHubConnection();
         return () => {
             stopHubConnection();
           }
-    }, [ loadDockerLogs, createHubConnection, stopHubConnection]);
+    }, [ createHubConnection, stopHubConnection]);
 
     return (
         // <Segment>
@@ -33,8 +32,9 @@ const DockerImageSidebar = () => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {/* {dockerInfoLogsArray.filter((a: IInfoLog) => a.isActive).map( */}
-                        {dockerInfoLogsArray.map(
+                         {dockerInfoLogsArray
+                         .filter((a: IInfoLog) => a.isActive)
+                         .map( 
                             (stackLog: IInfoLog) => (
                                 <Table.Row key={stackLog.id}>
                                     <Table.Cell collapsing>
@@ -51,7 +51,7 @@ const DockerImageSidebar = () => {
                         )}
                     </Table.Body>
                 </Table>
-            ) : (<p>Not authorized</p>)}
+            ) : (<p>Please login</p>)}
         </Fragment>
     );
 };

@@ -17,6 +17,7 @@ export interface IInfoLog{
     service: string;
     image: string;
     replicas: string;
+    isActive: boolean;
 }
 export interface ILogBatch{
     values: IInfoLog[];

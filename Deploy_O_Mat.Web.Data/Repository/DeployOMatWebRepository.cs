@@ -85,7 +85,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                 s.Values.Add(new TransferData{
                     Id = log.Id.ToString(),
                     Image = log.Image,
-                    Service = log.ServiceId,
+                    Service = log.Name,
                     Replicas = $"{log.ReplicasOnline}/{log.Replicas}"
                 });
 

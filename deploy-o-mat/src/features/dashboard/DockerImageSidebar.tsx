@@ -1,7 +1,7 @@
 import React, { useContext, Fragment, useEffect } from 'react';
 import { Icon, Table, Label } from 'semantic-ui-react';
 import { RootStoreContext } from '../../app/stores/rootStore';
-import { IDockerStackLog } from '../../app/models/dockerStackLog';
+import { IDockerStackLog, IInfoLog } from '../../app/models/dockerStackLog';
 import { observer } from 'mobx-react-lite';
 
 const DockerImageSidebar = () => {
@@ -33,17 +33,17 @@ const DockerImageSidebar = () => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {dockerInfoLogsArray.filter((a: IDockerStackLog) => a.isActive).map(
-                            (stackLog: IDockerStackLog) => (
+                        {/* {dockerInfoLogsArray.filter((a: IInfoLog) => a.isActive).map( */}
+                        {dockerInfoLogsArray.map(
+                            (stackLog: IInfoLog) => (
                                 <Table.Row key={stackLog.id}>
                                     <Table.Cell collapsing>
-                                        {stackLog.name}
+                                        {stackLog.service}
                                     </Table.Cell>
                                     <Table.Cell collapsing>
                                         {stackLog.image}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {stackLog.replicasOnline}/
                                         {stackLog.replicas}
                                     </Table.Cell>
                                 </Table.Row>

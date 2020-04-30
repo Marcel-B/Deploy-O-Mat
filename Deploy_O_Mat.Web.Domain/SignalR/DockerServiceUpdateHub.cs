@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
 {
@@ -23,10 +25,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Domain.SignalR
         }
 
         public async Task SendUpdate(
-            string log)
+            List<DockerStackLog> logs)
         {
-            
-            await Clients.All.SendAsync("SendUpdate", DateTime.Now.ToString());
+            var r = JsonSerializer.Serialize(logs);
+            await Clients.All.SendAsync("SendUpdate", r);
         }
     }
 }

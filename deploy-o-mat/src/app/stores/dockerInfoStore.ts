@@ -45,16 +45,17 @@ export default class DockerInfoStore {
         .then(() => console.log(this.hubConnection!.state))
         .catch(error => console.log('Error establishing connection: ', error))
         
-        this.hubConnection.on('SendUpdate', (dockerLogs: IDockerStackLog[]) => {
-            runInAction('update dockerLogs', () => {
-                this.loadingInitial = true;
-                if (dockerLogs)
-                    dockerLogs.forEach((dockerLog) => {
-                        console.log(dockerLog.image);
-                        this.dockerInfoLogs.set(dockerLog.id, dockerLog);
-                    });
-                this.loadingInitial = false;
-            })
+        this.hubConnection.on('SendUpdate', (dockerLogs) => {
+            console.log(dockerLogs);
+        //    runInAction('update dockerLogs', () => {
+        //        this.loadingInitial = true;
+        //        if (dockerLogs)
+        //            dockerLogs.forEach((dockerLog) => {
+        //                console.log(dockerLog.image);
+        //                this.dockerInfoLogs.set(dockerLog.id, dockerLog);
+        //            });
+        //        this.loadingInitial = false;
+        //   })
             toast.info(`Received '${dockerLogs.length}' Logs`)
         })
     }

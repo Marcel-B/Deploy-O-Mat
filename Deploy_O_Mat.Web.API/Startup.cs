@@ -1,15 +1,17 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
-using com.b_velop.Deploy_O_Mat.Web.Application.DockerImages;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Services;
+using com.b_velop.Deploy_O_Mat.Web.Application.SignalR;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
-using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
-using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using com.b_velop.Utilities.Docker;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -25,7 +27,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using NLog.StructuredLogging.Json.Helpers;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -67,11 +68,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             {
                 options.AddPolicy(Strings.CorsPolicy, policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5000", "http://localhost:3000", "http://localhost:3001");
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithExposedHeaders("WWW-Authenticate")
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:3000", "http://localhost:3001");
                 });
             });
 
-            services.AddMediatR(typeof(List.Handler).Assembly, typeof(UpdateServiceCommandHandler).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
             
             var secretProvider = new SecretProvider();
@@ -80,20 +86,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             var host = secretProvider.GetSecret("host") ?? "";
 
             services.AddSignalR();
-            
-            //eventBus = services.GetRequiredService<IEventBus>();
-            //var secretProvider = services.GetRequiredService<SecretProvider>();
-            //var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
-            //var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-            //var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
-            //Console.WriteLine(userName);
-            //Console.WriteLine(passWord);
-            //Console.WriteLine(HostName);
-            //eventBus.Subscribe<ServiceUpdatedEvent, UpdateServiceEventHandler>();
-
 
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
 
+            services.AddScoped<IDockerStackLogService, DockerStackLogService>();
             services.AddDbContext<WebContext>(options =>
             {
                 if (Env.IsDevelopment())
@@ -124,7 +120,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
                         ValidateAudience = false, // Url is comming from
-                        ValidateIssuer = false
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                     opt.Events = new JwtBearerEvents
                     {

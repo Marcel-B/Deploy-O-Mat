@@ -4,8 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

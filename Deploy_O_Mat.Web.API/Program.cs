@@ -1,9 +1,9 @@
 using System;
-using com.b_velop.Deploy_O_Mat.Web.Data;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
-using com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Events;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
+using com.b_velop.Deploy_O_Mat.Web.Persistence;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

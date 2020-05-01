@@ -1,34 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
-using com.b_velop.Deploy_O_Mat.Web.Domain.SignalR;
-using Deploy_O_Mat.Web.Domain.SignalR;
-using Microsoft.AspNetCore.SignalR;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
 {
     public class DeployOMatWebRepository : IDeployOMatWebRepository
     {
-        private readonly IHubContext<DockerServiceUpdateHub>  _hub;
-        private WebContext _context;
+        private readonly WebContext _context;
 
         public DeployOMatWebRepository(
-            IHubContext<DockerServiceUpdateHub> hub,
             WebContext context)
         {
-            _hub = hub;
             _context = context;
         }
 
-        public async Task CreateOrUpdateDockerStackLog(
+        public Task CreateOrUpdateDockerStackLog(
             IEnumerable<DockerStackLog> stackLogs)
         {
             foreach (var stackLog in stackLogs)
@@ -72,29 +64,17 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
                     current.DockerActiveServiceId = dockerActiveService.Id;
                 }
             }
+            
             var logs = _context.DockerStackLogs.ToList();
-            var s = new SocketDto();
+
             foreach (var log in logs)
             {
                 var stackLog = stackLogs.FirstOrDefault(_ => _.Name == log.Name);
                 if (stackLog == null)
-                {
                     log.IsActive = false;
-                    continue;
-                }
-                s.Values.Add(new TransferData{
-                    Id = log.Id.ToString(),
-                    Image = log.Image,
-                    Service = log.Name,
-                    IsActive = log.IsActive,
-                    Replicas = $"{log.ReplicasOnline}/{log.Replicas}"
-                });
-
             }
-
-            var v = JsonSerializer.Serialize(s);
-            await _hub.Clients.All.SendAsync("SendUpdate", v);
-             _context.SaveChanges();
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -146,8 +126,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
         public async Task<DockerStack> GetDockerStack(Guid id)
             => await _context.DockerStacks.FindAsync(id);
 
-        public async Task<IEnumerable<DockerStackLog>> GetDockerStackLogs()
-            => await _context.DockerStackLogs.ToListAsync();
+        public List<DockerStackLog> GetDockerStackLogs()
+            => _context.DockerStackLogs.ToList();
 
         public async Task<IEnumerable<DockerStack>> GetDockerStacks()
             => await _context.DockerStacks.ToListAsync();

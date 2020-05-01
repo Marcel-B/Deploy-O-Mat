@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

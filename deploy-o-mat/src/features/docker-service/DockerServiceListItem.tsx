@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { IDockerService } from '../../app/models/dockerService';
 import { Segment, Item, Button, Icon } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
+import {format} from "date-fns";
 
 interface IProps {
     removeDockerService: (id: string) => void;
@@ -25,7 +26,11 @@ const DockerServiceListItem: React.FC<IProps> = ({
                             <Item.Content>
                                 <Item.Header>{dockerService.name}</Item.Header>
                                 <Item.Meta>
-                                    <Icon name='clock' />{' '}
+                                    <Icon name='calendar plus outline' />{' '}
+                                    {format(new Date(dockerService.created), 'dd.MM.yyyy')}
+                                </Item.Meta>
+                                <Item.Meta>
+                                    <Icon name='arrow up' />{' '}
                                     {dockerService.updated && (
                                         <TimeAgo date={dockerService.updated} />
                                     )}
@@ -39,13 +44,7 @@ const DockerServiceListItem: React.FC<IProps> = ({
                                     )}
                                 </Item.Meta>
                                 <Item.Meta>
-                                    Name: {dockerService.name}
-                                </Item.Meta>
-                                <Item.Meta>
-                                    Repo: {dockerService.repo}
-                                    {dockerService.tag?.length > 0
-                                        ? `:${dockerService.tag}`
-                                        : ''}
+                                    Repo: {dockerService.image}
                                 </Item.Meta>
                             </Item.Content>
                         </Item>

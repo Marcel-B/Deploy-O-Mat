@@ -94,22 +94,12 @@ const DockerImageDetails: React.FC<RouteComponentProps<IDetailParams>> = ({
 
                             <Table.Row>
                                 <Table.Cell collapsing>
-                                    <Icon name='clock' /> Last Update
+                                    <Icon name='arrow up' /> Last Update
                                 </Table.Cell>
                                 <Table.Cell>
                                     <ReactTimeago date={dockerImage.updated} />
                                 </Table.Cell>
-                            </Table.Row>
 
-                            <Table.Row>
-                                <Table.Cell collapsing>
-                                    <Icon name='sync alternate' /> Last Start
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <ReactTimeago
-                                        date={dockerImage.startTime}
-                                    />
-                                </Table.Cell>
                             </Table.Row>
                         </Table.Body>
                     </Table>

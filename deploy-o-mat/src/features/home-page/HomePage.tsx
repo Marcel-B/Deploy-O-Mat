@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
+    // const token = window.localStorage.getItem('jwt');
     return (
         <Segment inverted textAlign='center' vertical className='masthead'>
             <Container fluid>

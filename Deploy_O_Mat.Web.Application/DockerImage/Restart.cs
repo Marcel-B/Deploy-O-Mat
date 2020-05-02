@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -47,6 +47,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImages
                 {
                     if (tmpDockerImage.IsActive)
                     {
+                        // TODO - Check this out!
                         //if (tmpDockerImage.DockerStackServices != null)
                         //{
                         //    foreach (var dockerStackService in tmpDockerImage.DockerStackServices)

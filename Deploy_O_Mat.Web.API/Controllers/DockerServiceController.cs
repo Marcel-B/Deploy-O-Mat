@@ -12,7 +12,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IEnumerable<DockerService>> List()
+        public async Task<List<ListDockerServiceDto>> List()
             => await Mediator.Send(new List.Query());
 
         [HttpPost("update")]

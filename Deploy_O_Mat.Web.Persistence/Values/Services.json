@@ -1,0 +1,28 @@
+[
+    {
+      "Id" : "710a1a2c-d7dc-474a-b578-d9ef889b13a7",
+      "Created" : "2020-04-22T14:08:00Z",
+      "LastRestart" : null,
+      "Updated" : null,
+      "Name" : "feinstaub_db",
+      "Repo" : "mcr.microsoft.com\/mssql\/server",
+      "Tag" : "2017-latest",
+      "Network" : "skynet",
+      "Script" : "--constraint=node.hostname==titan.marcelbenders.de --mount source=feinstaub_db_dbdata,target=\/var\/opt\/mssql --publish 1440:1433 -e ACCEPT_EULA='Y' -e SA_PASSWORD='SecureFeinstaub123!' -e MSSQL_PID='Developer' --mount=type=bind,src=\/var\/run\/docker.sock,dst=\/var\/run\/docker.sock -l \"traefik.http.routers.sqlserver.rule=Host(`db.feinstaub.org`)\" -l \"traefik.http.services.sqlserver.loadbalancer.server.port=1440\" \n",
+      "IsActive" : true,
+      "DockerImageId" : "0cb376d1-2b18-4244-a996-a28f60baac63"
+    },
+    {
+      "Id" : "328a696b-7710-4284-95f9-cf86937c2650",
+      "Created" : "2020-04-21T09:23:00Z",
+      "LastRestart" : null,
+      "Updated" : null,
+      "Name" : "vis",
+      "Repo" : "dockersamples\/visualizer",
+      "Tag" : "latest",
+      "Network" : "skynet",
+      "Script" : "--constraint=node.role==manager --mount=type=bind,src=\/var\/run\/docker.sock,dst=\/var\/run\/docker.sock -l \"traefik.http.routers.visualizer.tls.certresolver=sec\" -l \"traefik.enable=true\" -l \"traefik.http.services.visualizer.loadbalancer.server.port=8080\" -l \"traefik.http.routers.visualizer.entrypoints=websecure\" -l \"traefik.http.routers.visualizer.rule=Host(`vis.qaybe.de`)\"",
+      "IsActive" : true,
+      "DockerImageId" : "d25d5818-fb5c-42af-a1a8-a72aa049f38a"
+    }
+  ]

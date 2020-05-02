@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

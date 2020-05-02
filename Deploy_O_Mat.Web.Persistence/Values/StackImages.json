@@ -1,0 +1,22 @@
+[
+    {
+      "DockerStackId" : "345aade7-d99c-4666-afcb-2ce35e2d1d61",
+      "DockerImageId" : "a71bb297-acea-4cb9-a1f4-af0c45d2b512"
+    },
+    {
+      "DockerStackId" : "9f5fd361-5f68-42d6-9450-1d96898362a4",
+      "DockerImageId" : "67319559-c37d-4930-a891-a41435b23196"
+    },
+    {
+      "DockerStackId" : "de75d534-6cd4-425c-8094-6fa146238583",
+      "DockerImageId" : "ce197ecd-2225-430a-8611-740a6b7acebd"
+    },
+    {
+      "DockerStackId" : "ba674d90-7679-4e7f-90d2-5f76bfa638d9",
+      "DockerImageId" : "fe74ffb8-54db-4e76-83c4-c3cce5bc9ea5"
+    },
+    {
+      "DockerStackId" : "ba674d90-7679-4e7f-90d2-5f76bfa638d9",
+      "DockerImageId" : "c9004441-322c-4381-9561-ce8d17b0f24c"
+    }
+  ]

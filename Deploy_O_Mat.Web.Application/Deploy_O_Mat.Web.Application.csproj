@@ -12,6 +12,7 @@
     <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="b-velop.Utilities" Version="2.1.2" />
@@ -20,7 +21,7 @@
   <ItemGroup>
     <Folder Include="DockerImage\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="Contracts\" />
     <Folder Include="Services\" />
     <Folder Include="DockerService\" />
     <Folder Include="User\" />
@@ -29,9 +30,8 @@
     <Folder Include="DockerActiveService\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Web.Data\Deploy_O_Mat.Web.Data.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Domain\Deploy_O_Mat.Web.Domain.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Web.Common\Deploy_O_Mat.Web.Common.csproj" />
+    <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />
   </ItemGroup>
 </Project>

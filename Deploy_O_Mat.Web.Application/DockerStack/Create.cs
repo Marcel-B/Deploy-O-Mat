@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using FluentValidation;
 using MediatR;
 

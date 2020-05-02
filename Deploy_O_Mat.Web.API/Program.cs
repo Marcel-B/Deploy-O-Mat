@@ -1,9 +1,10 @@
 using System;
-using com.b_velop.Deploy_O_Mat.Web.Data;
-using com.b_velop.Deploy_O_Mat.Web.Data.Context;
-using com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Events;
+using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
+using com.b_velop.Deploy_O_Mat.Web.Persistence;
+using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();
@@ -33,7 +34,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 context.Database.Migrate();
-                Seed.SeedData(context, userManager, roleManager);
+                await Seed.SeedData(context, userManager, roleManager);
             }
             catch (Exception ex)
             {

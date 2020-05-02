@@ -7,18 +7,17 @@ using MicroRabbit.Infra.Bus;
 using Microsoft.Extensions.DependencyInjection;
 using com.b_velop.Utilities.Docker;
 using com.b_velop.Deploy_O_Mat.Web.Application.Services;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Data.Repository;
 using Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Infrastructure.Security;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
-using com.b_velop.Deploy_O_Mat.Web.Domain.CommandHandlers;
 using Deploy_O_Mat.Service.Domain.Commands;
 using Deploy_O_Mat.Service.Domain.CommandHandlers;
-using com.b_velop.Deploy_O_Mat.Web.Domain.EventHandlers;
 using com.b_velop.Deploy_O_Mat.Service.Util;
 using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 
 namespace MicroRabbit.Infra.IoC
 {
@@ -51,10 +50,10 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackRemovedEvent>, RemoveDockerStackEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceRemovedEvent>, RemoveDockerServiceEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceCreatedEvent>, CreateDockerServiceEventHandler>();
-            services.AddTransient<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Domain.Events.SendDockerInfoEvent>, SendDockerInfoEventHandler>();
+            services.AddTransient<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events.SendDockerInfoEvent>, SendDockerInfoEventHandler>();
 
             //Domain Commands
-            services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateServiceCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler>();
             services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
             services.AddTransient<IRequestHandler<CreateSendDockerInfoCommand, bool>, SendDockerInfoCommandHandler>();
             services.AddTransient<IRequestHandler<DockerInfoCommand, bool>, DockerInfoCommandHandler>();

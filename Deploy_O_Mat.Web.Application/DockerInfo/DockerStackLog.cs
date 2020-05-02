@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MediatR;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerInfo
 {
     public class DockerStackLog
     {
-        public class Query : IRequest<IEnumerable<Domain.Models.DockerStackLog>> { }
+        public class Query : IRequest<List<Domain.Models.DockerStackLog>> { }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<Domain.Models.DockerStackLog>>
+        public class Handler : IRequestHandler<Query, List<Domain.Models.DockerStackLog>>
         {
             private readonly IDeployOMatWebRepository _rep;
 
@@ -21,10 +20,10 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerInfo
                 _rep = rep;
             }
 
-            public async Task<IEnumerable<Domain.Models.DockerStackLog>> Handle(
-                Query request,
-                CancellationToken cancellationToken)
-                => await _rep.GetDockerStackLogs();
+            public Task<List<Domain.Models.DockerStackLog>> Handle(Query request, CancellationToken cancellationToken)
+            {
+                return Task.FromResult(_rep.GetDockerStackLogs());
+            }
         }
     }
 }

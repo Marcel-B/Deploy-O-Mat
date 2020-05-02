@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Interfaces;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
 

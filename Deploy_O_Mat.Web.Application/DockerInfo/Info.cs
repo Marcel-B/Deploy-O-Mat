@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Commands;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
 using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 
@@ -15,7 +15,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerInfo
 
         public class Handler : IRequestHandler<Command, Unit>
         {
-            private readonly IEventBus bus;
+            private readonly IEventBus _bus;
 
             //private readonly IDockerImageRepository _repository;
             //private readonly ILogger<Handler> _logger;
@@ -23,14 +23,14 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerInfo
             public Handler(
                 IEventBus bus)
             {
-                this.bus = bus;
+                this._bus = bus;
                 //_repository = repository;
                 //_logger = logger;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                await bus.SendCommand(new DockerInfoCommand());
+                await _bus.SendCommand(new DockerInfoCommand());
                 return Unit.Value;
 
             }

@@ -9,7 +9,7 @@ interface IProps {
 const TimeItem: React.FC<IProps> = ({iconName, time}) => {
     return (
         <Item.Meta>
-            <Icon name={iconName === 'clock' ? 'clock' : 'sync alternate'} />{' '}
+            <Icon name={iconName === 'arrow up' ? 'arrow up' : 'sync alternate'} />{' '}
             <TimeAgo date={time} />
         </Item.Meta>
     )

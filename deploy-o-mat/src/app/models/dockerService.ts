@@ -1,12 +1,12 @@
 export interface IDockerService {
     id: string;
-    created: string;
+    created: Date;
     name: string;
     repo: string;
     tag: string;
     script: string;
     isActive: boolean;
-    updated?: string;
+    updated?: Date;
     network?: string;
-    lastRestart?: string;
+    lastRestart?: Date;
 }

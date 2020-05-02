@@ -5,6 +5,7 @@ import TimeAgo from 'react-timeago';
 import { Link } from 'react-router-dom';
 import BuildStatusBanner from '../build-status/BuildStatusBanner';
 import TimeItem from "../time-item/TimeItem";
+import {format} from "date-fns";
 
 const DockerImageListItem: React.FC<{
     dockerImage: IDockerImage;
@@ -27,12 +28,10 @@ const DockerImageListItem: React.FC<{
                                     {dockerImage.repoName}:{dockerImage.tag}
                                 </Item.Meta>
                                 <Item.Meta>
-                                    <Icon name='sync alternate' />{' '}
-                                    {dockerImage.startTime && (
-                                        <TimeAgo date={dockerImage.startTime} />
-                                    )}
+                                    <Icon name='calendar plus outline' />{' '}
+                                    {format(new Date(dockerImage.created), 'dd.MM.yyyy')}
                                 </Item.Meta>
-                                <TimeItem iconName={'clock'} time={dockerImage.updated}/>
+                                <TimeItem iconName={'arrow up'} time={dockerImage.updated}/>
                             </Item.Content>
                         </Item>
                     </Item.Group>
@@ -41,11 +40,7 @@ const DockerImageListItem: React.FC<{
                     <BuildStatusBanner badges={dockerImage.badges} />
                 </Segment>
                 <Segment clearing>
-                    {dockerImage.isActive ? (
-                        <Icon name='play' size='large' color='green' />
-                    ) : (
-                        <Icon name='stop' size='large' color='red' />
-                    )}
+
                     {/* {isLoggedIn && (
                         <Fragment>
                             <Button

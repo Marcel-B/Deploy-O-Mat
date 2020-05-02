@@ -1,0 +1,79 @@
+[
+    {
+      "Id" : "2dd18aa9-c0b6-4dee-bfa1-c49778198bfd",
+      "ServiceName" : "angulair_angulair",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : null,
+      "LastManualRestart" : null,
+      "DockerImageId" : "67319559-c37d-4930-a891-a41435b23196",
+      "DockerServiceId" : null,
+      "DockerStackId" : "9f5fd361-5f68-42d6-9450-1d96898362a4"
+    },
+    {
+      "Id" : "9fff1fe8-3140-480d-a342-cef3de89e172",
+      "ServiceName" : "vis",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : null,
+      "LastManualRestart" : null,
+      "DockerImageId" : "d25d5818-fb5c-42af-a1a8-a72aa049f38a",
+      "DockerServiceId" : "328a696b-7710-4284-95f9-cf86937c2650",
+      "DockerStackId" : null
+    },
+    {
+      "Id" : "4cc232a4-0bdb-4a48-a8a7-5b931be46ab7",
+      "ServiceName" : "metrics_grafana",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : null,
+      "LastManualRestart" : null,
+      "DockerImageId" : "fe74ffb8-54db-4e76-83c4-c3cce5bc9ea5",
+      "DockerServiceId" : null,
+      "DockerStackId" : "ba674d90-7679-4e7f-90d2-5f76bfa638d9"
+    },
+    {
+      "Id" : "350c35b7-d4e3-4445-983b-4ce5692b7d4c",
+      "ServiceName" : "metrics_prometheus",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : null,
+      "LastManualRestart" : null,
+      "DockerImageId" : "c9004441-322c-4381-9561-ce8d17b0f24c",
+      "DockerServiceId" : null,
+      "DockerStackId" : "ba674d90-7679-4e7f-90d2-5f76bfa638d9"
+    },
+    {
+      "Id" : "43a65fe6-84c5-4158-b9fe-5e6926c29100",
+      "ServiceName" : "feinstaub_db",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : null,
+      "LastManualRestart" : null,
+      "DockerImageId" : "0cb376d1-2b18-4244-a996-a28f60baac63",
+      "DockerServiceId" : "710a1a2c-d7dc-474a-b578-d9ef889b13a7",
+      "DockerStackId" : null
+    },
+    {
+      "Id" : "dfdc3273-3b94-4007-896c-2b3d411ab4fc",
+      "ServiceName" : "deploy-o-mat_deploy-o-mat",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : "2020-04-30T16:49:44Z",
+      "LastManualRestart" : null,
+      "DockerImageId" : "a71bb297-acea-4cb9-a1f4-af0c45d2b512",
+      "DockerServiceId" : null,
+      "DockerStackId" : "345aade7-d99c-4666-afcb-2ce35e2d1d61"
+    },
+    {
+      "Id" : "1a03479c-545a-40bb-aea5-c81e07b09071",
+      "ServiceName" : "feinstaub_feinstaubapi",
+      "Created" : "2020-04-22T10:12:00Z",
+      "LastUpdate" : null,
+      "LastRestart" : "2020-04-28T03:27:56Z",
+      "LastManualRestart" : null,
+      "DockerImageId" : "ce197ecd-2225-430a-8611-740a6b7acebd",
+      "DockerServiceId" : null,
+      "DockerStackId" : "de75d534-6cd4-425c-8094-6fa146238583"
+    }
+  ]

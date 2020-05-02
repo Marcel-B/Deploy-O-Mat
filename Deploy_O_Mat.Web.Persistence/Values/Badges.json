@@ -1,0 +1,74 @@
+[
+    {
+      "Id" : "03b88bd3-7ab1-4d96-ae1b-48739176f059",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Air\/workflows\/Publish%20Docker\/badge.svg?branch=master",
+      "Name" : "Publish",
+      "Description" : "Docker",
+      "DockerImageId" : "67319559-c37d-4930-a891-a41435b23196",
+      "Created" : "2020-04-19T18:33:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "299edb8f-7f13-4c37-9581-13221ea8c1e8",
+      "Url" : "https:\/\/github.com\/milarine\/FeinstaubServer\/workflows\/Publish%20Docker\/badge.svg?branch=master",
+      "Name" : "Publish",
+      "Description" : "Docker",
+      "DockerImageId" : "ce197ecd-2225-430a-8611-740a6b7acebd",
+      "Created" : "2020-04-19T18:39:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "2b7c4597-1e9d-4464-9d03-473e3ce4628d",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Air\/workflows\/Node.js%20CI\/badge.svg?branch=master",
+      "Name" : "Build",
+      "Description" : "Node.js",
+      "DockerImageId" : "67319559-c37d-4930-a891-a41435b23196",
+      "Created" : "2020-04-19T18:33:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "6e1c8fde-a1f9-4170-a267-74a1f6cef369",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Deploy-O-Mat\/workflows\/Publish%20Docker\/badge.svg?branch=master",
+      "Name" : "Publish",
+      "Description" : "Docker",
+      "DockerImageId" : "a71bb297-acea-4cb9-a1f4-af0c45d2b512",
+      "Created" : "2020-04-14T18:15:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "b6998ee3-e519-42d7-a43c-cb16db89f8d4",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Air\/workflows\/ASP.NET%20Core%20CI\/badge.svg?branch=master",
+      "Name" : "Build",
+      "Description" : ".NET",
+      "DockerImageId" : "67319559-c37d-4930-a891-a41435b23196",
+      "Created" : "2020-04-19T18:33:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "ec725322-8a5c-4a1d-a224-45783ef44a58",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Slipways\/workflows\/Publish%20GraphQL%20to%20Docker\/badge.svg",
+      "Name" : "Publish",
+      "Description" : "Docker",
+      "DockerImageId" : "7b491b3e-cc08-4624-afd6-a8f6872f7d2a",
+      "Created" : "2020-04-19T18:42:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "f5ab4ec3-5d23-4d38-ab01-22dd840905d1",
+      "Url" : "https:\/\/github.com\/milarine\/FeinstaubServer\/workflows\/.NET%20Core\/badge.svg?branch=master",
+      "Name" : "Build",
+      "Description" : ".NET",
+      "DockerImageId" : "ce197ecd-2225-430a-8611-740a6b7acebd",
+      "Created" : "2020-04-16T22:01:00Z",
+      "Updated" : null
+    },
+    {
+      "Id" : "f5ab4ec3-5d23-4d38-ab01-22dd840905d2",
+      "Url" : "https:\/\/github.com\/Marcel-B\/Deploy-O-Mat\/workflows\/.NET%20Core\/badge.svg?branch=master",
+      "Name" : "Build",
+      "Description" : "Docker",
+      "DockerImageId" : "a71bb297-acea-4cb9-a1f4-af0c45d2b512",
+      "Created" : "2020-04-14T18:15:00Z",
+      "Updated" : null
+    }
+  ]

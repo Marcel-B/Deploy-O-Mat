@@ -1,0 +1,495 @@
+[
+  {
+    "ID": "pfbu8101c8kwe1ujbxaw70gzw",
+    "Version": {
+      "Index": 1826700
+    },
+    "CreatedAt": "2020-03-23T07:00:01.369602358Z",
+    "UpdatedAt": "2020-04-05T11:17:38.175478901Z",
+    "Spec": {
+      "Name": "metrics_grafana",
+      "Labels": {
+        "com.docker.stack.image": "grafana/grafana",
+        "com.docker.stack.namespace": "metrics",
+        "traefik.enable": "true",
+        "traefik.http.routers.grafana.entrypoints": "websecure",
+        "traefik.http.routers.grafana.rule": "Host(`grafana.qaybe.de`)",
+        "traefik.http.routers.grafana.tls.certresolver": "sec",
+        "traefik.http.services.grafana.loadbalancer.server.port": "3000"
+      },
+      "TaskTemplate": {
+        "ContainerSpec": {
+          "Image": "grafana/grafana:latest@sha256:9d43bebe9f3a5d27647231e1fa760644fafcc09a1ad85eeae1df40c491841bd9",
+          "Labels": {
+            "com.docker.stack.namespace": "metrics"
+          },
+          "Env": [
+            "GF_SECURITY_ADMIN_PASSWORD=h0bb0nat0r",
+            "GF_SERVER_ROOT_URL=https://grafana.qaybe.de",
+            "GF_SMTP_ENABLED=true",
+            "GF_SMTP_HOST=smtp.1blu.de",
+            "GF_SMTP_PASSWORD=8)T!%QTkwsf#TNc",
+            "GF_SMTP_USER=r284141_0-common"
+          ],
+          "Privileges": {
+            "CredentialSpec": null,
+            "SELinuxContext": null
+          },
+          "Mounts": [
+            {
+              "Type": "bind",
+              "Source": "/mnt/hidrive/grafana",
+              "Target": "/var/lib/grafana"
+            }
+          ],
+          "StopGracePeriod": 10000000000,
+          "DNSConfig": {},
+          "Isolation": "default"
+        },
+        "Resources": {},
+        "RestartPolicy": {
+          "Condition": "on-failure",
+          "Delay": 5000000000,
+          "MaxAttempts": 0
+        },
+        "Placement": {
+          "Platforms": [
+            {
+              "Architecture": "amd64",
+              "OS": "linux"
+            }
+          ]
+        },
+        "Networks": [
+          {
+            "Target": "innj72g6pj6mcfrj90m7ks74o",
+            "Aliases": [
+              "grafana"
+            ]
+          }
+        ],
+        "ForceUpdate": 0,
+        "Runtime": "container"
+      },
+      "Mode": {
+        "Replicated": {
+          "Replicas": 1
+        }
+      },
+      "UpdateConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "RollbackConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "EndpointSpec": {
+        "Mode": "vip"
+      }
+    },
+    "Endpoint": {
+      "Spec": {
+        "Mode": "vip"
+      },
+      "VirtualIPs": [
+        {
+          "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+          "Addr": "10.0.9.96/24"
+        }
+      ]
+    }
+  },
+  {
+    "ID": "xj21z22mtc3yb1d0oibjky4vb",
+    "Version": {
+      "Index": 1839349
+    },
+    "CreatedAt": "2020-05-02T23:03:00.357871392Z",
+    "UpdatedAt": "2020-05-02T23:03:00.447898753Z",
+    "Spec": {
+      "Name": "deploy-o-mat_deploy-o-mat",
+      "Labels": {
+        "com.docker.stack.image": "millegalb/deploy-o-mat:latest",
+        "com.docker.stack.namespace": "deploy-o-mat",
+        "traefik.enable": "true",
+        "traefik.http.middlewares.https-only.redirectscheme.scheme": "https",
+        "traefik.http.middlewares.testHeader.headers.featurePolicy": "fullscreen",
+        "traefik.http.middlewares.testHeader.headers.forceSTSHeader": "true",
+        "traefik.http.middlewares.testHeader.headers.isDevelopment": "false",
+        "traefik.http.middlewares.testHeader.headers.sslredirect": "true",
+        "traefik.http.middlewares.testHeader.headers.stsIncludeSubDomains": "true",
+        "traefik.http.middlewares.testHeader.headers.stsPreload": "true",
+        "traefik.http.middlewares.testHeader.headers.stsSeconds": "31536000",
+        "traefik.http.routers.deploy-o-mat-http.entrypoints": "web",
+        "traefik.http.routers.deploy-o-mat-http.middlewares": "https-only@docker",
+        "traefik.http.routers.deploy-o-mat-http.rule": "Host(`deploy.qaybe.de`)",
+        "traefik.http.routers.deploy-o-mat-https.entrypoints": "websecure",
+        "traefik.http.routers.deploy-o-mat-https.middlewares": "testHeader@docker",
+        "traefik.http.routers.deploy-o-mat-https.rule": "Host(`deploy.qaybe.de`)",
+        "traefik.http.routers.deploy-o-mat-https.tls": "true",
+        "traefik.http.routers.deploy-o-mat-https.tls.certresolver": "sec",
+        "traefik.http.services.deploy-o-mat-service.loadbalancer.server.port": "5000"
+      },
+      "TaskTemplate": {
+        "ContainerSpec": {
+          "Image": "millegalb/deploy-o-mat:latest@sha256:69658128815ee5f62c912e940c714b08e7323c78c231736474aff6ec766b2844",
+          "Labels": {
+            "com.docker.stack.namespace": "deploy-o-mat"
+          },
+          "Args": [
+            "./wait-for-it.sh",
+            "db:5432",
+            "--",
+            "python",
+            "app.py"
+          ],
+          "Env": [
+            "HOSTNAME=rabbitmq",
+            "host=postgres",
+            "username=admin"
+          ],
+          "Privileges": {
+            "CredentialSpec": null,
+            "SELinuxContext": null
+          },
+          "StopGracePeriod": 10000000000,
+          "DNSConfig": {},
+          "Secrets": [
+            {
+              "File": {
+                "Name": "identity_signing_key",
+                "UID": "0",
+                "GID": "0",
+                "Mode": 292
+              },
+              "SecretID": "8a11jzdotvpaokaohouonqsqk",
+              "SecretName": "identity_signing_key"
+            },
+            {
+              "File": {
+                "Name": "postgres_db_password",
+                "UID": "0",
+                "GID": "0",
+                "Mode": 292
+              },
+              "SecretID": "478lf4285y1bq887cgiq60u6u",
+              "SecretName": "postgres_db_password"
+            },
+            {
+              "File": {
+                "Name": "rabbit_cookie",
+                "UID": "0",
+                "GID": "0",
+                "Mode": 292
+              },
+              "SecretID": "lxz6612iz4beakreqyugh5m8m",
+              "SecretName": "rabbit_cookie"
+            },
+            {
+              "File": {
+                "Name": "rabbit_pass",
+                "UID": "0",
+                "GID": "0",
+                "Mode": 292
+              },
+              "SecretID": "pq9skxm7fwvkuvxpdbusnagc4",
+              "SecretName": "rabbit_pass"
+            },
+            {
+              "File": {
+                "Name": "rabbit_user",
+                "UID": "0",
+                "GID": "0",
+                "Mode": 292
+              },
+              "SecretID": "o04l8nuomhb91ppvmlcjxyq8x",
+              "SecretName": "rabbit_user"
+            }
+          ],
+          "Isolation": "default"
+        },
+        "Resources": {},
+        "RestartPolicy": {
+          "Condition": "on-failure",
+          "Delay": 5000000000,
+          "MaxAttempts": 0
+        },
+        "Placement": {
+          "Platforms": [
+            {
+              "Architecture": "amd64",
+              "OS": "linux"
+            }
+          ]
+        },
+        "Networks": [
+          {
+            "Target": "innj72g6pj6mcfrj90m7ks74o",
+            "Aliases": [
+              "deploy-o-mat"
+            ]
+          }
+        ],
+        "ForceUpdate": 0,
+        "Runtime": "container"
+      },
+      "Mode": {
+        "Replicated": {
+          "Replicas": 1
+        }
+      },
+      "UpdateConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "RollbackConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "EndpointSpec": {
+        "Mode": "vip"
+      }
+    },
+    "Endpoint": {
+      "Spec": {
+        "Mode": "vip"
+      },
+      "VirtualIPs": [
+        {
+          "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+          "Addr": "10.0.9.174/24"
+        }
+      ]
+    }
+  },
+  {
+    "ID": "livscydwwhr3wcry24t3des1c",
+    "Version": {
+      "Index": 1837828
+    },
+    "CreatedAt": "2020-04-20T22:20:13.462641628Z",
+    "UpdatedAt": "2020-04-20T22:20:14.064742143Z",
+    "Spec": {
+      "Name": "traefik_reverse-proxy",
+      "Labels": {
+        "com.docker.stack.image": "traefik:v2.2.0",
+        "com.docker.stack.namespace": "traefik",
+        "traefik.enable": "true",
+        "traefik.http.middlewares.auth-traefik.basicauth.users": "marcel:$apr1$DIYU.5eS$Uxui0JqCOge6OEr8xPjyl1",
+        "traefik.http.routers.api.middlewares": "auth-traefik",
+        "traefik.http.routers.api.rule": "Host(`qaybe.de`)",
+        "traefik.http.routers.api.service": "api@internal",
+        "traefik.http.routers.api.tls.certresolver": "sec",
+        "traefik.http.services.api.loadbalancer.server.port": "8080"
+      },
+      "TaskTemplate": {
+        "ContainerSpec": {
+          "Image": "traefik:v2.2.0@sha256:615483752426932469aa2229ef3f0825b33b3ad7e1326dcd388205cb3a74352e",
+          "Labels": {
+            "com.docker.stack.namespace": "traefik"
+          },
+          "Args": [
+            "--metrics=true",
+            "--metrics.prometheus=true",
+            "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000",
+            "--metrics.prometheus.entryPoint=metrics",
+            "--metrics.prometheus.addEntryPointsLabels=true",
+            "--metrics.prometheus.addServicesLabels=true",
+            "--tracing.elastic.serverurl='http://elasticsearch'",
+            "--api=true",
+            "--api.dashboard=true",
+            "--log.level=INFO",
+            "--providers.docker=true",
+            "--providers.docker.swarmmode=true",
+            "--providers.docker.exposedbydefault=false",
+            "--entrypoints.web.address=:80",
+            "--entrypoints.websecure.address=:443",
+            "--entryPoints.metrics.address=:8082",
+            "--certificatesResolvers.sec.acme.email=marcel.benders@icloud.com",
+            "--certificatesResolvers.sec.acme.storage=/letsencrypt/acme.json",
+            "--certificatesResolvers.sec.acme.httpChallenge.entryPoint=web",
+            "traefik.http.middlewares.security-header.headers.sslredirect=true",
+            "traefik.http.middlewares.security-header.headers.includeSubDomains=true",
+            "traefik.http.middlewares.security-header.headers.stsSeconds=31536000",
+            "traefik.http.middlewares.https-only.redirectscheme.scheme=https",
+            "traefik.http.middlewares.auth-kibana.basicauth.users=YfUMJm9EmL9Y:$apr1$UHVO9VEB$n1xxcaDO6pjrTrvJzMXqx0"
+          ],
+          "Privileges": {
+            "CredentialSpec": null,
+            "SELinuxContext": null
+          },
+          "Mounts": [
+            {
+              "Type": "bind",
+              "Source": "/var/run/docker.sock",
+              "Target": "/var/run/docker.sock"
+            },
+            {
+              "Type": "bind",
+              "Source": "/home/marcel/stack/traefik/letsencrypt",
+              "Target": "/letsencrypt"
+            }
+          ],
+          "StopGracePeriod": 10000000000,
+          "DNSConfig": {},
+          "Isolation": "default"
+        },
+        "Resources": {},
+        "RestartPolicy": {
+          "Condition": "any",
+          "Delay": 5000000000,
+          "MaxAttempts": 0
+        },
+        "Placement": {
+          "Constraints": [
+            "node.role == manager"
+          ],
+          "Platforms": [
+            {
+              "Architecture": "amd64",
+              "OS": "linux"
+            },
+            {
+              "OS": "linux"
+            },
+            {
+              "Architecture": "arm64",
+              "OS": "linux"
+            }
+          ]
+        },
+        "Networks": [
+          {
+            "Target": "ozlptfz72n35niwdxc9w85myt",
+            "Aliases": [
+              "reverse-proxy"
+            ]
+          },
+          {
+            "Target": "innj72g6pj6mcfrj90m7ks74o",
+            "Aliases": [
+              "reverse-proxy"
+            ]
+          }
+        ],
+        "ForceUpdate": 0,
+        "Runtime": "container"
+      },
+      "Mode": {
+        "Replicated": {
+          "Replicas": 1
+        }
+      },
+      "UpdateConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "RollbackConfig": {
+        "Parallelism": 1,
+        "FailureAction": "pause",
+        "Monitor": 5000000000,
+        "MaxFailureRatio": 0,
+        "Order": "stop-first"
+      },
+      "EndpointSpec": {
+        "Mode": "vip",
+        "Ports": [
+          {
+            "Protocol": "tcp",
+            "TargetPort": 80,
+            "PublishedPort": 80,
+            "PublishMode": "ingress"
+          },
+          {
+            "Protocol": "tcp",
+            "TargetPort": 443,
+            "PublishedPort": 443,
+            "PublishMode": "ingress"
+          },
+          {
+            "Protocol": "tcp",
+            "TargetPort": 8082,
+            "PublishedPort": 8082,
+            "PublishMode": "ingress"
+          }
+        ]
+      }
+    },
+    "Endpoint": {
+      "Spec": {
+        "Mode": "vip",
+        "Ports": [
+          {
+            "Protocol": "tcp",
+            "TargetPort": 80,
+            "PublishedPort": 80,
+            "PublishMode": "ingress"
+          },
+          {
+            "Protocol": "tcp",
+            "TargetPort": 443,
+            "PublishedPort": 443,
+            "PublishMode": "ingress"
+          },
+          {
+            "Protocol": "tcp",
+            "TargetPort": 8082,
+            "PublishedPort": 8082,
+            "PublishMode": "ingress"
+          }
+        ]
+      },
+      "Ports": [
+        {
+          "Protocol": "tcp",
+          "TargetPort": 80,
+          "PublishedPort": 80,
+          "PublishMode": "ingress"
+        },
+        {
+          "Protocol": "tcp",
+          "TargetPort": 443,
+          "PublishedPort": 443,
+          "PublishMode": "ingress"
+        },
+        {
+          "Protocol": "tcp",
+          "TargetPort": 8082,
+          "PublishedPort": 8082,
+          "PublishMode": "ingress"
+        }
+      ],
+      "VirtualIPs": [
+        {
+          "NetworkID": "kmh5bpeiy1tjl4h493yq85vhd",
+          "Addr": "10.255.1.116/16"
+        },
+        {
+          "NetworkID": "ozlptfz72n35niwdxc9w85myt",
+          "Addr": "10.0.26.5/24"
+        },
+        {
+          "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+          "Addr": "10.0.9.26/24"
+        }
+      ]
+    }
+  }
+
+]

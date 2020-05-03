@@ -2,13 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using com.b_velop.Deploy_O_Mat.Web.Application.Images;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace com.b_velop.Deploy_O_Mat.Web.Application.Images
+namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerImage
 {
 
     public class CreateOrUpdate

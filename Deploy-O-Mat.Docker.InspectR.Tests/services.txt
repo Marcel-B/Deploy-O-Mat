@@ -1,0 +1,19 @@
+ID                  NAME                             MODE                REPLICAS            IMAGE                                                 PORTS
+bkfk3frj6hjq        angulair_angulair                replicated          1/1                 millegalb/angulair:latest                             
+k7cu89ckfe9a        collector_sqlserver              replicated          1/1                 mcr.microsoft.com/mssql/server:2017-latest-ubuntu     *:1433->1433/tcp
+xj21z22mtc3y        deploy-o-mat_deploy-o-mat        replicated          1/1                 millegalb/deploy-o-mat:latest                         
+n97zy5fpc8dq        deploy-o-mat_postgres            replicated          1/1                 postgres:latest                                       *:5400->5432/tcp
+q2pjsiswec7l        elk_elasticsearch                replicated          1/1                 docker.elastic.co/elasticsearch/elasticsearch:7.4.1   
+ike2lrg96hgg        elk_kibana                       replicated          1/1                 docker.elastic.co/kibana/kibana:7.4.1                 
+ezz5qtxp5x8g        elk_logstash                     replicated          1/1                 docker.elastic.co/logstash/logstash:7.4.1             
+mgh2593g3uw2        feinstaub_db                     replicated          1/1                 mcr.microsoft.com/mssql/server:2017-latest            *:1440->1433/tcp
+k5ttttk4tf6v        feinstaub_feinstaubapi           replicated          1/1                 mbodenstein/feinstaubserver:latest                    
+pfbu8101c8kw        metrics_grafana                  replicated          1/1                 grafana/grafana:latest                                
+pca7lzerz3wp        metrics_prometheus               replicated          1/1                 prom/prometheus:latest                                
+b7s48r152ay4        rabbit_rabbitmq                  replicated          1/1                 rabbitmq:3-management                                 *:5672->5672/tcp, *:15672->15672/tcp
+8iooj3j372p5        slipways_slipways-api            replicated          1/1                 millegalb/slipways.api:latest                         
+wnobylxrfcw1        slipways_slipways-dataprovider   replicated          1/1                 millegalb/slipways.dataprovider:latest                
+wxo6a2o3z7xo        slipways_slipways-graphql        replicated          1/1                 millegalb/slipways.graphql:latest                     
+2x2bvtp2dlsh        slipways_slipways-website        replicated          1/1                 millegalb/slipways.web:latest                         
+livscydwwhr3        traefik_reverse-proxy            replicated          1/1                 traefik:v2.2.0                                        *:80->80/tcp, *:443->443/tcp, *:8082->8082/tcp
+p0mgnlxng72u        vis                              replicated          1/1                 dockersamples/visualizer:latest 

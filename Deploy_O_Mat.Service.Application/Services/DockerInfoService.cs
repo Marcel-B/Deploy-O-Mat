@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
+using com.b_velop.Deploy_O_Mat.Shared.Contracts;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.Logging;
 
-namespace Deploy_O_Mat.Service.Application.Services
+namespace com.b_velop.Deploy_O_Mat.Service.Application.Services
 {
     public class DockerInfoService : IDockerInfoService
     {

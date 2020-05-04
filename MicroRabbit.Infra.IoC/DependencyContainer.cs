@@ -1,4 +1,4 @@
-﻿using Deploy_O_Mat.Service.Application.Services;
+﻿using com.b_velop.Deploy_O_Mat.Service.Application.Services;
 using Deploy_O_Mat.Service.Domain.EventHandlers;
 using Deploy_O_Mat.Service.Domain.Interfaces;
 using MediatR;
@@ -13,11 +13,13 @@ using Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Infrastructure.Security;
 using Deploy_O_Mat.Service.Domain.Commands;
 using Deploy_O_Mat.Service.Domain.CommandHandlers;
-using com.b_velop.Deploy_O_Mat.Service.Util;
-using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
+using com.b_velop.Deploy_O_Mat.Shared;
+using com.b_velop.Deploy_O_Mat.Shared.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
+using DockerServiceService = com.b_velop.Deploy_O_Mat.Service.Application.Services.DockerServiceService;
+using DockerStackService = com.b_velop.Deploy_O_Mat.Service.Application.Services.DockerStackService;
 
 namespace MicroRabbit.Infra.IoC
 {
@@ -64,7 +66,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddScoped<IProcessor, Processor>();
 
             //Application Services
-            services.AddTransient<Deploy_O_Mat.Service.Domain.Interfaces.IDockerServiceService, Deploy_O_Mat.Service.Application.Services.DockerServiceService>();
+            services.AddTransient<Deploy_O_Mat.Service.Domain.Interfaces.IDockerServiceService, DockerServiceService>();
 
             services.AddScoped<com.b_velop.Deploy_O_Mat.Web.Application.Interfaces.IDockerServiceService, com.b_velop.Deploy_O_Mat.Web.Application.Services.DockerServiceService>();
 
@@ -73,7 +75,7 @@ namespace MicroRabbit.Infra.IoC
 
             services.AddTransient<com.b_velop.Deploy_O_Mat.Web.Application.Interfaces.IDockerStackService, com.b_velop.Deploy_O_Mat.Web.Application.Services.DockerStackService>();
 
-            services.AddTransient<Deploy_O_Mat.Service.Domain.Interfaces.IDockerStackService, Deploy_O_Mat.Service.Application.Services.DockerStackService>();
+            services.AddTransient<Deploy_O_Mat.Service.Domain.Interfaces.IDockerStackService, DockerStackService>();
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();

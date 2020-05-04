@@ -1,5 +1,4 @@
-﻿using System;
-namespace com.b_velop.Deploy_O_Mat.Service.Util
+namespace com.b_velop.Deploy_O_Mat.Shared
 {
     public class ProcessResult
     {

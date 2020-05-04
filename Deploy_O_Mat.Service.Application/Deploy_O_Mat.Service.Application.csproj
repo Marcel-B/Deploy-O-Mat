@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>com.b_velop.Deploy_O_Mat.Service.Application</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Deploy-O-Mat.Shared\Deploy-O-Mat.Shared.csproj" />
     <ProjectReference Include="..\Deploy_O_Mat.Service.Domain\Deploy_O_Mat.Service.Domain.csproj" />
     <ProjectReference Include="..\MicroRabbit.Domain.Core\MicroRabbit.Domain.Core.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Service.Util\Deploy_O_Mat.Service.Util.csproj" />
   </ItemGroup>
 </Project>

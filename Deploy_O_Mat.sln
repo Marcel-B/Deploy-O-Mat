@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra.IoC", "Infra.IoC", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroRabbit.Infra.IoC", "MicroRabbit.Infra.IoC\MicroRabbit.Infra.IoC.csproj", "{2E9BA7EF-D194-4718-A84C-93BFC923170E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy-O-Mat.Service.API", "Deploy-O-Mat.Service.API", "{EA29DD77-3176-4A76-A405-0826CBF8FB3D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy-O-Mat.Service", "Deploy-O-Mat.Service", "{EA29DD77-3176-4A76-A405-0826CBF8FB3D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CD39F23E-49E8-4DF1-9EEB-8C046808A036}"
 EndProject
@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy_O_Mat.Service.Domain", "Deploy_O_Mat.Service.Domain\Deploy_O_Mat.Service.Domain.csproj", "{1F8A71E7-0C98-4834-9B17-440AA78E19EA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy_O_Mat.Website", "Deploy_O_Mat.Website", "{4C77F209-A1B6-47E8-92AA-957E1C265347}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy-O-Mat.Website", "Deploy-O-Mat.Website", "{4C77F209-A1B6-47E8-92AA-957E1C265347}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{14E7F552-9E44-4BDF-8A5F-BF606B73868C}"
 EndProject
@@ -74,6 +74,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Domain", "Deploy-O-Mat.Docker.InspectR.Domain\Deploy-O-Mat.Docker.InspectR.Domain.csproj", "{FB53CF92-F8CB-47F3-ABA4-02F6FE78B30E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Tests", "Deploy-O-Mat.Docker.InspectR.Tests\Deploy-O-Mat.Docker.InspectR.Tests.csproj", "{E6E8EA5D-7A38-4988-82BE-F7638100284D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Application", "Deploy-O-Mat.Docker.InspectR.Application\Deploy-O-Mat.Docker.InspectR.Application.csproj", "{EAF6693F-2256-4B35-ACE5-F6A792A58653}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy-O-Mat.Shared", "Deploy-O-Mat.Shared", "{E11F327D-E822-427F-817E-C7DFBC016EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Shared", "Deploy-O-Mat.Shared\Deploy-O-Mat.Shared.csproj", "{0207588C-230B-4E23-A339-A74C7B08B0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Service", "Deploy-O-Mat.Docker.InspectR.Service\Deploy-O-Mat.Docker.InspectR.Service.csproj", "{ABE75E26-8FFD-4AFA-B8A9-02481619967D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Persistence", "Deploy-O-Mat.Docker.InspectR.Persistence\Deploy-O-Mat.Docker.InspectR.Persistence.csproj", "{092F688C-A431-4830-A53A-A97210B578D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deploy-O-Mat.Docker.InspectR.Data", "Deploy-O-Mat.Docker.InspectR.Data\Deploy-O-Mat.Docker.InspectR.Data.csproj", "{1627BF7E-B714-4907-B073-392B5F22F32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +164,26 @@ Global
 		{E6E8EA5D-7A38-4988-82BE-F7638100284D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6E8EA5D-7A38-4988-82BE-F7638100284D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6E8EA5D-7A38-4988-82BE-F7638100284D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF6693F-2256-4B35-ACE5-F6A792A58653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF6693F-2256-4B35-ACE5-F6A792A58653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF6693F-2256-4B35-ACE5-F6A792A58653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF6693F-2256-4B35-ACE5-F6A792A58653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0207588C-230B-4E23-A339-A74C7B08B0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0207588C-230B-4E23-A339-A74C7B08B0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0207588C-230B-4E23-A339-A74C7B08B0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0207588C-230B-4E23-A339-A74C7B08B0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE75E26-8FFD-4AFA-B8A9-02481619967D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE75E26-8FFD-4AFA-B8A9-02481619967D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE75E26-8FFD-4AFA-B8A9-02481619967D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE75E26-8FFD-4AFA-B8A9-02481619967D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{092F688C-A431-4830-A53A-A97210B578D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{092F688C-A431-4830-A53A-A97210B578D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{092F688C-A431-4830-A53A-A97210B578D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{092F688C-A431-4830-A53A-A97210B578D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1627BF7E-B714-4907-B073-392B5F22F32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1627BF7E-B714-4907-B073-392B5F22F32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1627BF7E-B714-4907-B073-392B5F22F32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1627BF7E-B714-4907-B073-392B5F22F32D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,5 +224,10 @@ Global
 		{B14E581C-9854-44B4-9136-B9B3AA66C7ED} = {474CDED0-2D41-4373-AF37-9BA4A3474E59}
 		{FB53CF92-F8CB-47F3-ABA4-02F6FE78B30E} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
 		{E6E8EA5D-7A38-4988-82BE-F7638100284D} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
+		{EAF6693F-2256-4B35-ACE5-F6A792A58653} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
+		{0207588C-230B-4E23-A339-A74C7B08B0E1} = {E11F327D-E822-427F-817E-C7DFBC016EBB}
+		{ABE75E26-8FFD-4AFA-B8A9-02481619967D} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
+		{092F688C-A431-4830-A53A-A97210B578D3} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
+		{1627BF7E-B714-4907-B073-392B5F22F32D} = {FDCC15D1-993A-454C-9926-6E7AD1F1DAC0}
 	EndGlobalSection
 EndGlobal

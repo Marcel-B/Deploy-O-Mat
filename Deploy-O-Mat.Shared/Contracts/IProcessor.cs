@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
-namespace com.b_velop.Deploy_O_Mat.Service.Util.Contracts
+namespace com.b_velop.Deploy_O_Mat.Shared.Contracts
 {
     public interface IProcessor
     {

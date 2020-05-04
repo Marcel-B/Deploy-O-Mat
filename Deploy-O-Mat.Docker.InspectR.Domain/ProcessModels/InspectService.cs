@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.Models
+namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.ProcessModels
 {
     public class Version
     {

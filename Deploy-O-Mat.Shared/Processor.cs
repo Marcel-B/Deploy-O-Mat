@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Service.Util.Contracts;
+using com.b_velop.Deploy_O_Mat.Shared.Contracts;
 using Microsoft.Extensions.Logging;
 
-namespace com.b_velop.Deploy_O_Mat.Service.Util
+namespace com.b_velop.Deploy_O_Mat.Shared
 {
     public class Processor : IProcessor
     {

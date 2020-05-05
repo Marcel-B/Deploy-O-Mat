@@ -43,7 +43,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<SendDockerInfoEventHandler>();
             services.AddTransient<RemoveDockerServiceEventHandler>();
             services.AddTransient<CreateDockerServiceEventHandler>();
-            services.AddTransient<RemoveDockerStackEventHandler>();
+            services.AddScoped<UpdateServicesEventHandler>();
 
             //Domain Events
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceUpdatedEvent>, UpdateDockerServiceEventHandler>();
@@ -52,7 +52,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerStackRemovedEvent>, RemoveDockerStackEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceRemovedEvent>, RemoveDockerServiceEventHandler>();
             services.AddTransient<IEventHandler<Deploy_O_Mat.Service.Domain.Events.DockerServiceCreatedEvent>, CreateDockerServiceEventHandler>();
-            services.AddTransient<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events.SendDockerInfoEvent>, SendDockerInfoEventHandler>();
+            services.AddScoped<IEventHandler<com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
 
             //Domain Commands
             services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler>();

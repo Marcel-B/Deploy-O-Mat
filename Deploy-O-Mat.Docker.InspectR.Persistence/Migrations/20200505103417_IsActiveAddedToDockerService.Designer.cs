@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Persistence.Context;
 
 namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Persistence.Migrations
 {
     [DbContext(typeof(InspectRContext))]
-    partial class InspectRContextModelSnapshot : ModelSnapshot
+    [Migration("20200505103417_IsActiveAddedToDockerService")]
+    partial class IsActiveAddedToDockerService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

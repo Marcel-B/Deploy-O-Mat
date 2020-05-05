@@ -1,6 +1,6 @@
 using System;
 
-namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.Models
+namespace com.b_velop.Deploy_O_Mat.Web.Application.Bus.Models
 {
     public class DockerService
     {

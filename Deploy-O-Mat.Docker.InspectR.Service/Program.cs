@@ -1,4 +1,6 @@
 ﻿using System;
+using AutoMapper;
+using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Commands;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Services;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Services.Hosted;
@@ -59,9 +61,13 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
                 {
                     DependencyContainer.RegisterServices(services);
                     services.AddMediatR(typeof(Program)); 
+                    services.AddAutoMapper(typeof(Program).Assembly);
                     services.AddHostedService<DockerServiceReport>();
                     services.AddScoped<IInspectRRepository, InspectRRepository>();
                     services.AddScoped<IDockerServiceService, DockerServiceService>();
+                    services.AddScoped<UpdateServicesCommandHandler>();
+                    services.AddScoped<IRequestHandler<CreateUpdateServices, bool>, UpdateServicesCommandHandler>();
+
                     services.AddDbContext<InspectRContext>(options =>
                     {
                         options.UseSqlite("Data Source=dockerService.db");

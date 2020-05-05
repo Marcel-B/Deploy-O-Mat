@@ -145,10 +145,11 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.ProcessModels
     {
         [JsonPropertyName("ID")] 
         public string Id { get; set; }
-        public Version Type { get; set; }
+        public Version Version { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public Spec Spec { get; set; }
+        public Spec PreviousSpec { get; set; }
         public Endpoint Endpoint { get; set; }
     }
 }

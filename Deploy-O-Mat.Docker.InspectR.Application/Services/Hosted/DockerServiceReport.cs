@@ -1,7 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Commands;
+using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Contracts;
+using com.b_velop.Deploy_O_Mat.Docker.InspectR.Data.Contracts;
 using MicroRabbit.Domain.Core.Bus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +37,10 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Services.Hosted
             _appLifetime.ApplicationStopping.Register(OnStopping);
             _appLifetime.ApplicationStopped.Register(OnStopped);
 
-            _timer = new Timer(RunJob, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            _timer = new Timer(RunJob, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             return Task.CompletedTask;
         }
-
+        
         public Task StopAsync(
             CancellationToken cancellationToken)
         {
@@ -67,16 +71,22 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Services.Hosted
         private async void RunJob(
             object state)
         {
-            string services = "";
-            using var scope = _serviceProvider.CreateScope();
-            // var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerInfoService>();
+            using var scope = _serviceProvider.CreateScope(); 
+            var dockerInfoService = scope.ServiceProvider.GetRequiredService<IDockerServiceService>();
+            var repo = scope.ServiceProvider.GetRequiredService<IInspectRRepository>();
             var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+            var services = await dockerInfoService.GetDockerServices();
+            foreach (var service in services)
+            {
+                await repo.UpdateDockerService(service);
+            }
 
-#if DEBUG
-            services = File.ReadAllText("example.txt");
-#else
-            services = await dockerInfoService.GetServices();
-#endif
+            await repo.SaveChanges();
+            
+            await eventBus.SendCommand(new CreateUpdateServices(services));
+
+            // var ids = services.Select(s => s.ServiceId);
+            // var details = await dockerInfoService.GetDockerServiceDetails(ids);
 
             // await eventBus.SendCommand(new CreateSendDockerInfoCommand(services));
         }

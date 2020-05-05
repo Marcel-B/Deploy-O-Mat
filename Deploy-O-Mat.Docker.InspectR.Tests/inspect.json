@@ -1,0 +1,646 @@
+[
+    {
+        "ID": "bkfk3frj6hjq3usnyxs8xlopj",
+        "Version": {
+            "Index": 1837260
+        },
+        "CreatedAt": "2020-04-13T21:00:19.395052032Z",
+        "UpdatedAt": "2020-04-19T22:01:05.945894632Z",
+        "Spec": {
+            "Name": "angulair_angulair",
+            "Labels": {
+                "com.docker.stack.image": "millegalb/angulair:latest",
+                "com.docker.stack.namespace": "angulair",
+                "traefik.enable": "true",
+                "traefik.http.routers.angularair-https.entrypoints": "websecure",
+                "traefik.http.routers.angularair-https.rule": "Host(`sensor.feinstaub.org`)",
+                "traefik.http.routers.angularair-https.tls": "true",
+                "traefik.http.routers.angularair-https.tls.certresolver": "sec",
+                "traefik.http.services.angularairservice.loadbalancer.server.port": "80"
+            },
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "millegalb/angulair:latest@sha256:889bd1d198f6dee462eb90810a35cab9ddf377b43d2263c17ddf9c2ccc37710c",
+                    "Labels": {
+                        "com.docker.stack.namespace": "angulair"
+                    },
+                    "Env": [
+                        "ASPNETCORE_ENVIRONMENT=Production",
+                        "CON_STRING=Server=sqlserver,1433;Database=Air;User Id=sa;Password="
+                    ],
+                    "Privileges": {
+                        "CredentialSpec": null,
+                        "SELinuxContext": null
+                    },
+                    "StopGracePeriod": 10000000000,
+                    "DNSConfig": {},
+                    "Secrets": [
+                        {
+                            "File": {
+                                "Name": "sqlserver",
+                                "UID": "0",
+                                "GID": "0",
+                                "Mode": 292
+                            },
+                            "SecretID": "38sbdmqqi8q2mshlu9s5c87t5",
+                            "SecretName": "sqlserver"
+                        }
+                    ],
+                    "Isolation": "default"
+                },
+                "Resources": {},
+                "RestartPolicy": {
+                    "Condition": "any",
+                    "Delay": 5000000000,
+                    "MaxAttempts": 0
+                },
+                "Placement": {
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        }
+                    ]
+                },
+                "Networks": [
+                    {
+                        "Target": "innj72g6pj6mcfrj90m7ks74o",
+                        "Aliases": [
+                            "angulair"
+                        ]
+                    }
+                ],
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 1
+                }
+            },
+            "UpdateConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "RollbackConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "EndpointSpec": {
+                "Mode": "vip"
+            }
+        },
+        "PreviousSpec": {
+            "Name": "angulair_angulair",
+            "Labels": {
+                "com.docker.stack.image": "millegalb/angulair:latest",
+                "com.docker.stack.namespace": "angulair",
+                "traefik.enable": "true",
+                "traefik.http.routers.angularair-https.entrypoints": "websecure",
+                "traefik.http.routers.angularair-https.rule": "Host(`sensor.feinstaub.org`)",
+                "traefik.http.routers.angularair-https.tls": "true",
+                "traefik.http.routers.angularair-https.tls.certresolver": "sec",
+                "traefik.http.services.angularairservice.loadbalancer.server.port": "80"
+            },
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "millegalb/angulair:latest@sha256:77b23487a02820dc75f574a3af39acef387e36f26f59bdf9dce5271b2e2af834",
+                    "Labels": {
+                        "com.docker.stack.namespace": "angulair"
+                    },
+                    "Env": [
+                        "ASPNETCORE_ENVIRONMENT=Production",
+                        "CON_STRING=Server=sqlserver,1433;Database=Air;User Id=sa;Password="
+                    ],
+                    "Privileges": {
+                        "CredentialSpec": null,
+                        "SELinuxContext": null
+                    },
+                    "Secrets": [
+                        {
+                            "File": {
+                                "Name": "sqlserver",
+                                "UID": "0",
+                                "GID": "0",
+                                "Mode": 292
+                            },
+                            "SecretID": "38sbdmqqi8q2mshlu9s5c87t5",
+                            "SecretName": "sqlserver"
+                        }
+                    ],
+                    "Isolation": "default"
+                },
+                "Resources": {},
+                "Placement": {
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        }
+                    ]
+                },
+                "Networks": [
+                    {
+                        "Target": "innj72g6pj6mcfrj90m7ks74o",
+                        "Aliases": [
+                            "angulair"
+                        ]
+                    }
+                ],
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 1
+                }
+            },
+            "EndpointSpec": {
+                "Mode": "vip"
+            }
+        },
+        "Endpoint": {
+            "Spec": {
+                "Mode": "vip"
+            },
+            "VirtualIPs": [
+                {
+                    "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+                    "Addr": "10.0.9.71/24"
+                }
+            ]
+        },
+        "UpdateStatus": {
+            "State": "completed",
+            "StartedAt": "2020-04-19T22:00:37.96213634Z",
+            "CompletedAt": "2020-04-19T22:01:05.945872786Z",
+            "Message": "update completed"
+        }
+    },
+    {
+        "ID": "k7cu89ckfe9amyzdqrl3h42vg",
+        "Version": {
+            "Index": 1826700
+        },
+        "CreatedAt": "2020-04-01T14:49:39.915409951Z",
+        "UpdatedAt": "2020-04-05T11:17:38.175301179Z",
+        "Spec": {
+            "Name": "collector_sqlserver",
+            "Labels": {
+                "com.docker.stack.image": "mcr.microsoft.com/mssql/server:2017-latest-ubuntu",
+                "com.docker.stack.namespace": "collector",
+                "traefik.http.routers.sqlserver.rule": "Host(`data.ghung.de`)",
+                "traefik.http.services.sqlserver.loadbalancer.server.port": "1433"
+            },
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "mcr.microsoft.com/mssql/server:2017-latest-ubuntu@sha256:f551ff159479f402bc3a120d9bb509c78bbcb8d1fe401552e102f28bc654db0e",
+                    "Labels": {
+                        "com.docker.stack.namespace": "collector"
+                    },
+                    "Env": [
+                        "ACCEPT_EULA=Y",
+                        "MSSQL_PID=Express",
+                        "SA_PASSWORD=9g7s6XuccG6hZomaFH5hWvASU"
+                    ],
+                    "Privileges": {
+                        "CredentialSpec": null,
+                        "SELinuxContext": null
+                    },
+                    "Mounts": [
+                        {
+                            "Type": "volume",
+                            "Source": "collector_mssql_data",
+                            "Target": "/var/opt/mssql",
+                            "VolumeOptions": {
+                                "Labels": {
+                                    "com.docker.stack.namespace": "collector"
+                                }
+                            }
+                        }
+                    ],
+                    "StopGracePeriod": 10000000000,
+                    "DNSConfig": {},
+                    "Isolation": "default"
+                },
+                "Resources": {},
+                "RestartPolicy": {
+                    "Condition": "on-failure",
+                    "Delay": 5000000000,
+                    "MaxAttempts": 0
+                },
+                "Placement": {
+                    "Constraints": [
+                        "node.role == manager"
+                    ],
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        }
+                    ]
+                },
+                "Networks": [
+                    {
+                        "Target": "innj72g6pj6mcfrj90m7ks74o",
+                        "Aliases": [
+                            "sqlserver"
+                        ]
+                    }
+                ],
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 1
+                }
+            },
+            "UpdateConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "RollbackConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "EndpointSpec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 1433,
+                        "PublishedPort": 1433,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            }
+        },
+        "Endpoint": {
+            "Spec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 1433,
+                        "PublishedPort": 1433,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            },
+            "Ports": [
+                {
+                    "Protocol": "tcp",
+                    "TargetPort": 1433,
+                    "PublishedPort": 1433,
+                    "PublishMode": "ingress"
+                }
+            ],
+            "VirtualIPs": [
+                {
+                    "NetworkID": "kmh5bpeiy1tjl4h493yq85vhd",
+                    "Addr": "10.255.0.4/16"
+                },
+                {
+                    "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+                    "Addr": "10.0.9.42/24"
+                }
+            ]
+        }
+    },
+    {
+        "ID": "pfbu8101c8kwe1ujbxaw70gzw",
+        "Version": {
+            "Index": 1826700
+        },
+        "CreatedAt": "2020-03-23T07:00:01.369602358Z",
+        "UpdatedAt": "2020-04-05T11:17:38.175478901Z",
+        "Spec": {
+            "Name": "metrics_grafana",
+            "Labels": {
+                "com.docker.stack.image": "grafana/grafana",
+                "com.docker.stack.namespace": "metrics",
+                "traefik.enable": "true",
+                "traefik.http.routers.grafana.entrypoints": "websecure",
+                "traefik.http.routers.grafana.rule": "Host(`grafana.qaybe.de`)",
+                "traefik.http.routers.grafana.tls.certresolver": "sec",
+                "traefik.http.services.grafana.loadbalancer.server.port": "3000"
+            },
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "grafana/grafana:latest@sha256:9d43bebe9f3a5d27647231e1fa760644fafcc09a1ad85eeae1df40c491841bd9",
+                    "Labels": {
+                        "com.docker.stack.namespace": "metrics"
+                    },
+                    "Env": [
+                        "GF_SECURITY_ADMIN_PASSWORD=h0bb0nat0r",
+                        "GF_SERVER_ROOT_URL=https://grafana.qaybe.de",
+                        "GF_SMTP_ENABLED=true",
+                        "GF_SMTP_HOST=smtp.1blu.de",
+                        "GF_SMTP_PASSWORD=8)T!%QTkwsf#TNc",
+                        "GF_SMTP_USER=r284141_0-common"
+                    ],
+                    "Privileges": {
+                        "CredentialSpec": null,
+                        "SELinuxContext": null
+                    },
+                    "Mounts": [
+                        {
+                            "Type": "bind",
+                            "Source": "/mnt/hidrive/grafana",
+                            "Target": "/var/lib/grafana"
+                        }
+                    ],
+                    "StopGracePeriod": 10000000000,
+                    "DNSConfig": {},
+                    "Isolation": "default"
+                },
+                "Resources": {},
+                "RestartPolicy": {
+                    "Condition": "on-failure",
+                    "Delay": 5000000000,
+                    "MaxAttempts": 0
+                },
+                "Placement": {
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        }
+                    ]
+                },
+                "Networks": [
+                    {
+                        "Target": "innj72g6pj6mcfrj90m7ks74o",
+                        "Aliases": [
+                            "grafana"
+                        ]
+                    }
+                ],
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 1
+                }
+            },
+            "UpdateConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "RollbackConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "EndpointSpec": {
+                "Mode": "vip"
+            }
+        },
+        "Endpoint": {
+            "Spec": {
+                "Mode": "vip"
+            },
+            "VirtualIPs": [
+                {
+                    "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+                    "Addr": "10.0.9.96/24"
+                }
+            ]
+        }
+    },
+    {
+        "ID": "livscydwwhr3wcry24t3des1c",
+        "Version": {
+            "Index": 1837828
+        },
+        "CreatedAt": "2020-04-20T22:20:13.462641628Z",
+        "UpdatedAt": "2020-04-20T22:20:14.064742143Z",
+        "Spec": {
+            "Name": "traefik_reverse-proxy",
+            "Labels": {
+                "com.docker.stack.image": "traefik:v2.2.0",
+                "com.docker.stack.namespace": "traefik",
+                "traefik.enable": "true",
+                "traefik.http.middlewares.auth-traefik.basicauth.users": "marcel:$apr1$DIYU.5eS$Uxui0JqCOge6OEr8xPjyl1",
+                "traefik.http.routers.api.middlewares": "auth-traefik",
+                "traefik.http.routers.api.rule": "Host(`qaybe.de`)",
+                "traefik.http.routers.api.service": "api@internal",
+                "traefik.http.routers.api.tls.certresolver": "sec",
+                "traefik.http.services.api.loadbalancer.server.port": "8080"
+            },
+            "TaskTemplate": {
+                "ContainerSpec": {
+                    "Image": "traefik:v2.2.0@sha256:615483752426932469aa2229ef3f0825b33b3ad7e1326dcd388205cb3a74352e",
+                    "Labels": {
+                        "com.docker.stack.namespace": "traefik"
+                    },
+                    "Args": [
+                        "--metrics=true",
+                        "--metrics.prometheus=true",
+                        "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000",
+                        "--metrics.prometheus.entryPoint=metrics",
+                        "--metrics.prometheus.addEntryPointsLabels=true",
+                        "--metrics.prometheus.addServicesLabels=true",
+                        "--tracing.elastic.serverurl='http://elasticsearch'",
+                        "--api=true",
+                        "--api.dashboard=true",
+                        "--log.level=INFO",
+                        "--providers.docker=true",
+                        "--providers.docker.swarmmode=true",
+                        "--providers.docker.exposedbydefault=false",
+                        "--entrypoints.web.address=:80",
+                        "--entrypoints.websecure.address=:443",
+                        "--entryPoints.metrics.address=:8082",
+                        "--certificatesResolvers.sec.acme.email=marcel.benders@icloud.com",
+                        "--certificatesResolvers.sec.acme.storage=/letsencrypt/acme.json",
+                        "--certificatesResolvers.sec.acme.httpChallenge.entryPoint=web",
+                        "traefik.http.middlewares.security-header.headers.sslredirect=true",
+                        "traefik.http.middlewares.security-header.headers.includeSubDomains=true",
+                        "traefik.http.middlewares.security-header.headers.stsSeconds=31536000",
+                        "traefik.http.middlewares.https-only.redirectscheme.scheme=https",
+                        "traefik.http.middlewares.auth-kibana.basicauth.users=YfUMJm9EmL9Y:$apr1$UHVO9VEB$n1xxcaDO6pjrTrvJzMXqx0"
+                    ],
+                    "Privileges": {
+                        "CredentialSpec": null,
+                        "SELinuxContext": null
+                    },
+                    "Mounts": [
+                        {
+                            "Type": "bind",
+                            "Source": "/var/run/docker.sock",
+                            "Target": "/var/run/docker.sock"
+                        },
+                        {
+                            "Type": "bind",
+                            "Source": "/home/marcel/stack/traefik/letsencrypt",
+                            "Target": "/letsencrypt"
+                        }
+                    ],
+                    "StopGracePeriod": 10000000000,
+                    "DNSConfig": {},
+                    "Isolation": "default"
+                },
+                "Resources": {},
+                "RestartPolicy": {
+                    "Condition": "any",
+                    "Delay": 5000000000,
+                    "MaxAttempts": 0
+                },
+                "Placement": {
+                    "Constraints": [
+                        "node.role == manager"
+                    ],
+                    "Platforms": [
+                        {
+                            "Architecture": "amd64",
+                            "OS": "linux"
+                        },
+                        {
+                            "OS": "linux"
+                        },
+                        {
+                            "Architecture": "arm64",
+                            "OS": "linux"
+                        }
+                    ]
+                },
+                "Networks": [
+                    {
+                        "Target": "ozlptfz72n35niwdxc9w85myt",
+                        "Aliases": [
+                            "reverse-proxy"
+                        ]
+                    },
+                    {
+                        "Target": "innj72g6pj6mcfrj90m7ks74o",
+                        "Aliases": [
+                            "reverse-proxy"
+                        ]
+                    }
+                ],
+                "ForceUpdate": 0,
+                "Runtime": "container"
+            },
+            "Mode": {
+                "Replicated": {
+                    "Replicas": 1
+                }
+            },
+            "UpdateConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "RollbackConfig": {
+                "Parallelism": 1,
+                "FailureAction": "pause",
+                "Monitor": 5000000000,
+                "MaxFailureRatio": 0,
+                "Order": "stop-first"
+            },
+            "EndpointSpec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 80,
+                        "PublishedPort": 80,
+                        "PublishMode": "ingress"
+                    },
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 443,
+                        "PublishedPort": 443,
+                        "PublishMode": "ingress"
+                    },
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 8082,
+                        "PublishedPort": 8082,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            }
+        },
+        "Endpoint": {
+            "Spec": {
+                "Mode": "vip",
+                "Ports": [
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 80,
+                        "PublishedPort": 80,
+                        "PublishMode": "ingress"
+                    },
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 443,
+                        "PublishedPort": 443,
+                        "PublishMode": "ingress"
+                    },
+                    {
+                        "Protocol": "tcp",
+                        "TargetPort": 8082,
+                        "PublishedPort": 8082,
+                        "PublishMode": "ingress"
+                    }
+                ]
+            },
+            "Ports": [
+                {
+                    "Protocol": "tcp",
+                    "TargetPort": 80,
+                    "PublishedPort": 80,
+                    "PublishMode": "ingress"
+                },
+                {
+                    "Protocol": "tcp",
+                    "TargetPort": 443,
+                    "PublishedPort": 443,
+                    "PublishMode": "ingress"
+                },
+                {
+                    "Protocol": "tcp",
+                    "TargetPort": 8082,
+                    "PublishedPort": 8082,
+                    "PublishMode": "ingress"
+                }
+            ],
+            "VirtualIPs": [
+                {
+                    "NetworkID": "kmh5bpeiy1tjl4h493yq85vhd",
+                    "Addr": "10.255.1.116/16"
+                },
+                {
+                    "NetworkID": "ozlptfz72n35niwdxc9w85myt",
+                    "Addr": "10.0.26.5/24"
+                },
+                {
+                    "NetworkID": "innj72g6pj6mcfrj90m7ks74o",
+                    "Addr": "10.0.9.26/24"
+                }
+            ]
+        }
+    }
+]

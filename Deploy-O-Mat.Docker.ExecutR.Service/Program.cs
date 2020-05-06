@@ -56,7 +56,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    hostContext.HostingEnvironment.EnvironmentName = "Development";
+                    //hostContext.HostingEnvironment.EnvironmentName = "Development";
                     DependencyContainer.RegisterServices(services);
                     services.AddMediatR(typeof(Program));
                     // services.AddHostedService<UpdateService>();
@@ -88,7 +88,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
 
                     services.AddDbContext<ExecutRContext>(options =>
                     {
-                        options.UseSqlite("Data Source=dockerService.db");
+                        options.UseSqlite("Data Source=ExecutR.db");
                     });
                 })
                 .ConfigureLogging(logging =>

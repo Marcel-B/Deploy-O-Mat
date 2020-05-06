@@ -26,27 +26,11 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
-
                 var host = CreateHostBuilder(args).Build();
-                IEventBus eventBus = null;
-                var services = host.Services;
-
+                using var scope = host.Services.CreateScope();
+                var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<InspectRContext>();
                 context.Database.Migrate();
-                //context.SeedData();
-                eventBus = services.GetRequiredService<IEventBus>();
-                var secretProvider = services.GetRequiredService<SecretProvider>();
-                var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
-                var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-                var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
-
-                // eventBus.Subscribe<DockerServiceUpdatedEvent, UpdateDockerServiceEventHandler>();
-                // eventBus.Subscribe<DockerStackCreatedEvent, CreateDockerStackEventHandler>();
-                // eventBus.Subscribe<DockerInfoEvent, DockerInfoEventHandler>();
-                // eventBus.Subscribe<DockerStackRemovedEvent, RemoveDockerStackEventHandler>();
-                //
-                // eventBus.Subscribe<DockerServiceCreatedEvent, CreateDockerServiceEventHandler>();
-                // eventBus.Subscribe<DockerServiceRemovedEvent, RemoveDockerServiceEventHandler>();
                 host.Run();
             }
             catch (Exception ex)
@@ -71,7 +55,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
 
                     services.AddDbContext<InspectRContext>(options =>
                     {
-                        options.UseSqlite("Data Source=dockerService.db");
+                        options.UseSqlite("Data Source=InspectR.db");
                         options.UseLazyLoadingProxies();
                     });
                 })

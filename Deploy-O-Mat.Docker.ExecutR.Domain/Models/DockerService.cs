@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Models
 {
@@ -20,8 +19,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Models
         public string Script { get; set; }
         public string Network { get; set; }
 
-        [NotMapped]
-        public string Repo
+        public virtual string Repo
         {
             get
             {
@@ -32,8 +30,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Models
             }
         }
 
-        [NotMapped]
-        public string Net
+        public virtual string Net
         {
             get
             {

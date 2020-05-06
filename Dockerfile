@@ -15,17 +15,17 @@ RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
 RUN apt-get install -y nodejs
 
 # Copy only API for restore packages
-COPY ["Deploy_O_Mat.Web.API/Deploy_O_Mat.Web.API.csproj", "Deploy_O_Mat.Web.API/"]
+COPY ["Deploy-O-Mat.Web.API/Deploy-O-Mat.Web.API.csproj", "Deploy-O-Mat.Web.API/"]
 
 # Restore packages
-RUN dotnet restore "Deploy_O_Mat.Web.API/Deploy_O_Mat.Web.API.csproj"
+RUN dotnet restore "Deploy-O-Mat.Web.API/Deploy-O-Mat.Web.API.csproj"
 
 # Copy rest of the Project
 COPY . .
 
 # Build API
-WORKDIR "/src/Deploy_O_Mat.Web.API"
-RUN dotnet build "Deploy_O_Mat.Web.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Deploy-O-Mat.Web.API"
+RUN dotnet build "Deploy-O-Mat.Web.API.csproj" -c Release -o /app/build
 
 # Restore and Build SPA
 WORKDIR "/src/deploy-o-mat"
@@ -34,11 +34,11 @@ RUN npm install
 RUN npm run build
 
 # Publish
-WORKDIR "/src/Deploy_O_Mat.Web.API"
+WORKDIR "/src/Deploy-O-Mat.Web.API"
 FROM build AS publish
-RUN dotnet publish "Deploy_O_Mat.Web.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Deploy-O-Mat.Web.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Deploy_O_Mat.Web.API.dll"]
+ENTRYPOINT ["dotnet", "Deploy-O-Mat.Web.API.dll"]

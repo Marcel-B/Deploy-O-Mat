@@ -15,10 +15,10 @@ RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
 RUN apt-get install -y nodejs
 
 # Copy only API for restore packages
-COPY ["Deploy_O_Mat.Web.API/Deploy-O-Mat.Web.API.csproj", "Deploy-O-Mat.Web.API/"]
+COPY ["Deploy-O-Mat.Web.API/Deploy-O-Mat.Web.API.csproj", "Deploy-O-Mat.Web.API/"]
 
 # Restore packages
-RUN dotnet restore "Deploy_O_Mat.Web.API/Deploy-O-Mat.Web.API.csproj"
+RUN dotnet restore "Deploy-O-Mat.Web.API/Deploy-O-Mat.Web.API.csproj"
 
 # Copy rest of the Project
 COPY . .

@@ -2,6 +2,8 @@
 using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Bus.Events.DockerService;
 using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Services;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Data.Contracts;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Data.Repositories;
 using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Persistence;
 using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Queue.Infra.IoC;
@@ -23,16 +25,21 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
             {
                 var host = CreateHostBuilder(args).Build();
                 IEventBus eventBus = null;
-                var services = host.Services;
+                using var scope = host.Services.CreateScope();
+                var services = scope.ServiceProvider;
 
-                //var context = services.GetRequiredService<ExecutRContext>();
-                //context.Database.Migrate();
+                var context = services.GetRequiredService<ExecutRContext>();
+                context.Database.Migrate();
 
                 //context.SeedData();
                 eventBus = services.GetRequiredService<IEventBus>();
                 eventBus.Subscribe<Update.DockerServiceUpdatedEvent, Update.UpdateDockerServiceEventHandler>();
-                eventBus.Subscribe<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent, Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
-                eventBus.Subscribe<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent, Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
+                eventBus
+                    .Subscribe<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent,
+                        Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
+                eventBus
+                    .Subscribe<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent,
+                        Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
 
                 eventBus.Subscribe<Create.DockerServiceCreatedEvent, Create.CreateDockerServiceEventHandler>();
                 eventBus.Subscribe<Remove.DockerServiceRemovedEvent, Remove.RemoveDockerServiceEventHandler>();
@@ -49,18 +56,30 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    hostContext.HostingEnvironment.EnvironmentName = "Development";
                     DependencyContainer.RegisterServices(services);
                     services.AddMediatR(typeof(Program));
-                    services.AddHostedService<UpdateService>();
+                    // services.AddHostedService<UpdateService>();
 
                     services.AddScoped<IDockerStackService, DockerStackService>();
                     services.AddScoped<IDockerServiceService, DockerServiceService>();
+                    services.AddScoped<IExecutRRepository, ExecutRRepository>();
 
-                    services.AddScoped<IEventHandler<Update.DockerServiceUpdatedEvent>, Update.UpdateDockerServiceEventHandler>();
-                    services.AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent>, Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
-                    services.AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent>, Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
-                    services.AddScoped<IEventHandler<Remove.DockerServiceRemovedEvent>, Remove.RemoveDockerServiceEventHandler>();
-                    services.AddScoped<IEventHandler<Create.DockerServiceCreatedEvent>, Create.CreateDockerServiceEventHandler>();
+                    services
+                        .AddScoped<IEventHandler<Update.DockerServiceUpdatedEvent>,
+                            Update.UpdateDockerServiceEventHandler>();
+                    services
+                        .AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent>,
+                            Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
+                    services
+                        .AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent>,
+                            Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
+                    services
+                        .AddScoped<IEventHandler<Remove.DockerServiceRemovedEvent>,
+                            Remove.RemoveDockerServiceEventHandler>();
+                    services
+                        .AddScoped<IEventHandler<Create.DockerServiceCreatedEvent>,
+                            Create.CreateDockerServiceEventHandler>();
 
                     services.AddScoped<Update.UpdateDockerServiceEventHandler>();
                     services.AddScoped<Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();

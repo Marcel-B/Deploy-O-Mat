@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>com.b_velop.Deploy_O_Mat.Web.Infrastructure</RootNamespace>
   </PropertyGroup>
 
@@ -9,9 +9,9 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Application\Deploy_O_Mat.Web.Application.csproj" />
+    <ProjectReference Include="..\Deploy-O-Mat.Web.Application\Deploy-O-Mat.Web.Application.csproj" />
   </ItemGroup>
 </Project>

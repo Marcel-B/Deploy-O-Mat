@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -140,7 +139,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Services
         {
             var consoleResult = string.Empty;
 #if DEBUG
-            consoleResult = System.IO.File.ReadAllText("inspect.json");
+            consoleResult = await System.IO.File.ReadAllTextAsync("inspect.json");
 #else
             var processResult = await _processor.Process("docker", $"inspect {string.Join(' ', serviceIds)}");
             if (!processResult.Success)

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>com.b_velop.Deploy_O_Mat.Web.Application</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>latestmajor</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>latestmajor</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="b-velop.Utilities" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DockerImage\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Services\" />
+    <Folder Include="DockerService\" />
+    <Folder Include="User\" />
+    <Folder Include="DockerStack\" />
+    <Folder Include="DockerInfo\" />
+    <Folder Include="DockerActiveService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Deploy-O-Mat.Queue.Domain.Core\Deploy-O-Mat.Queue.Domain.Core.csproj" />
+    <ProjectReference Include="..\Deploy-O-Mat.Web.Data\Deploy-O-Mat.Web.Data.csproj" />
+    <ProjectReference Include="..\Deploy_O_Mat.Web.Common\Deploy_O_Mat.Web.Common.csproj" />
+  </ItemGroup>
+</Project>

@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Events;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.Models;
+using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
+using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Commands;
 using MediatR;
-using MicroRabbit.Domain.Core.Bus;
-using MicroRabbit.Domain.Core.Commands;
 
 namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Commands
 {

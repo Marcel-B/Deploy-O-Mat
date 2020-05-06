@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Commands;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Data.Contracts;
-using MicroRabbit.Domain.Core.Bus;
+using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

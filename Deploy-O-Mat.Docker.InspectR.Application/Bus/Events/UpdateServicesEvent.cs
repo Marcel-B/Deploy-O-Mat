@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using com.b_velop.Deploy_O_Mat.Docker.InspectR.Domain.Models;
-using MicroRabbit.Domain.Core.Events;
+using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Events;
 
 namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Application.Bus.Events
 {

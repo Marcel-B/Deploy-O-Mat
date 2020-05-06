@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Interfaces;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Models;
 using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Shared.Contracts;

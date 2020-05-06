@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>com.b_velop.Deploy_O_Mat.Docker.ExecutR.Data</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Contracts" />
+      <Folder Include="Repositories" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Deploy-O-Mat.Docker.ExecutR.Persistence\Deploy-O-Mat.Docker.ExecutR.Persistence.csproj" />
+    </ItemGroup>
+
+</Project>

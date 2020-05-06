@@ -24,12 +24,13 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
         static void Main(string[] args)
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-
-            var host = CreateHostBuilder(args).Build();
-            IEventBus eventBus = null;
-            var services = host.Services;
             try
             {
+
+                var host = CreateHostBuilder(args).Build();
+                IEventBus eventBus = null;
+                var services = host.Services;
+
                 var context = services.GetRequiredService<InspectRContext>();
                 context.Database.Migrate();
                 //context.SeedData();
@@ -54,13 +55,13 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
                 logger.Log(NLog.LogLevel.Fatal, ex, "An error occurred during migration");
             }
         }
-        
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
                     DependencyContainer.RegisterServices(services);
-                    services.AddMediatR(typeof(Program)); 
+                    services.AddMediatR(typeof(Program));
                     services.AddAutoMapper(typeof(Program).Assembly);
                     services.AddHostedService<DockerServiceReport>();
                     services.AddScoped<IInspectRRepository, InspectRRepository>();

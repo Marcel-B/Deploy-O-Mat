@@ -1,10 +1,12 @@
 ﻿using System;
-using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.EventHandlers;
-using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Domain.Events;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Bus.Events.DockerService;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Contracts;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Services;
+using com.b_velop.Deploy_O_Mat.Docker.ExecutR.Persistence;
 using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Queue.Infra.IoC;
-using com.b_velop.Utilities.Docker;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,27 +19,23 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
         static void Main(string[] args)
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-
-            var host = CreateHostBuilder(args).Build();
-            IEventBus eventBus = null;
-            var services = host.Services;
             try
             {
-                //var context = services.GetRequiredService<DockerServiceDbContext>();
+                var host = CreateHostBuilder(args).Build();
+                IEventBus eventBus = null;
+                var services = host.Services;
+
+                //var context = services.GetRequiredService<ExecutRContext>();
                 //context.Database.Migrate();
+
                 //context.SeedData();
                 eventBus = services.GetRequiredService<IEventBus>();
-                var secretProvider = services.GetRequiredService<SecretProvider>();
-                var userName = secretProvider.GetSecret("rabbit_user") ?? "guest";
-                var passWord = secretProvider.GetSecret("rabbit_pass") ?? "guest";
-                var HostName = secretProvider.GetSecret("HOSTNAME") ?? "localhost";
+                eventBus.Subscribe<Update.DockerServiceUpdatedEvent, Update.UpdateDockerServiceEventHandler>();
+                eventBus.Subscribe<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent, Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
+                eventBus.Subscribe<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent, Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
 
-                eventBus.Subscribe<DockerServiceUpdatedEvent, UpdateDockerServiceEventHandler>();
-                eventBus.Subscribe<DockerStackCreatedEvent, CreateDockerStackEventHandler>();
-                eventBus.Subscribe<DockerStackRemovedEvent, RemoveDockerStackEventHandler>();
-
-                eventBus.Subscribe<DockerServiceCreatedEvent, CreateDockerServiceEventHandler>();
-                eventBus.Subscribe<DockerServiceRemovedEvent, RemoveDockerServiceEventHandler>();
+                eventBus.Subscribe<Create.DockerServiceCreatedEvent, Create.CreateDockerServiceEventHandler>();
+                eventBus.Subscribe<Remove.DockerServiceRemovedEvent, Remove.RemoveDockerServiceEventHandler>();
                 host.Run();
             }
             catch (Exception ex)
@@ -47,24 +45,39 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                DependencyContainer.RegisterServices(services);
-                services.AddMediatR(typeof(Program));
-                services.AddHostedService<UpdateService>();
-                //services.AddDbContext<DockerServiceDbContext>(options =>
-                //{
-                //    options.UseSqlite("Data Source=dockerService.db");
-                //});
-            })
-            .ConfigureLogging(logging =>
-            {
-                logging.ClearProviders();
-                logging.AddConsole();
-                logging.SetMinimumLevel(LogLevel.Trace);
-            })
-            .UseNLog();
+                .ConfigureServices((hostContext, services) =>
+                {
+                    DependencyContainer.RegisterServices(services);
+                    services.AddMediatR(typeof(Program));
+                    services.AddHostedService<UpdateService>();
+
+                    services.AddScoped<IDockerStackService, DockerStackService>();
+                    services.AddScoped<IDockerServiceService, DockerServiceService>();
+
+                    services.AddScoped<IEventHandler<Update.DockerServiceUpdatedEvent>, Update.UpdateDockerServiceEventHandler>();
+                    services.AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent>, Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
+                    services.AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent>, Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
+                    services.AddScoped<IEventHandler<Remove.DockerServiceRemovedEvent>, Remove.RemoveDockerServiceEventHandler>();
+                    services.AddScoped<IEventHandler<Create.DockerServiceCreatedEvent>, Create.CreateDockerServiceEventHandler>();
+
+                    services.AddScoped<Update.UpdateDockerServiceEventHandler>();
+                    services.AddScoped<Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
+                    services.AddScoped<Remove.RemoveDockerServiceEventHandler>();
+                    services.AddScoped<Create.CreateDockerServiceEventHandler>();
+
+                    services.AddDbContext<ExecutRContext>(options =>
+                    {
+                        options.UseSqlite("Data Source=dockerService.db");
+                    });
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
     }
 }

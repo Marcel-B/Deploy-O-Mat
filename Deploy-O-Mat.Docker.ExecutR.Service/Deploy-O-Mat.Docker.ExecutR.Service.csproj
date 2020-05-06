@@ -35,6 +35,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Deploy-O-Mat.Docker.ExecutR.Application\Deploy-O-Mat.Docker.ExecutR.Application.csproj" />
     <ProjectReference Include="..\Deploy-O-Mat.Queue.Infra.IoC\Deploy-O-Mat.Queue.Infra.IoC.csproj" />
   </ItemGroup>
 </Project>

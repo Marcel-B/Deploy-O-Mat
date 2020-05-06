@@ -22,6 +22,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
 
         [HttpPost("create")]
         // [Authorize(Policy = "RequireAdminRole")]
+        [AllowAnonymous]
         public async Task<ActionResult<Unit>> Create(
             Create.Command command)
             => await Mediator.Send(command);

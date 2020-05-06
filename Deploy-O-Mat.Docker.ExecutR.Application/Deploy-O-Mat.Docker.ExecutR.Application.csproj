@@ -9,7 +9,7 @@
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Deploy-O-Mat.Docker.ExecutR.Domain\Deploy-O-Mat.Docker.ExecutR.Domain.csproj" />
+    <ProjectReference Include="..\Deploy-O-Mat.Docker.ExecutR.Data\Deploy-O-Mat.Docker.ExecutR.Data.csproj" />
     <ProjectReference Include="..\Deploy-O-Mat.Queue.Domain.Core\Deploy-O-Mat.Queue.Domain.Core.csproj" />
     <ProjectReference Include="..\Deploy-O-Mat.Shared\Deploy-O-Mat.Shared.csproj" />
   </ItemGroup>

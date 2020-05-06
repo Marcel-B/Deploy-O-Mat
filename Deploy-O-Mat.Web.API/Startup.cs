@@ -2,17 +2,25 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Queue.Infra.IoC;
 using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Application.Services;
 using com.b_velop.Deploy_O_Mat.Web.Application.SignalR;
 using com.b_velop.Deploy_O_Mat.Web.Application.User;
+using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
+using com.b_velop.Deploy_O_Mat.Web.Data.Repository;
 using com.b_velop.Deploy_O_Mat.Web.Identity.Models;
+using com.b_velop.Deploy_O_Mat.Web.Infrastructure.Security;
 using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using com.b_velop.Utilities.Docker;
+using Deploy_O_Mat.Web.Application.Interfaces;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -78,7 +86,20 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
-            
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IDeployOMatWebRepository, DeployOMatWebRepository>();
+            services.AddScoped<IDockerStackLogService, DockerStackLogService>();
+            services.AddScoped<IDockerStackService, DockerStackService>();
+            services.AddScoped<IDockerImageService, DockerImageService>();
+            services.AddScoped<IDockerServiceService, DockerServiceService>();
+            services.AddScoped<UpdateServicesEventHandler>();
+            services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
+            services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateCreateDockerServiceCommand, bool>, CreateDockerServiceCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateRemoveDockerServiceCommand, bool>, RemoveDockerServiceCommandHandler>();
+
             var secretProvider = new SecretProvider();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
             var username = secretProvider.GetSecret("username") ?? "";
@@ -88,7 +109,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
 
             var connection = $"Host={host};Port=5432;Username={username};Password={password};Database=DeployOMat;";
 
-            services.AddScoped<IDockerStackLogService, DockerStackLogService>();
             services.AddDbContext<WebContext>(options =>
             {
                 if (Env.IsDevelopment())

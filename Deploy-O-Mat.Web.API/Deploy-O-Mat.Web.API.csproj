@@ -29,12 +29,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy-O-Mat.Queue.Infra.IoC\Deploy-O-Mat.Queue.Infra.IoC.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Common\Deploy_O_Mat.Web.Common.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Infrastructure\Deploy_O_Mat.Web.Infrastructure.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\Deploy-O-Mat.Web.Common\Deploy-O-Mat.Web.Common.csproj" />
+    <ProjectReference Include="..\Deploy-O-Mat.Web.Infrastructure\Deploy-O-Mat.Web.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />

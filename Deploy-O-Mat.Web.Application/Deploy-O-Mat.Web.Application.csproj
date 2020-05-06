@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deploy-O-Mat.Queue.Domain.Core\Deploy-O-Mat.Queue.Domain.Core.csproj" />
+    <ProjectReference Include="..\Deploy-O-Mat.Web.Common\Deploy-O-Mat.Web.Common.csproj" />
     <ProjectReference Include="..\Deploy-O-Mat.Web.Data\Deploy-O-Mat.Web.Data.csproj" />
-    <ProjectReference Include="..\Deploy_O_Mat.Web.Common\Deploy_O_Mat.Web.Common.csproj" />
   </ItemGroup>
 </Project>

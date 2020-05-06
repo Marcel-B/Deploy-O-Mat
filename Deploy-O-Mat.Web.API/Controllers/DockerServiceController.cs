@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.DockerService;
-using com.b_velop.Deploy_O_Mat.Web.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

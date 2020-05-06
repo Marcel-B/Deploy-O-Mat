@@ -6,9 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="EventHandlers\" />
-    <Folder Include="Events\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

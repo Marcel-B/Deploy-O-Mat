@@ -86,10 +86,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
                     services.AddScoped<Remove.RemoveDockerServiceEventHandler>();
                     services.AddScoped<Create.CreateDockerServiceEventHandler>();
 
-                    services.AddDbContext<ExecutRContext>(options =>
-                    {
-                        options.UseSqlite("Data Source=ExecutR.db");
-                    });
+                    services.AddDbContext<ExecutRContext>(options => { options.UseSqlite("Data Source=ExecutR.db"); });
                 })
                 .ConfigureLogging(logging =>
                 {

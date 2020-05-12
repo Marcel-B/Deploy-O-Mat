@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 
-namespace com.b_velop.Deploy_O_Mat.Web.Application.Interfaces
+namespace com.b_velop.Deploy_O_Mat.Web.Application.Contracts
 {
     public interface IDockerServiceService
     {

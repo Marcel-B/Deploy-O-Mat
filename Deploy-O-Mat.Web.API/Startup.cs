@@ -35,6 +35,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Prometheus;
+using Prometheus.HttpMetrics;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -63,10 +64,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                         .Build();
                     opt.Filters.Add(new AuthorizeFilter(policy));
                 })
-                .AddFluentValidation(cfg =>
-                {
-                    cfg.RegisterValidatorsFromAssemblyContaining<Login>();
-                })
+                .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Login>(); })
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -96,10 +94,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             services.AddScoped<IDockerServiceService, DockerServiceService>();
             services.AddScoped<UpdateServicesEventHandler>();
             services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
-            services.AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler>();
+            services
+                .AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler
+                >();
             services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
-            services.AddTransient<IRequestHandler<CreateCreateDockerServiceCommand, bool>, CreateDockerServiceCommandHandler>();
-            services.AddTransient<IRequestHandler<CreateRemoveDockerServiceCommand, bool>, RemoveDockerServiceCommandHandler>();
+            services
+                .AddTransient<IRequestHandler<CreateCreateDockerServiceCommand, bool>, CreateDockerServiceCommandHandler
+                >();
+            services
+                .AddTransient<IRequestHandler<CreateRemoveDockerServiceCommand, bool>, RemoveDockerServiceCommandHandler
+                >();
 
             var secretProvider = new SecretProvider();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";
@@ -150,10 +154,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                         {
                             var accessToken = context.Request.Query["access_token"];
                             var path = context.HttpContext.Request.Path;
-                            if(!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/info")))
+                            if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/info")))
                             {
                                 context.Token = accessToken;
                             }
+
                             return Task.CompletedTask;
                         }
                     };
@@ -196,8 +201,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseHttpMetrics();
-            
+            app.UseHttpMetrics(opt =>
+            {
+                opt.RequestCount = new HttpRequestCountOptions
+                {
+                    Enabled = true,
+                    Counter = Metrics.CreateCounter("deployomat_request_count", "Number of processed jobs.")
+                };
+                opt.RequestDuration = new HttpRequestDurationOptions
+                {
+                    Enabled = true,
+                    Histogram = Metrics.CreateHistogram("deployomat_http_request_duration_seconds",
+                        "Histogram of received order values (in USD).")
+                };
+            });
+
             app.UseCors(Strings.CorsPolicy);
             app.UseAuthentication();
             app.UseAuthorization();

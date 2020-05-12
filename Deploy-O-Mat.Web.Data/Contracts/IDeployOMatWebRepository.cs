@@ -24,6 +24,6 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Contracts
 
         DockerImage UpdateDockerImage(DockerImage newDockerImage, DockerImage oldDockerImage, CancellationToken cancellationToken = default);
 
-        Task<bool> SaveChangesAsync();
+        Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

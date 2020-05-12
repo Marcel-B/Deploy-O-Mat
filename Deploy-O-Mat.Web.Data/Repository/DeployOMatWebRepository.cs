@@ -77,9 +77,9 @@ namespace com.b_velop.Deploy_O_Mat.Web.Data.Repository
             return Task.CompletedTask;
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var success = await _context.SaveChangesAsync() > 0;
+            var success = await _context.SaveChangesAsync(cancellationToken) > 0;
             return success;
         }
 

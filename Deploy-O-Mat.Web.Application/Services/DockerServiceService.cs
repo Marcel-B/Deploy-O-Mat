@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
+using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Common.Exceptions;
 using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
@@ -30,9 +31,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerService = await _repo.GetDockerService(id);
 
             if (dockerService == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerService = "Not found", id });
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new {dockerService = "Not found", id});
 
-            await _eventBus.SendCommand(new CreateCreateDockerServiceCommand(dockerService.Name, dockerService.Repo, dockerService.Tag, dockerService.Network, dockerService.Script));
+            await _eventBus.SendCommand(new CreateCreateDockerServiceCommand(dockerService.Name, dockerService.Repo,
+                dockerService.Tag, dockerService.Network, dockerService.Script));
+            dockerService.Updated = DateTime.UtcNow;
+            _ = await _repo.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<Domain.Models.DockerService>> Get(
@@ -46,7 +50,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             var dockerService = await _repo.GetDockerService(id);
 
             if (dockerService == null)
-                throw new RestException(System.Net.HttpStatusCode.NotFound, new { dockerService = "Not found", id });
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new {dockerService = "Not found", id});
 
             await _eventBus.SendCommand(new CreateRemoveDockerServiceCommand(dockerService.Name));
         }
@@ -62,7 +66,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                 return new ServiceResponse
                 {
                     Success = false,
-                    Error = new { dockerService = "Not found", id },
+                    Error = new {dockerService = "Not found", id},
                     Message = $"DockerService not found",
                     HttpStatusCode = System.Net.HttpStatusCode.NotFound
                 };

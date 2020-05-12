@@ -34,6 +34,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Prometheus;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -195,7 +196,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseHttpMetrics();
+            
             app.UseCors(Strings.CorsPolicy);
             app.UseAuthentication();
             app.UseAuthorization();
@@ -205,6 +207,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
                 endpoints.MapControllers();
                 endpoints.MapHub<DockerServiceUpdateHub>("/info");
                 endpoints.MapFallbackToController("Index", "Fallback");
+                endpoints.MapMetrics();
             });
         }
     }

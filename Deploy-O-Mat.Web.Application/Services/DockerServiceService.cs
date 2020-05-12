@@ -35,7 +35,8 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
 
             await _eventBus.SendCommand(new CreateCreateDockerServiceCommand(dockerService.Name, dockerService.Repo,
                 dockerService.Tag, dockerService.Network, dockerService.Script));
-            dockerService.Updated = DateTime.UtcNow;
+            
+            dockerService.LastRestart = DateTime.UtcNow;
             _ = await _repo.SaveChangesAsync(cancellationToken);
         }
 

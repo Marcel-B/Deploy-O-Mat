@@ -36,7 +36,7 @@ const DockerStackListItem: React.FC<{
                         <Item.Group>
                             <Button.Group fluid>
                                 <Button
-                                    content='Create'
+                                    content='Start'
                                     color='green'
                                     onClick={() =>
                                         createDockerStack(dockerStack.id)
@@ -44,7 +44,7 @@ const DockerStackListItem: React.FC<{
                                 />
                                 {/* <Button content='Update' color='blue' /> */}
                                 <Button
-                                    content='Remove'
+                                    content='Stop'
                                     color='red'
                                     onClick={() =>
                                         removeDockerStack(dockerStack.id)

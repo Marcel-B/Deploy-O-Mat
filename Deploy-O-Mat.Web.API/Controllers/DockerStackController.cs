@@ -11,6 +11,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
     public class DockerStackController : BaseController
     {
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<DockerStack>>> Get()
             => await Mediator.Send(new List.Query());
 
@@ -20,9 +21,13 @@ namespace com.b_velop.Deploy_O_Mat.Web.API.Controllers
             => await Mediator.Send(command);
         
         [HttpPost("start")]
-        [AllowAnonymous]
         public async Task<ActionResult<Unit>> Start(
             Start.Command command)
+            => await Mediator.Send(command);
+            
+        [HttpPost("stop")]
+        public async Task<ActionResult<Unit>> Stop(
+            Stop.Command command)
             => await Mediator.Send(command);
 
         [HttpPost("update")]

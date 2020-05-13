@@ -24,34 +24,34 @@ export default class DockerServiceStore {
         return Array.from(this.dockerServiceRegistry.values()).sort((a, b) => Date.parse(a.updated) - Date.parse(b.updated)).reverse();
     }
 
-    @action removeDockerService = async (id: string) => {
+    @action stopDockerService = async (id: string) => {
         try {
             this.loadingServices = true;
             const service: IDockerService = this.dockerServiceRegistry.get(id);
-            await agent.DockerServices.remove(id);
-            runInAction('remove dockerService', () => {
+            await agent.DockerServices.stop(id);
+            runInAction('stop dockerService', () => {
                 this.loadingServices = false;
-                toast.info(`Service ${service.name} removed`);
+                toast.info(`Service ${service.name} stopped`);
             });
         } catch (error) {
-            runInAction('error removing dockerService', () => {
+            runInAction('error stopping dockerService', () => {
                 this.loadingServices = false;
                 throw error;
             });
         }
     }
 
-    @action createDockerService = async (id: string) => {
+    @action startDockerService = async (id: string) => {
         try {
             this.loadingServices = true;
             const service: IDockerService = this.dockerServiceRegistry.get(id);
-            await agent.DockerServices.create(id);
-            runInAction('create dockerService', () => {
+            await agent.DockerServices.start(id);
+            runInAction('start dockerService', () => {
                 this.loadingServices = false;
-                toast.info(`Service ${service.name} created`);
+                toast.info(`Service ${service.name} started`);
             });
         } catch (error) {
-            runInAction('error creating dockerService', () => {
+            runInAction('error starting dockerService', () => {
                 this.loadingServices = false;
                 throw error;
             });

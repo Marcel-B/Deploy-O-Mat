@@ -6,9 +6,9 @@ import TimeAgo from 'react-timeago';
 const DockerStackListItem: React.FC<{
     dockerStack: IDockerStack;
     isLoggedIn: boolean;
-    createDockerStack: (id: string) => void;
-    removeDockerStack: (id: string) => void;
-}> = ({ dockerStack, createDockerStack, removeDockerStack, isLoggedIn }) => {
+    startDockerStack: (id: string) => void;
+    stopDockerStack: (id: string) => void;
+}> = ({ dockerStack, startDockerStack, stopDockerStack, isLoggedIn }) => {
     return (
         <Fragment>
             <Segment.Group>
@@ -39,7 +39,7 @@ const DockerStackListItem: React.FC<{
                                     content='Start'
                                     color='green'
                                     onClick={() =>
-                                        createDockerStack(dockerStack.id)
+                                        startDockerStack(dockerStack.id)
                                     }
                                 />
                                 {/* <Button content='Update' color='blue' /> */}
@@ -47,7 +47,7 @@ const DockerStackListItem: React.FC<{
                                     content='Stop'
                                     color='red'
                                     onClick={() =>
-                                        removeDockerStack(dockerStack.id)
+                                        stopDockerStack(dockerStack.id)
                                     }
                                 />
                             </Button.Group>

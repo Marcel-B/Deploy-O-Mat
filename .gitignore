@@ -12,3 +12,4 @@ dockerImageSample.json
 rabbit.yml
 kibana.yml
 traefik.yml
+/Deploy-O-Mat.Docker.ExecutR.Service/ExecutR.db

@@ -8,7 +8,7 @@ import DockerStackListItem from './DockerStackListItem';
 
 const DockerStackList: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { loadingStack, dockerStacksByUpdated, createDockerStack, removeDockerStack } = rootStore.dockerStackStore;
+    const { loadingStack, dockerStacksByUpdated, startDockerStack, stopDockerStack } = rootStore.dockerStackStore;
     const { isLoggedIn } = rootStore.userStore;
 
     if (loadingStack) return <LoadingComponent content='Loading images...' />;
@@ -19,8 +19,8 @@ const DockerStackList: React.FC = () => {
                 <DockerStackListItem
                     dockerStack={dockerStack}
                     key={dockerStack.id}
-                    createDockerStack={createDockerStack}
-                    removeDockerStack={removeDockerStack}
+                    startDockerStack={startDockerStack}
+                    stopDockerStack={stopDockerStack}
                     isLoggedIn={isLoggedIn}
                 />
             ))}

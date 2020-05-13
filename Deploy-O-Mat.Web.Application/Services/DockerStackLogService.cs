@@ -6,6 +6,7 @@ using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
 using com.b_velop.Deploy_O_Mat.Web.Application.SignalR;
 using com.b_velop.Deploy_O_Mat.Web.Data.Contracts;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
 {
@@ -13,13 +14,16 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
     {
         private readonly IHubContext<DockerServiceUpdateHub> _hub;
         private readonly IDeployOMatWebRepository _repository;
+        private readonly ILogger<DockerStackLogService> _logger;
 
         public DockerStackLogService(
             IHubContext<DockerServiceUpdateHub> hub,
-            IDeployOMatWebRepository repository)
+            IDeployOMatWebRepository repository,
+            ILogger<DockerStackLogService> logger)
         {
             _hub = hub;
             _repository = repository;
+            _logger = logger;
         }
         public async Task UpdateStackLogs(IEnumerable<Domain.Models.DockerStackLog> dockerStackLogs)
         { 
@@ -37,6 +41,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                 });
             }
             var v = JsonSerializer.Serialize(s);
+            _logger.LogInformation($"Update information with\n{v}");
             await _hub.Clients.All.SendAsync("SendUpdate", v);
         }
     }

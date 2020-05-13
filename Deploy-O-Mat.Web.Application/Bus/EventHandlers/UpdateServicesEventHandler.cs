@@ -4,21 +4,26 @@ using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Queue.Domain.Core.Bus;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.Events;
 using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
+using Microsoft.Extensions.Logging;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers
 {
     public class UpdateServicesEventHandler : IEventHandler<UpdateServicesEvent>
     {
         private readonly IDockerStackLogService _dockerStackLogService;
+        private readonly ILogger<UpdateServicesEventHandler> _logger;
 
         public UpdateServicesEventHandler(
-            IDockerStackLogService dockerStackLogService)
+            IDockerStackLogService dockerStackLogService,
+            ILogger<UpdateServicesEventHandler> logger)
         {
             _dockerStackLogService = dockerStackLogService;
+            _logger = logger;
         }
 
         public Task Handle(UpdateServicesEvent @event)
         {
+            _logger.LogInformation($"Incoming DockerServices information");
             var e = @event.DockerServices;
 
             var lst = new List<Domain.Models.DockerStackLog>();

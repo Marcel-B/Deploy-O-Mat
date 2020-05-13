@@ -53,12 +53,15 @@ namespace com.b_velop.Deploy_O_Mat.Docker.InspectR.Service
                     services.AddMediatR(typeof(Program));
                     services.AddAutoMapper(typeof(Program).Assembly);
                     services.AddHostedService<DockerServiceReport>();
+                    
                     services.AddScoped<Details.DockerServiceDetailEventHandler>();
                     services.AddScoped<IInspectRRepository, InspectRRepository>();
                     services.AddScoped<IDockerServiceService, DockerServiceService>();
                     services.AddScoped<Create.UpdateServicesCommandHandler>();
+                    
                     services
                         .AddScoped<IRequestHandler<Create.UpdateServices, bool>, Create.UpdateServicesCommandHandler>();
+                    
                     services
                         .AddScoped<IEventHandler<Details.DockerServiceDetailEvent>,
                             Details.DockerServiceDetailEventHandler>();

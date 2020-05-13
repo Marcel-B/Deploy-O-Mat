@@ -55,7 +55,7 @@ const DockerServiceListItem: React.FC<IProps> = ({
                         <Item.Group>
                             <Button.Group fluid>
                                 <Button
-                                    content='Create'
+                                    content='Start'
                                     color='green'
                                     onClick={() =>
                                         createDockerService(dockerService.id)
@@ -63,7 +63,7 @@ const DockerServiceListItem: React.FC<IProps> = ({
                                 />
                                 <Button content='Update' color='blue' />
                                 <Button
-                                    content='Remove'
+                                    content='Stop'
                                     color='red'
                                     onClick={() =>
                                         removeDockerService(dockerService.id)

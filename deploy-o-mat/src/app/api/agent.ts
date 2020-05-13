@@ -63,12 +63,14 @@ const DockerImages = {
 
 const DockerStacks = {
     list: (): Promise<IDockerStack[]> => requests.get("/dockerstack"),
-    remove: (id: string) => requests.post(`/dockerstack/remove`, { id }),
-    create: (id: string) => requests.post(`/dockerstack/create`, { id })
+    stop: (id: string) => requests.post(`/dockerstack/stop`, { id }),
+    start: (id: string) => requests.post(`/dockerstack/start`, { id })
 }
 
 const DockerServices = {
     list: (): Promise<IDockerService[]> => requests.get("/dockerservice"),
+    start: (id: string) => requests.post(`/dockerservice/start`, { id }),
+    stop: (id: string) => requests.post(`/dockerservice/stop`, { id }),
     remove: (id: string) => requests.post(`/dockerservice/remove`, { id }),
     create: (id: string) => requests.post(`/dockerservice/create`, { id })
 }

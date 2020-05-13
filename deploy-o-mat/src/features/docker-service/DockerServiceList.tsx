@@ -11,8 +11,8 @@ const DockerServiceList: React.FC = () => {
     const {
         dockerServicesByUpdated,
         loadingServices,
-        createDockerService,
-        removeDockerService,
+        startDockerService,
+        stopDockerService,
     } = rootStore.dockerServiceStore;
     const { isLoggedIn } = rootStore.userStore;
 
@@ -26,8 +26,8 @@ const DockerServiceList: React.FC = () => {
                     key={dockerService.id}
                     loggedIn={isLoggedIn}
                     dockerService={dockerService}
-                    removeDockerService={removeDockerService}
-                    createDockerService={createDockerService}
+                    stopDockerService={stopDockerService}
+                    startDockerService={startDockerService}
                 />
             ))}
         </Item.Group>

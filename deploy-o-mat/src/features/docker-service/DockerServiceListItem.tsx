@@ -5,8 +5,8 @@ import TimeAgo from 'react-timeago';
 import {format} from "date-fns";
 
 interface IProps {
-    removeDockerService: (id: string) => void;
-    createDockerService: (id: string) => void;
+    stopDockerService: (id: string) => void;
+    startDockerService: (id: string) => void;
     dockerService: IDockerService;
     loggedIn: boolean;
 }
@@ -14,8 +14,8 @@ interface IProps {
 const DockerServiceListItem: React.FC<IProps> = ({
     dockerService,
     loggedIn,
-    removeDockerService,
-    createDockerService,
+                                                     stopDockerService,
+                                                     startDockerService,
 }) => {
     return (
         <Fragment>
@@ -58,7 +58,7 @@ const DockerServiceListItem: React.FC<IProps> = ({
                                     content='Start'
                                     color='green'
                                     onClick={() =>
-                                        createDockerService(dockerService.id)
+                                        startDockerService(dockerService.id)
                                     }
                                 />
                                 <Button content='Update' color='blue' />
@@ -66,7 +66,7 @@ const DockerServiceListItem: React.FC<IProps> = ({
                                     content='Stop'
                                     color='red'
                                     onClick={() =>
-                                        removeDockerService(dockerService.id)
+                                        stopDockerService(dockerService.id)
                                     }
                                 />
                             </Button.Group>

@@ -36,34 +36,34 @@ export default class DockerStackStore {
         }
     }
 
-    @action createDockerStack = async (id: string) => {
+    @action startDockerStack = async (id: string) => {
         try {
             this.loadingStack = true;
             const { name } = this.dockerStackRegistry.get(id);
-            await agent.DockerStacks.create(id);
-            runInAction('create dockerStack', () => {
+            await agent.DockerStacks.start(id);
+            runInAction('start dockerStack', () => {
                 this.loadingStack = false;
-                toast.success(`Stack ${name} created`)
+                toast.success(`Stack ${name} started`)
             })
          } catch (error) {
             this.loadingStack = false;
-            toast.info(`Error creating stack ${id}`);
+            toast.info(`Error starting stack ${id}`);
             throw error;
         }
     }
 
-    @action removeDockerStack = async (id: string) => {
+    @action stopDockerStack = async (id: string) => {
         try {
             this.loadingStack = true;
             const { name } = this.dockerStackRegistry.get(id);
-            await agent.DockerStacks.remove(id);
-            runInAction('remove dockerStack', () => {
+            await agent.DockerStacks.stop(id);
+            runInAction('stop dockerStack', () => {
                 this.loadingStack = false;
-                toast.info(`Stack ${name} removed`)
+                toast.info(`Stack ${name} stopped`)
             })
         } catch (error) {
             this.loadingStack = false;
-            toast.error(`Error removing stack ${id}`);
+            toast.error(`Error stopping stack ${id}`);
             throw error;
         }
     }

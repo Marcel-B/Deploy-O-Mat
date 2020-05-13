@@ -1,12 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=60860498_002Da054_002D4b83_002D8c2c_002D8fa7f629502a/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="False" ContinuousTestingMode="0" FrameworkVersion="{x:Null}" IsLocked="False" Name="Read" PlatformMonoPreference="{x:Null}" PlatformType="{x:Null}" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
-  &lt;Or&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::E6E8EA5D-7A38-4988-82BE-F7638100284D::.NETCoreApp,Version=v3.1::Deploy_O_Mat.Docker.InspectR.Tests.ConsoleParserTests.Read&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::E6E8EA5D-7A38-4988-82BE-F7638100284D::.NETCoreApp,Version=v3.1::Deploy_O_Mat.Docker.InspectR.Tests.ConsoleParserTests.ReadInspect&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/Or&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::E6E8EA5D-7A38-4988-82BE-F7638100284D::.NETCoreApp,Version=v3.1::Deploy_O_Mat.Docker.InspectR.Tests.ConsoleParserTests.Read&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::E6E8EA5D-7A38-4988-82BE-F7638100284D::.NETCoreApp,Version=v3.1::Deploy_O_Mat.Docker.InspectR.Tests.ConsoleParserTests.ReadInspect&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=velop/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

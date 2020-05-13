@@ -8,7 +8,7 @@ using com.b_velop.Deploy_O_Mat.Web.API.Middlewares;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.CommandHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
-using com.b_velop.Deploy_O_Mat.Web.Application.DockerImage;
+using com.b_velop.Deploy_O_Mat.Web.Application.DockerStack;
 using com.b_velop.Deploy_O_Mat.Web.Application.Helpers;
 using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Application.Services;
@@ -36,6 +36,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Prometheus;
 using Prometheus.HttpMetrics;
+using List = com.b_velop.Deploy_O_Mat.Web.Application.DockerImage.List;
+using Start = com.b_velop.Deploy_O_Mat.Web.Application.Bus.Commands.DockerStack.Start;
 
 namespace com.b_velop.Deploy_O_Mat.Web.API
 {
@@ -92,18 +94,27 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             services.AddScoped<IDockerStackService, DockerStackService>();
             services.AddScoped<IDockerImageService, DockerImageService>();
             services.AddScoped<IDockerServiceService, DockerServiceService>();
-            services.AddScoped<UpdateServicesEventHandler>();
-            services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
-            services
-                .AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler
-                >();
-            services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
-            services
-                .AddTransient<IRequestHandler<CreateCreateDockerServiceCommand, bool>, CreateDockerServiceCommandHandler
-                >();
-            services
-                .AddTransient<IRequestHandler<CreateRemoveDockerServiceCommand, bool>, RemoveDockerServiceCommandHandler
-                >();
+            
+            // services.AddScoped<UpdateServicesEventHandler>();
+            // services.AddScoped<Application.Bus.Commands.DockerStack.Start.DockerStackCommandHandler>();
+            //
+            // services.AddScoped<IRequestHandler<Application.Bus.Commands.DockerStack.Start.DockerStack, bool>, Application.Bus.Commands.DockerStack.Start.DockerStackCommandHandler>();
+            //
+            // services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
+            //
+            // services
+            //     .AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler
+            //     >();
+            //
+            // services.AddTransient<IRequestHandler<CreateCreateStackCommand, bool>, CreateStackCommandHandler>();
+            //
+            // services
+            //     .AddTransient<IRequestHandler<CreateCreateDockerServiceCommand, bool>, CreateDockerServiceCommandHandler
+            //     >();
+            //
+            // services
+            //     .AddTransient<IRequestHandler<CreateRemoveDockerServiceCommand, bool>, RemoveDockerServiceCommandHandler
+            //     >();
 
             var secretProvider = new SecretProvider();
             var password = secretProvider.GetSecret("postgres_db_password") ?? "";

@@ -52,6 +52,28 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Services
             return result.ReturnCode;
         }
 
+        public async Task<int> StartStack(DockerStack stack)
+        {
+            var result = await _processor.Process("docker", $"stack deploy -c {stack.File} {stack.Name}");
+            if (result.Success)
+                _logger.LogInformation($"Docker Stack '{stack.Name}' with File '{stack.File}' created");
+            else
+                _logger.LogWarning($"Error while creating Stack '{stack.Name}' with file '{stack.File}': ({result.ReturnCode}) - {result.ErrorMessage}");
+            
+            await _repo.SaveCommandToLog(new CommandLog
+            {
+                Caller = GetType().Name,
+                Created = DateTime.UtcNow,
+                Message = $"docker stack deploy -c {stack.File} {stack.Name}",
+                Success = result.Success,
+                ResultCode = result.ReturnCode
+            });
+            
+            _ = await _repo.SaveChanges();
+            
+            return result.ReturnCode;
+        }
+
         public async Task<int> RemoveStack(
             string stack)
         {

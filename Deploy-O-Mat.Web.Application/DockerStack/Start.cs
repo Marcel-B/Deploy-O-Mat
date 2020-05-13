@@ -1,23 +1,21 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using com.b_velop.Deploy_O_Mat.Web.Application.Contracts;
-using com.b_velop.Deploy_O_Mat.Web.Application.Interfaces;
 using com.b_velop.Deploy_O_Mat.Web.Persistence.Context;
 using FluentValidation;
 using MediatR;
 
 namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
 {
-    public class Create
+    public class Start
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
         }
 
-
-        public class CommandValidator : AbstractValidator<Command>
+        public class CommandValidator : AbstractValidator<Start.Command>
         {
             public CommandValidator()
             {
@@ -25,24 +23,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.DockerStack
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Start.Command>
         {
-            private readonly WebContext _context;
             private readonly IDockerStackService _dockerStackService;
 
             public Handler(
-                WebContext context,
                 IDockerStackService dockerStackService)
             {
-                _context = context;
                 _dockerStackService = dockerStackService;
             }
 
             public async Task<Unit> Handle(
-                Command request,
+                Start.Command request,
                 CancellationToken cancellationToken)
             {
-                await _dockerStackService.CreateStack(request.Id, cancellationToken);
+                await _dockerStackService.StartStack(request.Id, cancellationToken);
                 return Unit.Value;
             }
         }

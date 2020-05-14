@@ -74,6 +74,28 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Application.Services
             return result.ReturnCode;
         }
 
+        public async Task<int> StopStack(string stack)
+        {
+            var result = await _processor.Process("docker", $"stack rm {stack}");
+            if (result.Success)
+                _logger.LogInformation($"Docker Stack '{stack}' removed");
+            else
+                _logger.LogWarning($"Error while removing Stack '{stack}': ({result.ReturnCode}) - {result.ErrorMessage}");
+            
+            await _repo.SaveCommandToLog(new CommandLog
+            {
+                Caller = GetType().Name,
+                Created = DateTime.UtcNow,
+                Message = $"docker stack rm {stack}",
+                Success = result.Success,
+                ResultCode = result.ReturnCode
+            });
+            
+            _ = await _repo.SaveChanges();
+            
+            return result.ReturnCode;
+        }
+
         public async Task<int> RemoveStack(
             string stack)
         {

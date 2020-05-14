@@ -31,12 +31,21 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
             if (dockerStack == null)
                 throw new RestException(System.Net.HttpStatusCode.NotFound, new {dockerStack = "Not found", id});
 
-            await _eventBus.SendCommand(new Application.Bus.Commands.DockerStack.Start.DockerStack {Name = dockerStack.Name, File = dockerStack.File});
+            await _eventBus.SendCommand(new Application.Bus.Commands.DockerStack.Start.DockerStack
+                {Name = dockerStack.Name, File = dockerStack.File});
         }
 
-        public Task StopStack(Guid id, CancellationToken cancellationToken = default)
+        public async Task StopStack(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var dockerStack = await _repo.GetDockerStack(id);
+
+            if (dockerStack == null)
+                throw new RestException(System.Net.HttpStatusCode.NotFound, new
+                {
+                    dockerStack = "Not found", id
+                });
+
+            await _eventBus.SendCommand(new CreateRemoveStackCommand(dockerStack.Name));
         }
 
         public async Task CreateStack(

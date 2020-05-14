@@ -95,6 +95,7 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
                             Create.CreateDockerServiceEventHandler>();
 
                     services.AddScoped<Update.UpdateDockerServiceEventHandler>();
+                    services.AddScoped<Stop.DockerStackEventEventHandler>();
                     services.AddScoped<Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
                     services.AddScoped<Start.DockerStackEventEventHandler>();
                     services.AddScoped<Remove.RemoveDockerServiceEventHandler>();

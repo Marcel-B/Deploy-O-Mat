@@ -45,7 +45,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                     dockerStack = "Not found", id
                 });
 
-            await _eventBus.SendCommand(new CreateRemoveStackCommand(dockerStack.Name));
+            await _eventBus.SendCommand(new Application.Bus.Commands.DockerStack.Stop.DockerStack{File = dockerStack.File, Name = dockerStack.Name});
         }
 
         public async Task CreateStack(

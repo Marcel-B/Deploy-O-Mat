@@ -73,14 +73,17 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
                     services
                         .AddScoped<IEventHandler<Update.DockerServiceUpdatedEvent>,
                             Update.UpdateDockerServiceEventHandler>();
+
+                    services
+                        .AddScoped<IEventHandler<Stop.StopDockerStackEvent>, Stop.DockerStackEventEventHandler>();
+
                     services
                         .AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Create.DockerStackCreatedEvent>,
                             Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
-                    
+
                     services
-                        .AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Start.StartDockerStackEvent>,
-                            Application.Bus.Events.DockerStack.Start.DockerStackEventEventHandler>();
-                    
+                        .AddScoped<IEventHandler<Start.StartDockerStackEvent>, Start.DockerStackEventEventHandler>();
+
                     services
                         .AddScoped<IEventHandler<Application.Bus.Events.DockerStack.Remove.DockerStackRemovedEvent>,
                             Application.Bus.Events.DockerStack.Remove.RemoveDockerStackEventHandler>();
@@ -90,10 +93,10 @@ namespace com.b_velop.Deploy_O_Mat.Docker.ExecutR.Service
                     services
                         .AddScoped<IEventHandler<Create.DockerServiceCreatedEvent>,
                             Create.CreateDockerServiceEventHandler>();
-                    
+
                     services.AddScoped<Update.UpdateDockerServiceEventHandler>();
                     services.AddScoped<Application.Bus.Events.DockerStack.Create.CreateDockerStackEventHandler>();
-                    services.AddScoped<Application.Bus.Events.DockerStack.Start.DockerStackEventEventHandler>();
+                    services.AddScoped<Start.DockerStackEventEventHandler>();
                     services.AddScoped<Remove.RemoveDockerServiceEventHandler>();
                     services.AddScoped<Create.CreateDockerServiceEventHandler>();
 

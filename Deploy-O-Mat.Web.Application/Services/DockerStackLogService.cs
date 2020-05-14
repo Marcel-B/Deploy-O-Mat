@@ -41,7 +41,7 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Services
                 });
             }
             var v = JsonSerializer.Serialize(s);
-            _logger.LogInformation($"Update information with\n{v}");
+            _logger.LogDebug($"Update information with\n{v}");
             await _hub.Clients.All.SendAsync("SendUpdate", v);
         }
     }

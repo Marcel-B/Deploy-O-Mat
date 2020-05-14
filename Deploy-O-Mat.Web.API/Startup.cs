@@ -96,11 +96,12 @@ namespace com.b_velop.Deploy_O_Mat.Web.API
             services.AddScoped<IDockerServiceService, DockerServiceService>();
             
             services.AddScoped<UpdateServicesEventHandler>();
+            services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
+            
             // services.AddScoped<Application.Bus.Commands.DockerStack.Start.DockerStackCommandHandler>();
             //
             // services.AddScoped<IRequestHandler<Application.Bus.Commands.DockerStack.Start.DockerStack, bool>, Application.Bus.Commands.DockerStack.Start.DockerStackCommandHandler>();
             //
-            services.AddScoped<IEventHandler<Application.Bus.Events.UpdateServicesEvent>, UpdateServicesEventHandler>();
             //
             // services
             //     .AddTransient<IRequestHandler<CreateUpdateDockerServiceCommand, bool>, UpdateDockerServiceCommandHandler

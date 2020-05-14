@@ -23,10 +23,11 @@ namespace com.b_velop.Deploy_O_Mat.Web.Application.Bus.EventHandlers
 
         public Task Handle(UpdateServicesEvent @event)
         {
-            _logger.LogInformation($"Incoming DockerServices information");
+            _logger.LogDebug($"Incoming DockerServices information");
             var e = @event.DockerServices;
 
             var lst = new List<Domain.Models.DockerStackLog>();
+            
             foreach (var dockerService in e)
             {
                 lst.Add(new Domain.Models.DockerStackLog
